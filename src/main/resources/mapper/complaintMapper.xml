@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.casaba.mapper.ComplaintMapper">
+
+    <!-- 添加一项投诉单 -->
+    <insert id="insertComplaint" parameterType="com.casaba.entity.Complaint">
+        INSERT INTO tb_complaint VALUES (#{id}, #{details}, #{sketch}, #{elevatorId}, #{userId})
+    </insert>
+
+</mapper>

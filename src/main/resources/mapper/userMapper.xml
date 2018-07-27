@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.casaba.mapper.UserMapper">
+    <!-- 基础的 User 类结果映射 -->
+    <resultMap id="base_user_map" type="com.casaba.entity.User">
+        <id property="id" column="ID"/>
+        <result property="username" column="USERNAME"/>
+        <result property="contactNum" column="CONTACT_NUM"/>
+    </resultMap>
+
+    <!-- 根据用户名搜索该用户是否已经存在 -->
+    <select id="findUserByUsername" resultType="com.casaba.entity.User" parameterType="java.lang.String">
+        SELECT * FROM tb_user WHERE USERNAME = #{username}
+    </select>
+
+    <!-- 添加一个用户 -->
+    <insert id="addUser" parameterType="com.casaba.entity.User">
+        INSERT INTO tb_user VALUES (#{id}, #{username}, #{contactNum})
+    </insert>
+
+    <!--获取最新插入的主键ID（即最大的ID）-->
+    <select id="selectMaxId" resultType="java.lang.Long">
+        SELECT max(id) FROM tb_user
+    </select>
+</mapper>

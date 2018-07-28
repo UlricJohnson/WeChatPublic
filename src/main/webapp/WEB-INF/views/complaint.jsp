@@ -87,19 +87,60 @@
         <input id="submitComplaint" type="submit" value="投诉">
         <%--<button id="submitComplaint">投诉</button>--%>
     </form>
+
+    <input type="hidden" id="appId" value="${appId}"/>
+    <input type="hidden" id="timestamp" value="${timestamp}"/>
+    <input type="hidden" id="nonceStr" value="${nonceStr}"/>
+    <input type="hidden" id="signature" value="${signature}"/>
 </div>
 
 <script>
-    window.onload = function () {
-        wx.config({
-            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-            appId: 'wx7fdb9ee9b03c7239', // 必填，公众号的唯一标识
-            timestamp: new Date().getTime(), // 必填，生成签名的时间戳
-            nonceStr: '', // 必填，生成签名的随机串
-            signature: '',// 必填，签名
-            jsApiList: [] // 必填，需要使用的JS接口列表
+    $(function () {
+        $.ajax({
+            url: "/wechat/configJsSdk",
+            type: "POST",
+            dataType: "JSON",
+            data: {"url": window.location.href}, // 需要调用 JS-SDK 的页面的 URL 作为参数
+            success: function (result) {
+                var appId = result.appId;
+                var timestamp = result.timestamp;
+                var noncestr = result.noncestr;
+                var signature = result.signature;
+
+                $("#appId").val(appId);
+                $("#timestamp").val(timestamp);
+                $("#nonceStr").val(noncestr);
+                $("#signature").val(signature);
+
+                wx.config({
+                    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                    appId: appId, // 必填，公众号的唯一标识
+                    timestamp: timestamp, // 必填，生成签名的时间戳
+                    nonceStr: noncestr, // 必填，生成签名的随机串
+                    signature: signature,// 必填，签名，见附录1
+                    jsApiList: ['chooseImage', 'uploadImage', 'downloadImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                });
+            }
         });
-    }
+    });
+
+    /*
+        config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后。
+        config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。
+        对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+    */
+    wx.ready(function () {
+        wx.checkJsApi({
+            jsApiList: ['chooseImage', 'uploadImage', 'downloadImage'],
+            success: function (result) {
+                alert("微信jsApi权限检验完毕");
+                alert("返回数据：\n#checkResult: " + result.checkResult +
+                    "\n#errMsg: " + result.errMsg);
+
+            }
+        });
+    });
+
     /*$(function () {
         $("#submitComplaint").click(function () {
             var sketchOption = $("#sketchSelect option:selected");

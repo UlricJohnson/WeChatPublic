@@ -14,16 +14,25 @@ public final class WeChatConst {
     // AppSecret
     public static final String APP_SECRET = "698b110c15a07f274aa829c0a4b93874";
 
+    /*** ============================== ***/
+
     // 获取 access_token 的 url（没有拼接参数）
     public static final String GET_ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token";
 
-    // 参数串
-    public static final String GET_ACCESS_TOKEN_PARAMS = "grant_type=client_credential&appid=" + APP_ID + "&secret="
-            + APP_SECRET;
+    // 获取 access_token 参数串
+    public static final String GET_ACCESS_TOKEN_PARAMS = "grant_type=client_credential&appid=" + APP_ID + "&secret=" + APP_SECRET;
 
     // 获取 access_token 的完整url（拼接参数）
     public static final String GET_ACCESS_TOKEN_URL_FULL = GET_ACCESS_TOKEN_URL + "?" + GET_ACCESS_TOKEN_PARAMS;
 
     // 缓存 access_token 的文件名（没有后缀名）
-    public static final String ACCESS_TOKEN_FILE_NAME = "accessTokenCache";
+//    public static final String ACCESS_TOKEN_FILE_NAME = "accessTokenCache";
+
+    /*** =============================== ***/
+
+    // 获取 jsapi_ticket 的 url
+    public static final String GET_JSAPI_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket";
+
+    // 获取 jsapi_ticket 的参数串（使用的时候在最后拼接上 access_token 就行了）
+    public static final String GET_JASPI_TICKET_PARAMS_MISSING = "type=jsapi&access_token=";
 }

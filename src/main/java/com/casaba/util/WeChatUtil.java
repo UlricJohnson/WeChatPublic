@@ -1,6 +1,8 @@
 package com.casaba.util;
 
 import com.casaba.entity.AccessToken;
+import com.casaba.entity.JsapiTicket;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.apache.commons.logging.Log;
@@ -16,15 +18,9 @@ import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.ServletContext;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 /**
  * created by Ulric on 2018/7/25
@@ -56,7 +52,7 @@ public final class WeChatUtil {
         for (String s : arr) { stringBuffer.append(s); }
 
         //4.sha1加密,网上均有现成代码
-        String temp = getSha1(stringBuffer.toString());
+        String temp = CommonUtil.encryptInSha1(stringBuffer.toString());
 
         LOGGER.info("=====token、timestamp、nonce加密后的字符串：" + temp);
 
@@ -82,6 +78,8 @@ public final class WeChatUtil {
             long expiryTime = -1;       // access_token 的过期时间
             if (accessTokenObj != null) {
                 if (accessTokenObj.getExpiryTime() > System.currentTimeMillis()) { // access_token 还没过期
+                    LOGGER.info("=====获取缓存的access_token：" + accessTokenObj.getTokenString() +
+                            "##过期时间：" + accessTokenObj.getExpiryTime());
                     return accessTokenObj.getTokenString();
                 }
             }
@@ -155,6 +153,8 @@ public final class WeChatUtil {
                 expiryTime = System.currentTimeMillis() + Long.parseLong(json.get("expires_in").getAsString());
                 servletContext.setAttribute("access_token_obj", new AccessToken(accessToken, expiryTime));
 
+                LOGGER.info("=====新获取的access_token：" + accessToken + "##过期时间：" + expiryTime);
+
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -165,41 +165,75 @@ public final class WeChatUtil {
         }
     }
 
-    public static void main(String[] args) {
-        // 测试获取 access_token
-        String accessToken = getAccessToken();
-        System.out.println("=====" + accessToken);
-    }
-
     /**
-     * 将字符串进行 sha1 加密
+     * 获取 jsapi_ticket，当 ServletContext 域中缓存已过期才调用这个方法
      *
      * @author Ulric
-     * @date 2018/7/17
+     * @date 2018/7/27
      */
-    public static String getSha1(String str) {
-        if (str == null || str.length() == 0) { return null; }
+    public static String getJsapiTicket(String accessToken) {
+        Object lock = new Object();
+        synchronized (lock) {
+//            // 获取当前项目的web应用域对象
+            WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();
+            ServletContext servletContext = webApplicationContext.getServletContext();
+//            JsapiTicket jsapiTicketObj = (JsapiTicket) servletContext.getAttribute("jsapi_ticket_obj");
+//
+            String jsapiTicket = null;  // ticket 字符串
+            long expiryTime = -1;       // jsapi_ticket 的过期时间
+//            if (jsapiTicketObj != null) {
+//                if (jsapiTicketObj.getExpiryTime() > System.currentTimeMillis()) { // jsapi_ticket 还没过期
+//                    return jsapiTicketObj.getTicket();
+//                }
+//            }
+            // ==================== ServletContext 域中没有 jsapi_ticket 数据，或已经过期，需要重新获取
 
-        char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+            // 完整的请求 jsapi_ticket 的路径
+            String requestUrlFull = WeChatConst.GET_JSAPI_TICKET_URL + "?" +
+                    WeChatConst.GET_JASPI_TICKET_PARAMS_MISSING + accessToken;
 
-        try {
-            MessageDigest mdTemp = MessageDigest.getInstance("SHA1");
-            mdTemp.update(str.getBytes("UTF-8"));
+            LOGGER.info("=====请求 jsapi_ticket 的完整URL：" + requestUrlFull);
 
-            byte[] md = mdTemp.digest();
-            int j = md.length;
-            char buf[] = new char[j * 2];
-            int k = 0;
+            HttpClient client = new DefaultHttpClient();
+            HttpGet get = new HttpGet(requestUrlFull);
 
-            for (int i = 0; i < j; i++) {
-                byte byte0 = md[i];
-                buf[k++] = hexDigits[byte0 >>> 4 & 0xf];
-                buf[k++] = hexDigits[byte0 & 0xf];
+            JsonParser jsonParser = new JsonParser();
+            try {
+                // 执行 get 请求，并接收返回的JSON数据
+            /* 返回JSON数据示例：
+            {
+            "errcode":0,
+            "errmsg":"ok",
+            "ticket":"bxLdikRXVbTPdHSM05e5u5sUoXNKd8-41ZO3MhKoyN5OfkWITDGgnr2fwJ0m9E8NYzWKVZvdVtaUgWvsdshFKA",
+            "expires_in":7200
             }
-            return new String(buf);
-        } catch (Exception e) {
-            return null;
+             */
+                HttpResponse response = client.execute(get);
+                HttpEntity entity = response.getEntity();
+                // 将返回数据转成JSON字符串
+                String responseStr = EntityUtils.toString(entity, "UTF-8");
+                // 将JSON字符串转成JSON对象
+                JsonObject respJsonObj = jsonParser.parse(responseStr).getAsJsonObject();
+
+                LOGGER.info("=====请求返回的数据：\n\t#responseStr:" + responseStr);
+
+                // 查看请求返回状态码，如果请求成功（状态码为200）
+                if (HttpStatus.SC_OK == response.getStatusLine().getStatusCode()) {
+                    jsapiTicket = respJsonObj.get("ticket").getAsString();
+                    // 设置过期时间
+                    expiryTime = System.currentTimeMillis() + Long.valueOf(respJsonObj.get("expires_in").getAsString());
+                }
+
+                LOGGER.info("=====新获取的jsapi_ticket：" + jsapiTicket + "##过期时间：" + expiryTime);
+
+                // 将 jsapi_ticket 缓存到 ServletContext 域
+                servletContext.setAttribute("jsapi_ticket_obj", new JsapiTicket(jsapiTicket, expiryTime));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                return jsapiTicket;
+            }
         }
     }
-
 }

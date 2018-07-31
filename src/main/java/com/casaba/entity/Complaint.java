@@ -12,6 +12,8 @@ public class Complaint {
 
     private String sketch; // 投诉简述（保存枚举类的数值）
 
+    private String imgUrl; // 图片链接，有多个则用分号;隔开
+
 //    private Elevator elevator;
 
 //    private User user;
@@ -32,7 +34,11 @@ public class Complaint {
 
     public void setSketch(String sketch) { this.sketch = sketch; }
 
-//    public Elevator getElevator() { return elevator; }
+    public String getImgUrl() { return imgUrl; }
+
+    public void setImgUrl(String imgUrl) { this.imgUrl = imgUrl; }
+
+    //    public Elevator getElevator() { return elevator; }
 
 //    public void setElevator(Elevator elevator) { this.elevator = elevator; }
 

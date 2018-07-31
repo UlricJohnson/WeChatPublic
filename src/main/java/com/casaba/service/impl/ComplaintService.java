@@ -42,7 +42,7 @@ public class ComplaintService implements IComplaintService {
     @Override
     @Transactional
     public boolean saveComplaintSheet(String certificate, String username, String contactNum, String sketch, String
-            details) throws Exception {
+            details, String imgUrl) throws Exception {
         boolean isSuccess = false;
 
         // 根据使用证编号查找出电梯
@@ -51,6 +51,7 @@ public class ComplaintService implements IComplaintService {
         // 创建投诉单对象，并赋值简述和详情属性，以及将电梯的主键赋值到投诉单的电梯外键
         Complaint complaint = new Complaint();
         complaint.setSketch(sketch);
+        complaint.setImgUrl(imgUrl);
         complaint.setDetails(details);
         complaint.setElevatorId(elevator.getId());
 
@@ -63,7 +64,7 @@ public class ComplaintService implements IComplaintService {
 
             isSuccess = userMapper.addUser(user);
             // 添加用户失败，则回滚，取消全部操作
-            if(!isSuccess){
+            if (!isSuccess) {
                 throw new RuntimeException("添加用户失败");
             }
             long maxId = userMapper.selectMaxId();
@@ -75,7 +76,7 @@ public class ComplaintService implements IComplaintService {
         // 把投诉单对象存入数据库
         isSuccess = complaintMapper.insertComplaint(complaint);
 
-        if(!isSuccess){
+        if (!isSuccess) {
             throw new RuntimeException("保存投诉单失败");
         }
 

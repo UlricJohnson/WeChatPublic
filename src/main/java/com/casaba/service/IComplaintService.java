@@ -12,6 +12,6 @@ public interface IComplaintService {
      * @author Ulric
      * @date 2018/7/24
      */
-    boolean saveComplaintSheet(String certificate, String username, String contactNum, String sketch, String details) throws Exception;
+    boolean saveComplaintSheet(String certificate, String username, String contactNum, String sketch, String details,String imgUrl) throws Exception;
 
 }

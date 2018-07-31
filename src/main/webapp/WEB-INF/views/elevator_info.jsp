@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>电梯信息</title>
-    <%--<link rel="stylesheet" href="/weui/style/weui.css">--%>
-    <link href="https://cdn.bootcss.com/weui/1.1.0/style/weui.css" rel="stylesheet">
+    <%--<link href="https://cdn.bootcss.com/weui/1.1.0/style/weui.css" rel="stylesheet">--%>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/weui/style/weui.css">
     <%-- <style type="text/css">
          .container1 {
              width: 94%;
@@ -173,11 +173,22 @@
         <input type="hidden" value="${elevator.certificateOfUse}" name="certificateOfUse">
         <%-- 设备地址 --%>
         <input type="hidden" value="${elevator.deviceAddress}" name="deviceAddress">
-            <input type="submit" value="投诉">
+            <div class="weui_btn_area">
+                <a class="weui_btn weui_btn_warn" id="complaintBtn" href="javascript:">投诉</a>
+            </div>
+        <%--<input type="submit" value="投诉">--%>
     </form>
 </div>
 
 <script>
+
+    $(function () {
+        $("#complaintBtn").click(function () {
+            $("form")[0].submit();
+        });
+    });
+
+
     /*$(function () {
         $("#complaintBtn").click(function () {
             // 获取数据，并通过 JSON.stringify() 方法将对象或数组转换为JSON字符串

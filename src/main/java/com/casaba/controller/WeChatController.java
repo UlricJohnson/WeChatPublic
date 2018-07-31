@@ -106,7 +106,7 @@ public class WeChatController {
         // 缓存中没有 jsapi_ticket，或者已经过期，则向微信服务器获取
         if (jsapiTicketObj == null || jsapiTicketObj.getExpiryTime() < System.currentTimeMillis()) {
             // getAccessToken() 中会检查 access_token 是否已经缓存，并且 getJsapiTicket() 中会将新获取的 jsapi_ticket进行缓存
-            WeChatUtil.getJsapiTicket(WeChatUtil.getAccessToken());
+            jsapiTicket = WeChatUtil.getJsapiTicket(WeChatUtil.getAccessToken());
         }
 
         /** === 2、生成签名signature === **/

@@ -83,50 +83,8 @@ public final class WeChatUtil {
                     return accessTokenObj.getTokenString();
                 }
             }
-            /*** ============================== ***/
 
-//        String result = "";
-//        BufferedReader bufReader = null;
-//        try {
-//            String urlNameString = WeChatConst.GET_ACCESS_TOKEN_URL + "?" + WeChatConst.GET_ACCESS_TOKEN_PARAMS;
-//            URL realUrl = new URL(urlNameString);
-//
-//            // 打开和URL之间的连接
-//            URLConnection connection = realUrl.openConnection();
-//
-//            // 设置通用的请求属性
-//            connection.setRequestProperty("accept", "*/*");
-//            connection.setRequestProperty("connection", "Keep-Alive");
-//            connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-//
-//            // 建立实际的连接
-//            connection.connect();
-//
-//            // 获取所有响应头字段
-//            Map<String, List<String>> map = connection.getHeaderFields();
-//
-//            LOGGER.info("=====返回的响应头：" + map);
-//
-//            // 遍历所有的响应头字段
-//            for (String key : map.keySet()) { System.out.println(key + "--->" + map.get(key)); }
-//
-//            // 定义 BufferedReader输入流来读取URL的响应
-//            bufReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//            String line;
-//            while ((line = bufReader.readLine()) != null) { result += line; }
-//        } catch (Exception e) {
-//            LOGGER.info("发送GET请求出现异常！" + e);
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                if (bufReader != null) { bufReader.close(); }
-//            } catch (Exception e2) {
-//                e2.printStackTrace();
-//            }
-//        }
-//        return result;
-
-            /*** ============================== ***/
+            /*** ==============没有缓存，或缓存已过期，需要重新获取================ ***/
 
             HttpClient client = new DefaultHttpClient();
             HttpGet get = new HttpGet(WeChatConst.GET_ACCESS_TOKEN_URL_FULL);
@@ -149,8 +107,8 @@ public final class WeChatUtil {
                     }
                 }
 
-                // 将 access_token 缓存到 ServletContext 域
-                expiryTime = System.currentTimeMillis() + Long.parseLong(json.get("expires_in").getAsString());
+                // 将 access_token 缓存到 ServletContext 域，expires_in 的单位为秒，所以需要转换成毫秒
+                expiryTime = System.currentTimeMillis() + Long.parseLong(json.get("expires_in").getAsString()) * 1000;
                 servletContext.setAttribute("access_token_obj", new AccessToken(accessToken, expiryTime));
 
                 LOGGER.info("=====新获取的access_token：" + accessToken + "##过期时间：" + expiryTime);
@@ -177,6 +135,7 @@ public final class WeChatUtil {
 //            // 获取当前项目的web应用域对象
             WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();
             ServletContext servletContext = webApplicationContext.getServletContext();
+
 //            JsapiTicket jsapiTicketObj = (JsapiTicket) servletContext.getAttribute("jsapi_ticket_obj");
 //
             String jsapiTicket = null;  // ticket 字符串
@@ -221,7 +180,7 @@ public final class WeChatUtil {
                 if (HttpStatus.SC_OK == response.getStatusLine().getStatusCode()) {
                     jsapiTicket = respJsonObj.get("ticket").getAsString();
                     // 设置过期时间
-                    expiryTime = System.currentTimeMillis() + Long.valueOf(respJsonObj.get("expires_in").getAsString());
+                    expiryTime = System.currentTimeMillis() + Long.valueOf(respJsonObj.get("expires_in").getAsString()) * 1000;
                 }
 
                 LOGGER.info("=====新获取的jsapi_ticket：" + jsapiTicket + "##过期时间：" + expiryTime);

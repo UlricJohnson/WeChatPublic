@@ -4,7 +4,7 @@
 
     <!-- 添加一项投诉单 -->
     <insert id="insertComplaint" parameterType="com.casaba.entity.Complaint">
-        INSERT INTO tb_complaint VALUES (#{id}, #{details}, #{sketch}, #{elevatorId}, #{userId})
+        INSERT INTO tb_complaint VALUES (#{id}, #{details}, #{sketch}, #{imgUrl}, #{elevatorId}, #{userId})
     </insert>
 
 </mapper>

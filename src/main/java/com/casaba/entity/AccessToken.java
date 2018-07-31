@@ -1,14 +1,14 @@
 package com.casaba.entity;
 
 /**
- * 用于缓存微信的 access_token，及其过期时间
+ * 用于缓存微信的 access_token，及其过期时间（单位为毫秒），官方说有效期为2小时
  *
  * created by Ulric on 2018/7/26
  */
 
 public class AccessToken {
     private String tokenString; // access_token 字符串
-    private long expiryTime;    // 过期时间，时间戳
+    private long expiryTime;    // 过期时间（单位为毫秒）
 
     public AccessToken() {}
 

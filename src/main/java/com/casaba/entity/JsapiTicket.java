@@ -8,7 +8,7 @@ package com.casaba.entity;
 
 public class JsapiTicket {
     String ticket;  // jsapi_ticket
-    long expiryTime;// 过期时间
+    long expiryTime;// 过期时间（单位为毫秒）
 
     public JsapiTicket() {}
 

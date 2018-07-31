@@ -3,14 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>查找电梯</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/weui/style/weui.css">
     <script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.min.js"></script>
 </head>
 <body>
-<p>请输入电梯使用证编号：</p>
+<%--<p>请输入电梯使用证编号：</p>--%>
 <form action="/elevator/findByCertificate" method="post">
-    <input id="textCertificate" type="text" name="certificate">
-    <input id="submitBtn" type="submit" value="提交">
+    <div class="weui_cells">
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">电梯使用证编号：</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" name="certificate" type="text" placeholder="请在此输入使用证编号"/>
+            </div>
+        </div>
+    </div>
+    <div class="weui_btn_area">
+        <a class="weui_btn weui_btn_primary" id="submitBtn" href="javascript:">提交</a>
+    </div>
+    <%--<input id="textCertificate" type="text" name="certificate">--%>
+    <%--<input id="submitBtn" type="submit" value="提交">--%>
 </form>
+
+<script>
+    $(function () {
+        $("#submitBtn").click(function () {
+            $("form")[0].submit();
+        });
+    });
+</script>
 
 <%--<script>
     $(function () {

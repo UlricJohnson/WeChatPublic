@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/weui/style/weui.css">
 </head>
 <body>
-    <h3>${message}</h3>
+    <h3>${msg}</h3>
     <span><a href="javascript:history.back(-1)" class="weui-btn_mini">返回</a></span>
 </body>
 </html>

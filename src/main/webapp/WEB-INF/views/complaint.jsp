@@ -6,9 +6,9 @@
     <title>投诉</title>
     <%--<link href="https://cdn.bootcss.com/weui/1.1.1/style/weui.css" rel="stylesheet">--%>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/weui/style/weui.css">
-    <script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.min.js"></script>
-    <%--<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>--%>
-    <%--<script src="<%=request.getContextPath()%>/js/jquery-1.12.1.min.js"></script>--%>
+    <%--<script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.min.js"></script>--%>
+    <script src="<%=request.getContextPath()%>/js/jquery-1.12.1.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 </head>
 <body>
 <%--<div class="weui_cells_title">单选列表项</div>
@@ -144,10 +144,6 @@
     </form>
     <div id="picDiv"></div>
 
-    <%--<input type="hidden" id="appId" value="${appId}"/>--%>
-    <%--<input type="hidden" id="timestamp" value="${timestamp}"/>--%>
-    <%--<input type="hidden" id="nonceStr" value="${nonceStr}"/>--%>
-    <%--<input type="hidden" id="signature" value="${signature}"/>--%>
 </div>
 
 <script>
@@ -162,7 +158,9 @@
 
         // 点击 “上传图片” 按钮之后
         $("#uploadImageBtn").click(function () {
-//            alert("点击了“上传图片”按钮");
+            var jsApiList = ['chooseImage', 'uploadImage', 'downloadImage'];
+
+            // alert("点击了“上传图片”按钮");
             // 发送 AJAX 请求向后台获取配置JS-SDK的参数，并进行配置
             $.ajax({
                 url: "/wechat/configJsSdk",
@@ -175,10 +173,7 @@
                     var noncestr = result.noncestr;
                     var signature = result.signature;
 
-//                    $("#appId").val(appId);
-//                    $("#timestamp").val(timestamp);
-//                    $("#nonceStr").val(noncestr);
-//                    $("#signature").val(signature);
+                    // alert("开始wx.config()");
 
                     wx.config({
                         // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -188,7 +183,7 @@
                         nonceStr: noncestr, // 必填，生成签名的随机串
                         signature: signature,// 必填，签名，见附录1
                         // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-                        jsApiList: ['chooseImage', 'uploadImage', 'downloadImage']
+                        jsApiList: jsApiList
                     });
                 }
             });
@@ -200,10 +195,9 @@
         */
             wx.ready(function () {
                 wx.checkJsApi({
-                    jsApiList: ['chooseImage', 'uploadImage', 'downloadImage'],
+                    jsApiList: jsApiList,
                     success: function (result) {
-//                alert("wx.checkJsApi() 返回数据：\n#checkResult: " + result.checkResult +
-//                    "\n#errMsg: " + result.errMsg);
+                        // alert("wx.checkJsApi()：success，返回数据：\n#checkResult: " + result.checkResult + "\n#errMsg: " + result.errMsg);
                         if (result.checkResult.getLocation == false) {
                             alert("您的微信版本太低，不支持微信JS接口，请升级到最新的微信版本！");
                             return;
@@ -235,9 +229,9 @@
             wx.chooseImage({
                 sourceType: ["album", "camera"], // 指定来源：相册，相机
                 success: function (result) {
-//                    alert("wx.chooseImage：success");
+                    // alert("wx.chooseImage：success");
                     images.localId = result.localIds;
-                    alert("已选择 " + result.localIds.length + " 张图片");
+                    // alert("已选择 " + result.localIds.length + " 张图片");
 
                     if (images.localId.length == 0) {
                         alert("请先使用 chooseImage 接口选择图片");
@@ -265,6 +259,7 @@
                     success: function (result) {
                         var mediaId = result.serverId; // 返回图片的服务器端ID，即 mediaId
 //                        alert("wx.uploadImage返回的serverId(mediaId)：" + mediaId);
+//                         alert("wx.uploadImage():success");
 
                         // 将获取到的 mediaId 传入后台，进行图片的保存
                         $.ajax({

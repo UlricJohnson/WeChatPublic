@@ -53,11 +53,17 @@ public class ComplaintController {
 
         ModelAndView mv = new ModelAndView();
 
-        mv.setViewName("complaint");
 
         // 查找出该电梯的设备地址
         Elevator elevator = iElevatorService.findByCertificate(certificateOfUse);
-        mv.addObject("elevator", elevator);
+
+        if(elevator==null){
+            mv.setViewName("not_found");
+            mv.addObject("msg","您查找的数据不存在");
+        }else{
+            mv.setViewName("complaint");
+            mv.addObject("elevator", elevator);
+        }
 
         return mv;
     }
@@ -71,12 +77,7 @@ public class ComplaintController {
     @RequestMapping(value = "/toComplaint_eleInfo", method = RequestMethod.POST)
 //    @ResponseBody   // @ResponseBody 注解表示返回的字符串不是视图名称，而是JSON字符串
 //    public String toComplaintJsp(
-    public ModelAndView toComplaint_eleInfo(
-       /*@RequestBody 注解获取到JSON 数据后，将JSON数据 设置到对应的实体类的属性中*/
-       /*@RequestBody Elevator elevator*/
-       String certificateOfUse, String deviceAddress) {
-//        LOGGER.info("=====将页面的JSON数据（String）封装为实体类对象：" + elevator);
-
+    public ModelAndView toComplaint_eleInfo(String certificateOfUse, String deviceAddress) {
         Elevator elevator = new Elevator();
         elevator.setCertificateOfUse(certificateOfUse);
         elevator.setDeviceAddress(deviceAddress);
@@ -98,19 +99,12 @@ public class ComplaintController {
 //    public void doComplaint(HttpSession session, HttpServletRequest request) {
     public ModelAndView doComplaint(String certificate, String sketch, String username, String contactNum, String
             details, String imgUrl) {
-
         LOGGER.info("=====接收到的参数：\n\t#certificate：" + certificate +
                 "\n\tsketch：" + sketch +
                 "\n\tusername：" + username +
                 "\n\tcontactNum：" + contactNum +
                 "\n\tdetails：" + details +
                 "\n\t#imgUrl：" + imgUrl);
-
-//        session.setMaxInactiveInterval(5 * 60); // 设置 session 失效时间，单位为秒
-//        session.setAttribute("user", user);
-//        session.setAttribute("elevator", elevator);
-//        session.setAttribute("certificate", certificate);
-//        session.setAttribute("username", username);
 
         ModelAndView mv = new ModelAndView();
         mv.addObject("username", username);

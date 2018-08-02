@@ -14,7 +14,7 @@
         <div class="weui-cells weui-cells_form">
             <div class="weui-cell">
                 <div class="weui-cell__hd">
-                    <label for="certificate" class="weui-label">请输入您要投诉的电梯使用证编号：</label>
+                    <label for="certificate" class="weui-label">电梯使用证编号：</label>
                 </div>
                 <div class="weui-cell__bd weui-cell_primary">
                     <input id="certificate" class="weui-input" name="certificateOfUse" type="text"

@@ -7,12 +7,10 @@ import com.casaba.util.WeChatUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
@@ -82,7 +80,7 @@ public class WeChatController {
     @RequestMapping("/configJsSdk")
     @ResponseBody
     public Map configJsSdk(String url) {
-//        LOGGER.info("=====接收到的参数：url=" + url);
+        LOGGER.info("=====接收到的参数：url=" + url);
 
         Map resultMap = new HashMap();
 //        ModelAndView mv = new ModelAndView();
@@ -133,6 +131,8 @@ public class WeChatController {
         resultMap.put("timestamp", timestamp);
         resultMap.put("noncestr", noncestr);
         resultMap.put("signature", signature);
+
+        LOGGER.info("=====返回的数据：" + resultMap);
 
         return resultMap;
     }

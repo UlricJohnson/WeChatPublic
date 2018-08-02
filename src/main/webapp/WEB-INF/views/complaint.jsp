@@ -1,12 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <%-- 配置页面自适应 --%>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>投诉</title>
     <%--<link href="https://cdn.bootcss.com/weui/1.1.1/style/weui.css" rel="stylesheet">--%>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/weui/style/weui.css">
     <script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.min.js"></script>
     <%--<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>--%>
-    <script src="../../js/jweixin-1.2.0.js"></script>
+    <%--<script src="<%=request.getContextPath()%>/js/jquery-1.12.1.min.js"></script>--%>
 </head>
 <body>
 <%--<div class="weui_cells_title">单选列表项</div>
@@ -71,13 +73,13 @@
 <div>
     <form action="/complaint/doComplaint" method="post">
         <input type="hidden" name="certificate" value="${elevator.certificateOfUse}">
-        <div class="weui_cells weui_cells_form">
-            <div class="weui_cell">
-                <div class="weui_cell_hd">
-                    <label class="weui_label">电梯异常事项：</label>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">电梯异常事项：</label>
                 </div>
-                <div class="weui_cell_bd weui_cell_primary">
-                    <%--<input class="weui_input" name="name" type="text" placeholder="请在此输入姓名" />--%>
+                <div class="weui-cell__bd weui-cell_primary">
+                    <%--<input class="weui-input" name="name" type="text" placeholder="请在此输入姓名" />--%>
                     <select id="sketchSelect" name="sketch">
                         <option value="电梯关人">电梯关人</option>
                         <option value="异常抖动">异常抖动</option>
@@ -96,48 +98,48 @@
             <option value="电梯停运">电梯停运</option>
             <option value="其他">其他</option>
         </select>--%>
-        <div class="weui_cell">
-            <div class="weui_cell_hd">
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
                 <label for="username">联系人：</label>
             </div>
-            <div class="weui_cell_bd weui_cell_primary">
-                <input id="username" class="weui_input" name="username" type="text" placeholder="请在此输入您的姓名"/>
+            <div class="weui-cell__bd weui-cell_primary">
+                <input id="username" class="weui-input" name="username" type="text" placeholder="请在此输入您的姓名"/>
             </div>
         </div>
         <%--<label for="username">联系人：</label>--%>
         <%--<input id="username" type="text" name="username">--%>
         <%--<label for="contactNum">联系电话：</label>--%>
         <%--<input id="contactNum" type="text" name="contactNum">--%>
-        <div class="weui_cell">
-            <div class="weui_cell_hd">
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
                 <label for="contactNum">联系电话：</label>
             </div>
-            <div class="weui_cell_bd weui_cell_primary">
-                <input id="contactNum" class="weui_input" name="contactNum" type="text" placeholder="请在此输入您的联系方式"/>
+            <div class="weui-cell__bd weui-cell_primary">
+                <input id="contactNum" class="weui-input" name="contactNum" type="text" placeholder="请在此输入您的联系方式"/>
             </div>
         </div>
         <%--<label for="details">问题描述：</label>--%>
         <%--<input id="details" type="text" name="details">--%>
-        <div class="weui_cell">
-            <div class="weui_cell_hd">
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
                 <label for="details">问题描述：</label>
             </div>
-            <div class="weui_cell_bd weui_cell_primary">
-                <%--<input id="details" class="weui_input" name="details" type="text" />--%>
+            <div class="weui-cell__bd weui-cell_primary">
+                <%--<input id="details" class="weui-input" name="details" type="text" />--%>
                 <textarea name="details" id="details" cols="30" rows="10"></textarea>
             </div>
         </div>
         <input id="imgUrl" type="hidden" name="imgUrl">
         <%--<input id="submitComplaint" type="submit" value="投诉">--%>
-        <div class="weui_btn_area">
-            <a id="uploadImageBtn" class="weui_btn weui_btn_plain_primary" href="javascript:void(0);">上传图片</a>
+        <div class="weui-btn-area">
+            <a id="uploadImageBtn" class="weui-btn weui-btn_plain-primary" href="javascript:void(0);">上传图片</a>
             <%--<span style="width: 50px;"></span>--%>
-            <br><br><br>
-            <a class="weui_btn weui_btn_warn" id="submitComplaint" href="javascript:">投诉</a>
+            <br><br>
+            <a class="weui-btn weui-btn_warn" id="submitComplaint" href="javascript:">投诉</a>
         </div>
         <%-- 上传图片 --%>
-        <%--<div class="weui_btn_area">--%>
-        <%--<a id="uploadImageBtn" class="weui_btn weui_btn_plain_primary" href="javascript:void(0);">上传图片</a>--%>
+        <%--<div class="weui-btn-area">--%>
+        <%--<a id="uploadImageBtn" class="weui-btn weui-btn_plain-primary" href="javascript:void(0);">上传图片</a>--%>
         <%--</div>--%>
     </form>
     <div id="picDiv"></div>
@@ -160,7 +162,7 @@
 
         // 点击 “上传图片” 按钮之后
         $("#uploadImageBtn").click(function () {
-            alert("点击了“上传图片”按钮");
+//            alert("点击了“上传图片”按钮");
             // 发送 AJAX 请求向后台获取配置JS-SDK的参数，并进行配置
             $.ajax({
                 url: "/wechat/configJsSdk",
@@ -173,14 +175,14 @@
                     var noncestr = result.noncestr;
                     var signature = result.signature;
 
-                    $("#appId").val(appId);
-                    $("#timestamp").val(timestamp);
-                    $("#nonceStr").val(noncestr);
-                    $("#signature").val(signature);
+//                    $("#appId").val(appId);
+//                    $("#timestamp").val(timestamp);
+//                    $("#nonceStr").val(noncestr);
+//                    $("#signature").val(signature);
 
                     wx.config({
                         // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-                        debug: true,    // 发布前记得改为 false ！！！！
+                        debug: false,    // 发布前记得改为 false ！！！！
                         appId: appId, // 必填，公众号的唯一标识
                         timestamp: timestamp, // 必填，生成签名的时间戳
                         nonceStr: noncestr, // 必填，生成签名的随机串
@@ -206,7 +208,7 @@
                             alert("您的微信版本太低，不支持微信JS接口，请升级到最新的微信版本！");
                             return;
                         } else {
-                            alert("下面进行图片上传工作");
+//                            alert("下面进行图片上传工作");
                             wxChooseImage();
 //                    wx.chooseImage();
 //                            $("#imgUrl").val(imgUrl);
@@ -233,7 +235,7 @@
             wx.chooseImage({
                 sourceType: ["album", "camera"], // 指定来源：相册，相机
                 success: function (result) {
-                    alert("wx.chooseImage：success");
+//                    alert("wx.chooseImage：success");
                     images.localId = result.localIds;
                     alert("已选择 " + result.localIds.length + " 张图片");
 
@@ -262,7 +264,7 @@
                     localId: images.localId[currUpload].toString(), // 需要上传的图片的本地ID，由 chooseImage 接口获得
                     success: function (result) {
                         var mediaId = result.serverId; // 返回图片的服务器端ID，即 mediaId
-                        alert("wx.uploadImage返回的serverId(mediaId)：" + mediaId);
+//                        alert("wx.uploadImage返回的serverId(mediaId)：" + mediaId);
 
                         // 将获取到的 mediaId 传入后台，进行图片的保存
                         $.ajax({

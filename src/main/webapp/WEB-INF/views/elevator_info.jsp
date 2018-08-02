@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <%-- 配置页面自适应 --%>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>电梯信息</title>
     <%--<link href="https://cdn.bootcss.com/weui/1.1.0/style/weui.css" rel="stylesheet">--%>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/weui/style/weui.css">
@@ -164,17 +166,14 @@
             </tbody>
         </table>
     </div>
-    <%--<a href="/complaint?${elevator.certificateOfUse}"--%>
-    <%--class="weui_btn weui_btn_warn">投诉complaint</a>--%>
-    <%--<input id="complaintBtn" class="weui_btn_warn" type="button" value="投诉">--%>
 
     <form action="/complaint/toComplaint_eleInfo" method="post">
         <%-- 使用证编号 --%>
         <input type="hidden" value="${elevator.certificateOfUse}" name="certificateOfUse">
         <%-- 设备地址 --%>
         <input type="hidden" value="${elevator.deviceAddress}" name="deviceAddress">
-            <div class="weui_btn_area">
-                <a class="weui_btn weui_btn_warn" id="complaintBtn" href="javascript:">投诉</a>
+            <div class="weui-btn-area">
+                <a class="weui-btn weui-btn_warn" id="complaintBtn" href="javascript:">投诉</a>
             </div>
         <%--<input type="submit" value="投诉">--%>
     </form>

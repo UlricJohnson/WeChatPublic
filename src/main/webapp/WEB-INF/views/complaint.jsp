@@ -90,14 +90,6 @@
                 </div>
             </div>
         </div>
-        <%--<label for="sketchSelect">电梯异常事项：</label>
-        <select id="sketchSelect" name="sketch">
-            <option value="电梯关人">电梯关人</option>
-            <option value="异常抖动">异常抖动</option>
-            <option value="异常声响">异常声响</option>
-            <option value="电梯停运">电梯停运</option>
-            <option value="其他">其他</option>
-        </select>--%>
         <div class="weui-cell">
             <div class="weui-cell__hd">
                 <label for="username">联系人：</label>
@@ -106,10 +98,6 @@
                 <input id="username" class="weui-input" name="username" type="text" placeholder="请在此输入您的姓名"/>
             </div>
         </div>
-        <%--<label for="username">联系人：</label>--%>
-        <%--<input id="username" type="text" name="username">--%>
-        <%--<label for="contactNum">联系电话：</label>--%>
-        <%--<input id="contactNum" type="text" name="contactNum">--%>
         <div class="weui-cell">
             <div class="weui-cell__hd">
                 <label for="contactNum">联系电话：</label>
@@ -118,8 +106,6 @@
                 <input id="contactNum" class="weui-input" name="contactNum" type="text" placeholder="请在此输入您的联系方式"/>
             </div>
         </div>
-        <%--<label for="details">问题描述：</label>--%>
-        <%--<input id="details" type="text" name="details">--%>
         <div class="weui-cell">
             <div class="weui-cell__hd">
                 <label for="details">问题描述：</label>
@@ -137,10 +123,6 @@
             <br><br>
             <a class="weui-btn weui-btn_warn" id="submitComplaint" href="javascript:">投诉</a>
         </div>
-        <%-- 上传图片 --%>
-        <%--<div class="weui-btn-area">--%>
-        <%--<a id="uploadImageBtn" class="weui-btn weui-btn_plain-primary" href="javascript:void(0);">上传图片</a>--%>
-        <%--</div>--%>
     </form>
     <div id="picDiv"></div>
 

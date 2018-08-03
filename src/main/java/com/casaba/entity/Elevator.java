@@ -53,163 +53,85 @@ public class Elevator {
 
 //    private List<Complaint> complaintList;
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
 
-    public Integer getTotDevice() {
-        return totDevice;
-    }
+    public Integer getTotDevice() { return totDevice; }
 
-    public void setTotDevice(Integer totDevice) {
-        this.totDevice = totDevice;
-    }
+    public void setTotDevice(Integer totDevice) { this.totDevice = totDevice; }
 
-    public String getUnitOfUse() {
-        return unitOfUse;
-    }
+    public String getUnitOfUse() { return unitOfUse; }
 
-    public void setUnitOfUse(String unitOfUse) {
-        this.unitOfUse = unitOfUse == null ? null : unitOfUse.trim();
-    }
+    public void setUnitOfUse(String unitOfUse) { this.unitOfUse = unitOfUse == null ? null : unitOfUse.trim(); }
 
-    public String getContact() {
-        return contact;
-    }
+    public String getContact() { return contact; }
 
-    public void setContact(String contact) {
-        this.contact = contact == null ? null : contact.trim();
-    }
+    public void setContact(String contact) { this.contact = contact == null ? null : contact.trim(); }
 
-    public String getContactNumber() {
-        return contactNumber;
-    }
+    public String getContactNumber() { return contactNumber; }
 
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber == null ? null : contactNumber.trim();
-    }
+    public void setContactNumber(String contactNumber) { this.contactNumber = contactNumber == null ? null : contactNumber.trim(); }
 
-    public String getCertificateOfUse() {
-        return certificateOfUse;
-    }
+    public String getCertificateOfUse() { return certificateOfUse; }
 
-    public void setCertificateOfUse(String certificateOfUse) {
-        this.certificateOfUse = certificateOfUse == null ? null : certificateOfUse.trim();
-    }
+    public void setCertificateOfUse(String certificateOfUse) { this.certificateOfUse = certificateOfUse == null ? null : certificateOfUse.trim(); }
 
-    public String getNextYearlyInspection() {
-        return nextYearlyInspection;
-    }
+    public String getNextYearlyInspection() { return nextYearlyInspection; }
 
-    public void setNextYearlyInspection(String nextYearlyInspection) {
-        this.nextYearlyInspection = nextYearlyInspection;
-    }
+    public void setNextYearlyInspection(String nextYearlyInspection) { this.nextYearlyInspection = nextYearlyInspection; }
 
-    public String getDeviceModel() {
-        return deviceModel;
-    }
+    public String getDeviceModel() { return deviceModel; }
 
-    public void setDeviceModel(String deviceModel) {
-        this.deviceModel = deviceModel == null ? null : deviceModel.trim();
-    }
+    public void setDeviceModel(String deviceModel) { this.deviceModel = deviceModel == null ? null : deviceModel.trim(); }
 
-    public String getDeviceNumber() {
-        return deviceNumber;
-    }
+    public String getDeviceNumber() { return deviceNumber; }
 
-    public void setDeviceNumber(String deviceNumber) {
-        this.deviceNumber = deviceNumber == null ? null : deviceNumber.trim();
-    }
+    public void setDeviceNumber(String deviceNumber) { this.deviceNumber = deviceNumber == null ? null : deviceNumber.trim(); }
 
-    public String getDeviceFactoryNumber() {
-        return deviceFactoryNumber;
-    }
+    public String getDeviceFactoryNumber() { return deviceFactoryNumber; }
 
-    public void setDeviceFactoryNumber(String deviceFactoryNumber) {
-        this.deviceFactoryNumber = deviceFactoryNumber == null ? null : deviceFactoryNumber.trim();
-    }
+    public void setDeviceFactoryNumber(String deviceFactoryNumber) { this.deviceFactoryNumber = deviceFactoryNumber == null ? null : deviceFactoryNumber.trim(); }
 
-    public String getDeviceRegistrationNumber() {
-        return deviceRegistrationNumber;
-    }
+    public String getDeviceRegistrationNumber() { return deviceRegistrationNumber; }
 
-    public void setDeviceRegistrationNumber(String deviceRegistrationNumber) {
-        this.deviceRegistrationNumber = deviceRegistrationNumber == null ? null : deviceRegistrationNumber.trim();
-    }
+    public void setDeviceRegistrationNumber(String deviceRegistrationNumber) { this.deviceRegistrationNumber = deviceRegistrationNumber == null ? null : deviceRegistrationNumber.trim(); }
 
-    public String getDeviceAddress() {
-        return deviceAddress;
-    }
+    public String getDeviceAddress() { return deviceAddress; }
 
-    public void setDeviceAddress(String deviceAddress) {
-        this.deviceAddress = deviceAddress == null ? null : deviceAddress.trim();
-    }
+    public void setDeviceAddress(String deviceAddress) { this.deviceAddress = deviceAddress == null ? null : deviceAddress.trim(); }
 
-    public String getTown() {
-        return town;
-    }
+    public String getTown() { return town; }
 
-    public void setTown(String town) {
-        this.town = town == null ? null : town.trim();
-    }
+    public void setTown(String town) { this.town = town == null ? null : town.trim(); }
 
-    public String getAddressOfUse() {
-        return addressOfUse;
-    }
+    public String getAddressOfUse() { return addressOfUse; }
 
-    public void setAddressOfUse(String addressOfUse) {
-        this.addressOfUse = addressOfUse == null ? null : addressOfUse.trim();
-    }
+    public void setAddressOfUse(String addressOfUse) { this.addressOfUse = addressOfUse == null ? null : addressOfUse.trim(); }
 
-    public String getDeviceType() {
-        return deviceType;
-    }
+    public String getDeviceType() { return deviceType; }
 
-    public void setDeviceType(String deviceType) {
-        this.deviceType = deviceType == null ? null : deviceType.trim();
-    }
+    public void setDeviceType(String deviceType) { this.deviceType = deviceType == null ? null : deviceType.trim(); }
 
-    public String getDeviceState() {
-        return deviceState;
-    }
+    public String getDeviceState() { return deviceState; }
 
     public void setDeviceState(String deviceState) { this.deviceState = deviceState; }
 
-    public String getManufacturingUnit() {
-        return manufacturingUnit;
-    }
+    public String getManufacturingUnit() { return manufacturingUnit; }
 
-    public void setManufacturingUnit(String manufacturingUnit) {
-        this.manufacturingUnit = manufacturingUnit == null ? null : manufacturingUnit.trim();
-    }
+    public void setManufacturingUnit(String manufacturingUnit) { this.manufacturingUnit = manufacturingUnit == null ? null : manufacturingUnit.trim(); }
 
-    public String getInstallationUnit() {
-        return installationUnit;
-    }
+    public String getInstallationUnit() { return installationUnit; }
 
-    public void setInstallationUnit(String installationUnit) {
-        this.installationUnit = installationUnit == null ? null : installationUnit.trim();
-    }
+    public void setInstallationUnit(String installationUnit) { this.installationUnit = installationUnit == null ? null : installationUnit.trim(); }
 
-    public String getMaintenanceUnit() {
-        return maintenanceUnit;
-    }
+    public String getMaintenanceUnit() { return maintenanceUnit; }
 
-    public void setMaintenanceUnit(String maintenanceUnit) {
-        this.maintenanceUnit = maintenanceUnit == null ? null : maintenanceUnit.trim();
-    }
+    public void setMaintenanceUnit(String maintenanceUnit) { this.maintenanceUnit = maintenanceUnit == null ? null : maintenanceUnit.trim(); }
 
-    public String getDeviceDetails() {
-        return deviceDetails;
-    }
+    public String getDeviceDetails() { return deviceDetails; }
 
-    public void setDeviceDetails(String deviceDetails) {
-        this.deviceDetails = deviceDetails == null ? null : deviceDetails.trim();
-    }
+    public void setDeviceDetails(String deviceDetails) { this.deviceDetails = deviceDetails == null ? null : deviceDetails.trim(); }
 
     public String getDepartmentAddress() { return departmentAddress; }
 

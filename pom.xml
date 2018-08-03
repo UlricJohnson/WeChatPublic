@@ -41,12 +41,17 @@
         <gson.version>2.2.4</gson.version>
         <!-- junit -->
         <junit.version>4.12</junit.version>
+
         <!-- 写接口（web service框架）：cxf：jax-rs -->
         <cxf.version>3.0.12</cxf.version>
         <!-- jettison：java的json读写类库，使CXF框架可以实现基于JSON的web service -->
         <jettison.version>1.3.7</jettison.version>
+
         <!-- httpclient -->
         <httpclient.version>4.5.1</httpclient.version>
+
+        <!-- 日志：log4j -->
+        <log4j.version>2.8.2</log4j.version>
     </properties>
 
     <dependencies>
@@ -220,37 +225,51 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- 写接口（web service框架）：cxf：jax-rs -->
+
+        <!-- 写接口用的jar包（web service框架）：cxf：jax-rs -->
         <!-- 服务端 -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxrs</artifactId>
             <version>${cxf.version}</version>
         </dependency>
-        <!-- 客户端 -->
+        &lt;!&ndash; 客户端 &ndash;&gt;
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-rs-client</artifactId>
             <version>${cxf.version}</version>
         </dependency>
-        <!-- 转换json -->
+        &lt;!&ndash; 转换json &ndash;&gt;
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-rs-extension-providers</artifactId>
             <version>${cxf.version}</version>
         </dependency>
-        <!-- jettison：java的json读写类库，使CXF框架可以实现基于JSON的web service -->
+        &lt;!&ndash; jettison：java的json读写类库，使CXF框架可以实现基于JSON的web service &ndash;&gt;
         <dependency>
             <groupId>org.codehaus.jettison</groupId>
             <artifactId>jettison</artifactId>
             <version>${jettison.version}</version>
-        </dependency>
+        </dependency>-->
+
         <!-- httpclient -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>${httpclient.version}</version>
         </dependency>
+
+        <!-- 日志：log4j -->
+        <!--<dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>-->
     </dependencies>
 
     <build>

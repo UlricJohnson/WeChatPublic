@@ -38,7 +38,7 @@ public class Complaint {
 
     public void setImgUrl(String imgUrl) { this.imgUrl = imgUrl; }
 
-    //    public Elevator getElevator() { return elevator; }
+//        public Elevator getElevator() { return elevator; }
 
 //    public void setElevator(Elevator elevator) { this.elevator = elevator; }
 

@@ -7,4 +7,9 @@
         INSERT INTO tb_complaint VALUES (#{id}, #{details}, #{sketch}, #{imgUrl}, #{elevatorId}, #{userId})
     </insert>
 
+    <!-- 根据用户查找投诉单 -->
+    <select id="selectComplaintsByUser" parameterType="com.casaba.entity.User" resultType="java.util.List">
+        SELECT * FROM tb_complaint WHERE userId = #{user.id}
+    </select>
+
 </mapper>

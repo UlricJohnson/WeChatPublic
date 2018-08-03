@@ -7,10 +7,15 @@ import com.casaba.mapper.ComplaintMapper;
 import com.casaba.mapper.UserMapper;
 import com.casaba.service.IComplaintService;
 import com.casaba.service.IElevatorService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * created by Ulric on 2018/7/24
@@ -18,6 +23,8 @@ import javax.annotation.Resource;
 
 @Service
 public class ComplaintService implements IComplaintService {
+
+    private static final Log LOGGER = LogFactory.getLog(ComplaintService.class);
 
     @Resource
     private IElevatorService iElevatorService;
@@ -81,5 +88,23 @@ public class ComplaintService implements IComplaintService {
         }
 
         return isSuccess;
+    }
+
+    /**
+     * 根据用户查找投诉单
+     *
+     * @param user
+     * @author casaba-u
+     * @date 2018/8/3
+     */
+    @Override
+    public List<Complaint> findComplaintsByUser(User user) {
+        LOGGER.info("=====接收到的参数：\n\t#User: " + user);
+
+        List<Complaint> complaintList = complaintMapper.selectComplaintsByUser(user);
+
+        LOGGER.info("=====查询结果：" + complaintList);
+
+        return complaintList;
     }
 }

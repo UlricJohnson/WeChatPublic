@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <meta charset="UTF-8">
     <%-- 配置页面自适应 --%>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>查找电梯</title>

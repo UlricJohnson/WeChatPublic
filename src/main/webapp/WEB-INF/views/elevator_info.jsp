@@ -62,106 +62,98 @@
     <script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.min.js"></script>
 </head>
 <body>
-<div class="container1">
-    <div class="container2">
-        <%--<table class="table_css">
-            <tr>
-                <td class="zhanghu">登陆账号 : <span id="UserName">admin</span></td>
-            </tr>
-            <tr>
-                <td class="zhanghu">用户姓名 : <span id="UserCode">菜鸟的自我挣扎</span></td>
-            </tr>
-        </table>--%>
-
-        <table class="table_css" cellspacing="0" border="1px">
+<div>
+    <div>
+        <table cellspacing="0" border="1px">
             <thead>
-            <th align="left" class="biaotou">项目</th>
-            <th align="left" class="biaotou">数据</th>
+            <th align="left">项目</th>
+            <th align="left">数据</th>
             </thead>
             <tbody>
             <tr>
-                <td width="50%" class="text1">序号</td>
-                <td id="elevatorId" width="50%" align="left" class="text1">${requestScope.elevator.id}</td>
+                <td width="50%">序号</td>
+                <td id="elevatorId" width="50%" align="left">${requestScope.elevator.id}</td>
             </tr>
             <tr>
-                <td class="text2">使用单位设备总数</td>
-                <td align="left" class="text2">${requestScope.elevator.totDevice}</td>
+                <td>使用单位设备总数</td>
+                <td align="left">${requestScope.elevator.totDevice}</td>
             </tr>
             <tr>
-                <td class="text2">使用单位名称</td>
-                <td align="left" class="text1">${requestScope.elevator.unitOfUse}</td>
+                <td>使用单位名称</td>
+                <td align="left">${requestScope.elevator.unitOfUse}</td>
             </tr>
             <tr>
-                <td class="text1">使用单位地址</td>
-                <td align="left" class="text2">${elevator.addressOfUse}</td>
+                <td>使用单位地址</td>
+                <td align="left">${elevator.addressOfUse}</td>
             </tr>
             <tr>
-                <td class="text1">联系人</td>
-                <td align="left" class="text1">${elevator.contact}</td>
+                <td>联系人</td>
+                <td align="left">${elevator.contact}</td>
             </tr>
             <tr>
-                <td class="text2">联系电话</td>
-                <td align="left" class="text2">${elevator.contactNumber}</td>
+                <td>联系电话</td>
+                <td align="left">${elevator.contactNumber}</td>
             </tr>
             <tr>
-                <td class="text1">使用证编号</td>
-                <td id="certificateOfUse" align="left" class="text1">${elevator.certificateOfUse}</td>
+                <td>使用证编号</td>
+                <td id="certificateOfUse" align="left">${elevator.certificateOfUse}</td>
             </tr>
             <tr>
-                <td class="text2">下次年检日期</td>
-                <td align="left" class="text2">${elevator.nextYearlyInspection}</td>
+                <td>下次年检日期</td>
+                <td align="left">${elevator.nextYearlyInspection}</td>
             </tr>
             <tr>
-                <td class="text1">设备型号</td>
-                <td align="left" class="text1">${elevator.deviceModel}</td>
+                <td>设备型号</td>
+                <td align="left">${elevator.deviceModel}</td>
             </tr>
             <tr>
-                <td class="text2">设备编号</td>
-                <td align="left" class="text2">${elevator.deviceNumber}</td>
+                <td>设备编号</td>
+                <td align="left">${elevator.deviceNumber}</td>
             </tr>
             <tr>
-                <td class="text1">设备出厂编号</td>
-                <td align="left" class="text1">${elevator.deviceFactoryNumber}</td>
+                <td>设备出厂编号</td>
+                <td align="left">${elevator.deviceFactoryNumber}</td>
             </tr>
             <tr>
-                <td class="text2">设备注册号</td>
-                <td align="left" class="text2">${elevator.deviceRegistrationNumber}</td>
+                <td>设备注册号</td>
+                <td align="left">${elevator.deviceRegistrationNumber}</td>
             </tr>
             <tr>
-                <td class="text1">设备地址</td>
-                <td id="deviceAddress" align="left" class="text1">${elevator.deviceAddress}</td>
+                <td></td>
+                设备地址</td>
+                <td id="deviceAddress" align="left">${elevator.deviceAddress}</td>
             </tr>
             <tr>
-                <td class="text2">所在镇街</td>
-                <td align="left" class="text2">${elevator.town}</td>
+                <td>所在镇街</td>
+                <td align="left">${elevator.town}</td>
             </tr>
             <tr>
-                <td class="text1">使用单位部门地址</td>
-                <td align="left" class="text1">${elevator.departmentAddress}</td>
+                <td>使用单位部门地址</td>
+                <td align="left">${elevator.departmentAddress}</td>
             </tr>
             <tr>
-                <td class="text2">设备类型</td>
-                <td align="left" class="text2">${elevator.deviceType}</td>
+                <td>设备类型</td>
+                <td align="left">${elevator.deviceType}</td>
             </tr>
             <tr>
-                <td class="text1">设备状态</td>
-                <td align="left" class="text1">${elevator.deviceState}</td>
+                <td>设备状态</td>
+                <td align="left">${elevator.deviceState}</td>
             </tr>
             <tr>
-                <td class="text2">制造单位</td>
-                <td align="left" class="text2">${elevator.manufacturingUnit}</td>
+                <td>制造单位</td>
+                <td align="left">${elevator.manufacturingUnit}</td>
             </tr>
             <tr>
-                <td class="text1">安装单位</td>
-                <td align="left" class="text1">${elevator.installationUnit}</td>
+                <td>安装单位</td>
+                <td align="left">${elevator.installationUnit}</td>
             </tr>
             <tr>
-                <td class="text2">维保单位</td>
-                <td align="left" class="text2">${elevator.maintenanceUnit}</td>
+                <td>维保单位</td>
+                <td align="left">${elevator.maintenanceUnit}</td>
             </tr>
             <tr>
-                <td class="text1">设备详情</td>
-                <td align="left" class="text1">${elevator.deviceDetails}</td>
+                <td>设备详情</td>
+                <td align="left">${elevator.deviceDetails}</td>
             </tr>
             </tbody>
         </table>
@@ -172,9 +164,9 @@
         <input type="hidden" value="${elevator.certificateOfUse}" name="certificateOfUse">
         <%-- 设备地址 --%>
         <input type="hidden" value="${elevator.deviceAddress}" name="deviceAddress">
-            <div class="weui-btn-area">
-                <a class="weui-btn weui-btn_warn" id="complaintBtn" href="javascript:">投诉</a>
-            </div>
+        <div class="weui-btn-area">
+            <a class="weui-btn weui-btn_warn" id="complaintBtn" href="javascript:">投诉</a>
+        </div>
         <%--<input type="submit" value="投诉">--%>
     </form>
 </div>

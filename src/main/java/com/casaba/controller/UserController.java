@@ -77,10 +77,10 @@ public class UserController {
                     "\n\t#complaintList: " + complaintList);
 //                    "\n\t#elevatorList: " + elevatorList);
 
-            LOGGER.info("=====complaintList中的Elevator：");
-            for (int i = 0; i < complaintList.size(); i++) {
-                System.out.println("=====#" + (i + 1) + ": " + complaintList.get(i).getElevator());
-            }
+//            LOGGER.info("=====complaintList中的Elevator：");
+//            for (int i = 0; i < complaintList.size(); i++) {
+//                System.out.println("=====#" + (i + 1) + ": " + complaintList.get(i).getElevator());
+//            }
 
             mv.addObject("loginUser", loginUser);
             mv.addObject("complaintList", complaintList);

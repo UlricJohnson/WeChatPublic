@@ -51,7 +51,7 @@ public class Elevator {
 
     private String deviceDetails;   // 设备详情
 
-//    private List<Complaint> complaintList;
+    private List<Complaint> complaintList;
 
     public Long getId() { return id; }
 
@@ -137,9 +137,9 @@ public class Elevator {
 
     public void setDepartmentAddress(String departmentAddress) { this.departmentAddress = departmentAddress; }
 
-//    public List<Complaint> getComplaintList() { return complaintList; }
+    public List<Complaint> getComplaintList() { return complaintList; }
 
-//    public void setComplaintList(List<Complaint> complaintList) { this.complaintList = complaintList; }
+    public void setComplaintList(List<Complaint> complaintList) { this.complaintList = complaintList; }
 
     @Override
     public String toString() {
@@ -165,7 +165,7 @@ public class Elevator {
                 ", installationUnit='" + installationUnit + '\'' +
                 ", maintenanceUnit='" + maintenanceUnit + '\'' +
                 ", deviceDetails='" + deviceDetails + '\'' +
-//                ", complaintList=" + complaintList +
+                ", complaintList=" + complaintList +
                 '}';
     }
 }

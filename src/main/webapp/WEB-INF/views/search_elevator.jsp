@@ -1,13 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <%-- 配置页面自适应 --%>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>查找电梯</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/weui/style/weui.css">
     <script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.min.js"></script>
 </head>
-<body>
+<body ontouchstart>
 <%--<p>请输入电梯使用证编号：</p>--%>
 <form action="/elevator/findByCertificate" method="post">
     <div class="weui-cells">

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.casaba.mapper.ElevatorMapper">
     <!-- 结果映射：Elevator类 -->
-    <resultMap id="BaseResultMap" type="com.casaba.entity.Elevator">
+    <resultMap id="Result_Map_Base" type="com.casaba.entity.Elevator">
         <id column="ID" property="id" jdbcType="BIGINT"/>
         <result column="TOT_DEVICE" property="totDevice" jdbcType="INTEGER"/>
         <result column="UNIT_OF_USE" property="unitOfUse" jdbcType="VARCHAR"/>
@@ -27,7 +27,7 @@
     </resultMap>
 
     <!-- tb_elevator 表的所有字段，因字段太多，所以下面直接include这个SQL语句就好 -->
-    <sql id="Base_Column_List">
+    <sql id="Base_Column_Sql">
         ID, TOT_DEVICE, UNIT_OF_USE, ADDRESS_OF_USE, CONTACT, CONTACT_NUMBER, CERTIFICATE_OF_USE,
         NEXT_YEARLY_INSPECTION, DEVICE_MODEL, DEVICE_NUMBER, DEVICE_FACTORY_NUMBER, DEVICE_REGISTRATION_NUMBER,
         DEVICE_ADDRESS, TOWN, DEPARTMENT_ADDRESS, DEVICE_TYPE, DEVICE_STATE, MANUFACTURING_UNIT,
@@ -35,10 +35,21 @@
     </sql>
 
     <!-- 按照使用证编号查找 -->
-    <select id="selectByCertificate" resultMap="BaseResultMap" parameterType="java.lang.String">
-        select
-        <include refid="Base_Column_List"/>
+    <select id="selectByCertificate" resultMap="Result_Map_Base" parameterType="java.lang.String">
+        select *
+        <!--<include refid="Base_Column_Sql"/>-->
         from tb_elevator
         where CERTIFICATE_OF_USE = #{certificate}
+    </select>
+
+    <!--
+        根据投诉单查询相关的电梯
+        foreach 标签：mybatis 会把参数都封装到一个 map 中，key为list（参数为List类型）、array（参数为数组） 或 自定义的key（参数为map时）
+    -->
+    <select id="selectByComplaints" resultMap="Result_Map_Base" parameterType="java.util.List">
+        SELECT * FROM tb_elevator WHERE ID IN
+        <foreach collection="list" item="complaint" open="(" close=")" separator=",">
+            #{complaint.elevatorId}
+        </foreach>
     </select>
 </mapper>

@@ -42,7 +42,7 @@
         <!-- junit -->
         <junit.version>4.12</junit.version>
 
-        <!-- 写接口（web service框架）：cxf：jax-rs -->
+        <!-- === 写接口（web service框架）：cxf：jax-rs === -->
         <cxf.version>3.0.12</cxf.version>
         <!-- jettison：java的json读写类库，使CXF框架可以实现基于JSON的web service -->
         <jettison.version>1.3.7</jettison.version>
@@ -51,7 +51,10 @@
         <httpclient.version>4.5.1</httpclient.version>
 
         <!-- 日志：log4j -->
-        <log4j.version>2.8.2</log4j.version>
+        <!-- 1、groupId：org.apache.logging.log4j -->
+        <!--<log4j.version>2.8.2</log4j.version>-->
+        <!-- 2、groupId：log4j -->
+        <log4j.version>1.2.17</log4j.version>
     </properties>
 
     <dependencies>
@@ -85,6 +88,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
             <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -194,6 +203,11 @@
             <artifactId>jstl</artifactId>
             <version>${jstl.version}</version>
         </dependency>
+        <!--<dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <version>1.1.2</version>
+        </dependency>-->
 
 
         <!-- jackson -->
@@ -226,27 +240,27 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- 写接口用的jar包（web service框架）：cxf：jax-rs -->
+        <!-- === 写接口用的jar包（web service框架）：cxf：jax-rs === -->
         <!-- 服务端 -->
         <!--<dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxrs</artifactId>
             <version>${cxf.version}</version>
-        </dependency>
-        &lt;!&ndash; 客户端 &ndash;&gt;
-        <dependency>
+        </dependency>-->
+        <!-- 客户端 -->
+        <!--<dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-rs-client</artifactId>
             <version>${cxf.version}</version>
-        </dependency>
-        &lt;!&ndash; 转换json &ndash;&gt;
-        <dependency>
+        </dependency>-->
+        <!-- 转换json -->
+        <!--<dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-rs-extension-providers</artifactId>
             <version>${cxf.version}</version>
-        </dependency>
-        &lt;!&ndash; jettison：java的json读写类库，使CXF框架可以实现基于JSON的web service &ndash;&gt;
-        <dependency>
+        </dependency>-->
+        <!-- jettison：java的json读写类库，使CXF框架可以实现基于JSON的web service -->
+        <!--<dependency>
             <groupId>org.codehaus.jettison</groupId>
             <artifactId>jettison</artifactId>
             <version>${jettison.version}</version>
@@ -260,6 +274,7 @@
         </dependency>
 
         <!-- 日志：log4j -->
+        <!-- 1、groupId：org.apache.logging.log4j -->
         <!--<dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
@@ -270,7 +285,15 @@
             <artifactId>log4j-api</artifactId>
             <version>${log4j.version}</version>
         </dependency>-->
+        <!-- 2、groupId：log4j -->
+        <!--<dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>-->
     </dependencies>
+
+
 
     <build>
         <finalName>wechat-public</finalName>

@@ -10,17 +10,18 @@ public class Complaint {
 
     private String details; // 投诉详情
 
-    private String sketch; // 投诉简述（保存枚举类的数值）
+    private String sketch; // 投诉简述
 
     private String imgUrl; // 图片链接，有多个则用分号;隔开
-
-//    private Elevator elevator;
-
-//    private User user;
 
     private Long elevatorId;// 电梯表ID
 
     private Long userId;    // 用户（投诉人）表ID
+
+    private Elevator elevator;
+
+    private User user;
+
 
     public Long getId() { return id; }
 
@@ -38,14 +39,6 @@ public class Complaint {
 
     public void setImgUrl(String imgUrl) { this.imgUrl = imgUrl; }
 
-//        public Elevator getElevator() { return elevator; }
-
-//    public void setElevator(Elevator elevator) { this.elevator = elevator; }
-
-//    public User getUser() { return user; }
-
-//    public void setUser(User user) { this.user = user; }
-
     public Long getElevatorId() { return elevatorId; }
 
     public void setElevatorId(Long elevatorId) { this.elevatorId = elevatorId; }
@@ -53,6 +46,14 @@ public class Complaint {
     public Long getUserId() { return userId; }
 
     public void setUserId(Long userId) { this.userId = userId; }
+
+    public Elevator getElevator() { return elevator; }
+
+    public void setElevator(Elevator elevator) { this.elevator = elevator; }
+
+    public User getUser() { return user; }
+
+    public void setUser(User user) { this.user = user; }
 
     @Override
     public String toString() {

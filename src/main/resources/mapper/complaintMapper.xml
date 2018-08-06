@@ -2,14 +2,57 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.casaba.mapper.ComplaintMapper">
 
+    <!-- 查询并返回一个投诉单集合 -->
+    <resultMap id="base_complaint_map" type="com.casaba.entity.Complaint">
+        <id property="id" column="ID"/>
+        <result property="details" column="DETAILS"/>
+        <result property="sketch" column="SKETCH"/>
+        <result property="imgUrl" column="IMG_URL"/>
+        <result property="elevatorId" column="ELEVATOR_ID"/>
+        <result property="userId" column="USER_ID"/>
+    </resultMap>
+
+    <!-- 查询投诉单及其电梯 -->
+    <resultMap id="complaint_elevator_map_" type="com.casaba.entity.Complaint">
+        <id property="id" column="ID"/>
+        <result property="details" column="DETAILS"/>
+        <result property="sketch" column="SKETCH"/>
+        <result property="imgUrl" column="IMG_URL"/>
+        <result property="elevatorId" column="ELEVATOR_ID"/>
+        <result property="userId" column="USER_ID"/>
+        <association property="elevator" javaType="com.casaba.entity.Elevator">
+            <id column="ID" property="id" jdbcType="BIGINT"/>
+            <result column="TOT_DEVICE" property="totDevice" jdbcType="INTEGER"/>
+            <result column="UNIT_OF_USE" property="unitOfUse" jdbcType="VARCHAR"/>
+            <result column="ADDRESS_OF_USE" property="addressOfUse" jdbcType="VARCHAR"/>
+            <result column="CONTACT" property="contact" jdbcType="VARCHAR"/>
+            <result column="CONTACT_NUMBER" property="contactNumber" jdbcType="VARCHAR"/>
+            <result column="CERTIFICATE_OF_USE" property="certificateOfUse" jdbcType="VARCHAR"/>
+            <result column="NEXT_YEARLY_INSPECTION" property="nextYearlyInspection" jdbcType="DATE"/>
+            <result column="DEVICE_MODEL" property="deviceModel" jdbcType="VARCHAR"/>
+            <result column="DEVICE_NUMBER" property="deviceNumber" jdbcType="VARCHAR"/>
+            <result column="DEVICE_FACTORY_NUMBER" property="deviceFactoryNumber" jdbcType="VARCHAR"/>
+            <result column="DEVICE_REGISTRATION_NUMBER" property="deviceRegistrationNumber" jdbcType="VARCHAR"/>
+            <result column="DEVICE_ADDRESS" property="deviceAddress" jdbcType="VARCHAR"/>
+            <result column="TOWN" property="town" jdbcType="VARCHAR"/>
+            <result column="DEPARTMENT_ADDRESS" property="departmentAddress" jdbcType="VARCHAR"/>
+            <result column="DEVICE_TYPE" property="deviceType" jdbcType="VARCHAR"/>
+            <result column="DEVICE_STATE" property="deviceState" jdbcType="VARCHAR"/>
+            <result column="MANUFACTURING_UNIT" property="manufacturingUnit" jdbcType="VARCHAR"/>
+            <result column="INSTALLATION_UNIT" property="installationUnit" jdbcType="VARCHAR"/>
+            <result column="MAINTENANCE_UNIT" property="maintenanceUnit" jdbcType="VARCHAR"/>
+            <result column="DEVICE_DETAILS" property="deviceDetails" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+
     <!-- 添加一项投诉单 -->
     <insert id="insertComplaint" parameterType="com.casaba.entity.Complaint">
         INSERT INTO tb_complaint VALUES (#{id}, #{details}, #{sketch}, #{imgUrl}, #{elevatorId}, #{userId})
     </insert>
 
     <!-- 根据用户查找投诉单 -->
-    <select id="selectComplaintsByUser" parameterType="com.casaba.entity.User" resultType="java.util.List">
-        SELECT * FROM tb_complaint WHERE userId = #{user.id}
+    <select id="selectComplaintsByUser" parameterType="com.casaba.entity.User" resultMap="base_complaint_map">
+        SELECT * FROM tb_complaint WHERE USER_ID = #{id}
     </select>
 
 </mapper>

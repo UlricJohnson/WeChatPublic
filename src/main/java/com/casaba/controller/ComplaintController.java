@@ -76,7 +76,6 @@ public class ComplaintController {
      */
     @RequestMapping(value = "/toComplaint_eleInfo", method = RequestMethod.POST)
 //    @ResponseBody   // @ResponseBody 注解表示返回的字符串不是视图名称，而是JSON字符串
-//    public String toComplaintJsp(
     public ModelAndView toComplaint_eleInfo(String certificateOfUse, String deviceAddress) {
         Elevator elevator = new Elevator();
         elevator.setCertificateOfUse(certificateOfUse);
@@ -96,7 +95,6 @@ public class ComplaintController {
      * @date 2018/7/23
      */
     @RequestMapping("/doComplaint")
-//    public void doComplaint(HttpSession session, HttpServletRequest request) {
     public ModelAndView doComplaint(String certificate, String sketch, String username, String contactNum, String
             details, String imgUrl) {
         LOGGER.info("=====接收到的参数：\n\t#certificate：" + certificate +

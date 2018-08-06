@@ -33,6 +33,16 @@
 
 <script>
     $(function () {
+        // 判断输入框是否全部填写完
+        $("input").each(function () {
+            $(this).change(function () {
+                // 如果还有没填写的就提示用户填写
+                if ($(this).val() == "") {
+                    alert($(this).attr("placeholder"));
+                }
+            });
+        });
+
         $("#loginBtn").click(function () {
             $("form")[0].submit();
         });

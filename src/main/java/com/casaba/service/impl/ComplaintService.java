@@ -100,6 +100,7 @@ public class ComplaintService implements IComplaintService {
     @Override
     public List<Complaint> findComplaintsByUser(User user) {
         LOGGER.info("=====接收到的参数：\n\t#User: " + user);
+//        System.out.println("=====ComplaintService--findComplaintsByUser()接收到的参数：\n\t#User: " + user);
 
         List<Complaint> complaintList = complaintMapper.selectComplaintsByUser(user);
 

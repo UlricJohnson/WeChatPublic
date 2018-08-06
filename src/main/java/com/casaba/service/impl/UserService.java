@@ -32,10 +32,15 @@ public class UserService implements IUserService {
     public User login(User loginUser) {
         LOGGER.info("=====接收到的参数：\n\t#User: " + loginUser);
 
+        User user = null;
+
         if (loginUser != null) {
-            return userMapper.selectUser(loginUser);
+            user = userMapper.selectUserByUserame$ContactNum(
+                    loginUser.getUsername(), loginUser.getContactNum());
         }
 
-        return null;
+        LOGGER.info("=====查询出来的用户user: " + user);
+
+        return user;
     }
 }

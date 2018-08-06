@@ -15,6 +15,7 @@
 <br>
 <a href="/toJsp/search_elevator" class="weui-btn weui-btn_primary">查找电梯</a>
 <br>
+<a href="/toJsp/login" class="weui-btn weui-btn_default">用户登录</a>
 <%--<a href="/toHtml/test">测试SpringMVC和HTML交互</a>--%>
 </body>
 </html>

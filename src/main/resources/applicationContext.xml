@@ -14,12 +14,14 @@
             http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- 开启注解模式 -->
-    <context:annotation-config />
+    <context:annotation-config/>
 
     <context:component-scan base-package="com.casaba.service"/>
 
-    <!-- 导入其他的配置文件：webservice、springmvc -->
-    <!--<import resource="applicationContext-mvc.xml"/>-->
+    <!--<context:property-placeholder file-encoding="utf-8" location="log4j.properties"/>-->
+
+    <!-- 导入其他的配置文件：springmvc和mybatis的 -->
+    <import resource="applicationContext-mvc.xml"/>
     <import resource="applicationContext-model.xml"/>
 
 </beans>

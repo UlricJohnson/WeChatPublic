@@ -2,7 +2,6 @@ package com.casaba.util;
 
 import com.casaba.entity.AccessToken;
 import com.casaba.entity.JsapiTicket;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.apache.commons.logging.Log;
@@ -19,7 +18,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.ServletContext;
 import java.io.IOException;
-import java.security.MessageDigest;
 import java.util.Arrays;
 
 /**

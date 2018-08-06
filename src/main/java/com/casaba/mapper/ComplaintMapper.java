@@ -2,6 +2,7 @@ package com.casaba.mapper;
 
 import com.casaba.entity.Complaint;
 import com.casaba.entity.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

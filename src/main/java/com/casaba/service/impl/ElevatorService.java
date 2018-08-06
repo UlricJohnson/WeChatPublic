@@ -75,8 +75,10 @@ public class ElevatorService implements IElevatorService {
     public List<Elevator> findElevatorsByComplaints(List<Complaint> complaintList) {
         LOGGER.info("=====接收到的参数：\n\t#complaintList: " + complaintList);
 
-        
+        List<Elevator> elevatorList = elevatorMapper.selectByComplaints(complaintList);
 
-        return null;
+        LOGGER.info("=====返回的数据：" + elevatorList);
+
+        return elevatorList;
     }
 }

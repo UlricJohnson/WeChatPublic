@@ -2,6 +2,7 @@ package com.casaba.mapper;
 
 import com.casaba.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 /**
@@ -35,10 +36,10 @@ public interface UserMapper {
     long selectMaxId();
 
     /**
-     * 根据传入的对象查询
+     * 根据用户名和联系方式查询
      *
      * @author casaba-u
      * @date 2018/8/3
      */
-    User selectUser(User user);
+    User selectUserByUserame$ContactNum(@Param("username") String username, @Param("contactNum") String contactNum);
 }

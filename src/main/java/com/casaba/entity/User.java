@@ -13,7 +13,7 @@ public class User {
 
     private String contactNum;  // 联系电话
 
-//    private List<Complaint> complaintList;
+    private List<Complaint> complaintList;
 
     public Long getId() { return id; }
 
@@ -27,9 +27,9 @@ public class User {
 
     public void setContactNum(String contactNum) { this.contactNum = contactNum == null ? null : contactNum.trim(); }
 
-//    public List<Complaint> getComplaintList() { return complaintList; }
+    public List<Complaint> getComplaintList() { return complaintList; }
 
-//    public void setComplaintList(List<Complaint> complaintList) { this.complaintList = complaintList; }
+    public void setComplaintList(List<Complaint> complaintList) { this.complaintList = complaintList; }
 
     @Override
     public String toString() {
@@ -37,7 +37,7 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", contactNum='" + contactNum + '\'' +
-//                ", complaintList=" + complaintList +
+                ", complaintList=" + complaintList +
                 '}';
     }
 }

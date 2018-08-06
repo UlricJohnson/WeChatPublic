@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.casaba.mapper.UserMapper">
-    <!-- 基础的 User 类结果映射 -->
-    <resultMap id="base_user_map" type="com.casaba.entity.User">
+    <!-- 基础的 User 类结果映射：不包括 complaintList -->
+    <resultMap id="user_map_base" type="com.casaba.entity.User">
         <id property="id" column="ID"/>
         <result property="username" column="USERNAME"/>
         <result property="contactNum" column="CONTACT_NUM"/>
+    </resultMap>
+
+    <!-- 查询 User 类对象，包括 complaintList -->
+    <resultMap id="user_map_all" type="com.casaba.entity.User">
+        <!-- 因为主表和从表主键名一样，所以需要其中一个起别名，这里的 column 也跟着改 -->
+        <id property="id" column="UID"/>
+        <result property="username" column="USERNAME"/>
+        <result property="contactNum" column="CONTACT_NUM"/>
+        <collection property="complaintList" ofType="com.casaba.entity.Complaint" column="USER_ID">
+            <id property="id" column="ID"/>
+            <result property="details" column="DETAILS"/>
+            <result property="sketch" column="SKETCH"/>
+            <result property="imgUrl" column="IMG_URL"/>
+            <result property="elevatorId" column="ELEVATOR_ID"/>
+            <result property="userId" column="USER_ID"/>
+        </collection>
     </resultMap>
 
     <!-- 根据用户名搜索该用户是否已经存在 -->
@@ -23,18 +39,19 @@
         SELECT max(id) FROM tb_user
     </select>
 
-    <!-- 根据传入的对象查询 -->
-    <select id="selectUser" parameterType="com.casaba.entity.User" resultType="com.casaba.entity.User">
-        SELECT * FROM tb_user
+    <!-- 根据用户名和联系方式查询用户 -->
+    <select id="selectUserByUserame$ContactNum" resultMap="user_map_all">
+        SELECT u.ID UID, u.USERNAME, u.CONTACT_NUM, c.* FROM tb_user u
+        JOIN tb_complaint c ON u.ID = c.USER_ID
         <choose>
             <when test="username != null">
-                WHERE username = #{username}
+                WHERE u.USERNAME = #{username}
                 <if test="contactNum != null">
-                    AND contactNum = #{contactNum}
+                    AND u.CONTACT_NUM = #{contactNum}
                 </if>
             </when>
             <otherwise>
-                WHERE contactNum = #{contactNum}
+                WHERE u.CONTACT_NUM = #{contactNum}
             </otherwise>
         </choose>
     </select>

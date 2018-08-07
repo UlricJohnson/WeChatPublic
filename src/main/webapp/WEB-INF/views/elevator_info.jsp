@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <%-- 配置页面自适应 --%>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>电梯信息</title>
     <%--<link href="https://cdn.bootcss.com/weui/1.1.0/style/weui.css" rel="stylesheet">--%>
@@ -9,13 +8,26 @@
     <script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.min.js"></script>
 
     <style>
-
+        .container{
+            margin: 10px;
+            padding: 0px;
+        }
+        .th{
+            height:30px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            background-color: #E4ECF7;
+        }
+        .tr{
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
     </style>
 
 </head>
 <body>
-<div>
-    <div>
+<div class="container">
+    <div class="label_container">
         <table cellspacing="0" border="1px" cellpadding="5px">
             <thead>
             <th align="left">项目</th>

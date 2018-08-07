@@ -6,65 +6,17 @@
     <title>电梯信息</title>
     <%--<link href="https://cdn.bootcss.com/weui/1.1.0/style/weui.css" rel="stylesheet">--%>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/weui/style/weui.css">
-    <%-- <style type="text/css">
-         .container1 {
-             width: 94%;
-             height: 96%;
-             background-color: rgb(248, 248, 248);
-             margin: 10px auto;
-             overflow: hidden;
-         }
-
-         .container2 {
-             width: 94%;
-             height: 96%;
-             background-color: #ffffff;
-             border: 1px solid rgb(238, 238, 238);
-             margin: 10px auto;
-             border-radius: 5px;
-             overflow: hidden;
-         }
-
-         .table_css {
-             width: 95%;
-             margin: 3px auto;
-         }
-
-         table td, th {
-             padding: 10px;
-             font-size: 16px;
-         }
-
-         .zhanghu {
-             background-color: rgb(255, 255, 255);
-             /*border-left: 3px solid rgb(217,217,217);*/
-             color: #1AAD19;
-         }
-
-         .biaotou {
-             background-color: rgb(255, 255, 255);
-             border-bottom: 2px solid rgb(217, 217, 217);
-             color: #1AAD19;
-         }
-
-         .text1 {
-             background-color: rgb(255, 255, 255);
-             border-bottom: 1px solid rgb(217, 217, 217);
-             color: #1AAD19;
-         }
-
-         .text2 {
-             background-color: rgb(248, 248, 248);
-             border-bottom: 1px solid rgb(217, 217, 217);
-             color: #1AAD19;
-         }
-     </style>--%>
     <script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.min.js"></script>
+
+    <style>
+
+    </style>
+
 </head>
 <body>
 <div>
     <div>
-        <table cellspacing="0" border="1px">
+        <table cellspacing="0" border="1px" cellpadding="5px">
             <thead>
             <th align="left">项目</th>
             <th align="left">数据</th>
@@ -119,8 +71,7 @@
                 <td align="left">${elevator.deviceRegistrationNumber}</td>
             </tr>
             <tr>
-                <td></td>
-                设备地址</td>
+                <td>设备地址</td>
                 <td id="deviceAddress" align="left">${elevator.deviceAddress}</td>
             </tr>
             <tr>

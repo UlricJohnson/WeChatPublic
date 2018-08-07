@@ -78,8 +78,8 @@
                               style="display:block; width: 100%">
                             <input name="certificate" type="hidden" value="${complaint.elevator.certificateOfUse}"/>
                             <input type="submit" value="查看电梯信息">
-                                <%--<a class="weui-btn weui-btn_default" href="javascript:;"
-                                   onclick="checkEleInfo(this)">查看电梯信息</a>--%>
+                            <%--<a class="weui-btn weui-btn_plain-primary" href="javascript:;"
+                               onclick="checkEleInfo(this)">查看图片</a>--%>
                         </form>
                     </c:if>
                 </div>

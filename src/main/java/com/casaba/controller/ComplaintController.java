@@ -155,7 +155,7 @@ public class ComplaintController {
         if(!imgDir.exists()){
             imgDir.mkdirs();
         }
-        imgName = System.currentTimeMillis() + CommonUtil.genRandom(4) + ".jpg";
+        imgName = System.currentTimeMillis() + CommonUtil.genRandom(4) + ".png";
         try {
             File imgFile = new File(imgRootPath + "/" + imgName);
             if (!imgFile.exists()) {

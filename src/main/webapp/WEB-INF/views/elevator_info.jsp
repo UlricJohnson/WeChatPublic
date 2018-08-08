@@ -8,115 +8,133 @@
     <script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.min.js"></script>
 
     <style>
-        .container{
+        .container {
             margin: 10px;
             padding: 0px;
         }
-        .th{
-            height:30px;
+
+        .eleTable {
+            margin: 10px;
+            border: solid grey 1px;
+        }
+
+        .eleTable th {
+            align: center;
+            height: 30px;
             padding-top: 5px;
             padding-bottom: 5px;
             background-color: #E4ECF7;
         }
-        .tr{
+
+        .eleTable td {
             padding-top: 5px;
             padding-bottom: 5px;
+            padding-left: 5px;
+        }
+
+        /* 表格的第1列 */
+        .eleTable tr td:nth-child(1) {
+            width: 40%;
+            /*align: left;*/
         }
     </style>
 
 </head>
 <body>
 <div class="container">
-    <div class="label_container">
-        <table cellspacing="0" border="1px" cellpadding="5px">
+    <div class="table_container">
+        <table class="eleTable" cellspacing="0" cellpadding="3" border="1">
             <thead>
-            <th align="left">项目</th>
-            <th align="left">数据</th>
+            <th>项目</th>
+            <th>数据</th>
             </thead>
             <tbody>
             <tr>
-                <td width="50%">序号</td>
-                <td id="elevatorId" width="50%" align="left">${requestScope.elevator.id}</td>
+                <td>序号</td>
+                <%--<td id="elevatorId">${requestScope.elevator.id}</td>--%>
+                <td>${requestScope.elevator.id}</td>
             </tr>
             <tr>
                 <td>使用单位设备总数</td>
-                <td align="left">${requestScope.elevator.totDevice}</td>
+                <td>${requestScope.elevator.totDevice}</td>
             </tr>
             <tr>
                 <td>使用单位名称</td>
-                <td align="left">${requestScope.elevator.unitOfUse}</td>
+                <td>${requestScope.elevator.unitOfUse}</td>
             </tr>
             <tr>
                 <td>使用单位地址</td>
-                <td align="left">${elevator.addressOfUse}</td>
+                <td>${elevator.addressOfUse}</td>
             </tr>
             <tr>
                 <td>联系人</td>
-                <td align="left">${elevator.contact}</td>
+                <td>${elevator.contact}</td>
             </tr>
             <tr>
                 <td>联系电话</td>
-                <td align="left">${elevator.contactNumber}</td>
+                <td>${elevator.contactNumber}</td>
             </tr>
             <tr>
                 <td>使用证编号</td>
-                <td id="certificateOfUse" align="left">${elevator.certificateOfUse}</td>
+                <%--<td id="certificateOfUse">${elevator.certificateOfUse}</td>--%>
+                <td>${elevator.certificateOfUse}</td>
             </tr>
             <tr>
                 <td>下次年检日期</td>
-                <td align="left">${elevator.nextYearlyInspection}</td>
+                <td>${elevator.nextYearlyInspection}</td>
             </tr>
             <tr>
                 <td>设备型号</td>
-                <td align="left">${elevator.deviceModel}</td>
+                <td>${elevator.deviceModel}</td>
             </tr>
             <tr>
                 <td>设备编号</td>
-                <td align="left">${elevator.deviceNumber}</td>
+                <td>${elevator.deviceNumber}</td>
             </tr>
             <tr>
                 <td>设备出厂编号</td>
-                <td align="left">${elevator.deviceFactoryNumber}</td>
+                <td>${elevator.deviceFactoryNumber}</td>
             </tr>
             <tr>
                 <td>设备注册号</td>
-                <td align="left">${elevator.deviceRegistrationNumber}</td>
+                <td>${elevator.deviceRegistrationNumber}</td>
             </tr>
             <tr>
                 <td>设备地址</td>
-                <td id="deviceAddress" align="left">${elevator.deviceAddress}</td>
+                <%--<td id="deviceAddress">${elevator.deviceAddress}</td>--%>
+                <td>${elevator.deviceAddress}</td>
             </tr>
             <tr>
                 <td>所在镇街</td>
-                <td align="left">${elevator.town}</td>
+                <td>${elevator.town}</td>
             </tr>
             <tr>
                 <td>使用单位部门地址</td>
-                <td align="left">${elevator.departmentAddress}</td>
+                <td>${elevator.departmentAddress}</td>
             </tr>
             <tr>
                 <td>设备类型</td>
-                <td align="left">${elevator.deviceType}</td>
+                <td>${elevator.deviceType}</td>
             </tr>
             <tr>
                 <td>设备状态</td>
-                <td align="left">${elevator.deviceState}</td>
+                <td>${elevator.deviceState}</td>
             </tr>
             <tr>
                 <td>制造单位</td>
-                <td align="left">${elevator.manufacturingUnit}</td>
+                <td>${elevator.manufacturingUnit}</td>
             </tr>
             <tr>
                 <td>安装单位</td>
-                <td align="left">${elevator.installationUnit}</td>
+                <td>${elevator.installationUnit}</td>
             </tr>
             <tr>
                 <td>维保单位</td>
-                <td align="left">${elevator.maintenanceUnit}</td>
+                <td>${elevator.maintenanceUnit}</td>
             </tr>
             <tr>
                 <td>设备详情</td>
-                <td align="left">${elevator.deviceDetails}</td>
+                <td>${elevator.deviceDetails}</td>
             </tr>
             </tbody>
         </table>
@@ -141,7 +159,6 @@
             $("form")[0].submit();
         });
     });
-
 
     /*$(function () {
         $("#complaintBtn").click(function () {

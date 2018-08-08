@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <%-- 配置页面自适应 --%>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>投诉</title>
     <%--<link href="https://cdn.bootcss.com/weui/1.1.1/style/weui.css" rel="stylesheet">--%>
@@ -80,7 +79,9 @@
                 </div>
                 <div class="weui-cell__bd weui-cell_primary">
                     <%--<input class="weui-input" name="name" type="text" placeholder="请在此输入姓名" />--%>
+                    <span style="color: red;">*</span>
                     <select id="sketchSelect" name="sketch">
+                        <option value="">--请选择--</option>
                         <option value="电梯关人">电梯关人</option>
                         <option value="异常抖动">异常抖动</option>
                         <option value="异常声响">异常声响</option>
@@ -92,6 +93,7 @@
         </div>
         <div class="weui-cell">
             <div class="weui-cell__hd">
+                <span style="color: red;">*</span>
                 <label for="username">联系人：</label>
             </div>
             <div class="weui-cell__bd weui-cell_primary">
@@ -100,6 +102,7 @@
         </div>
         <div class="weui-cell">
             <div class="weui-cell__hd">
+                <span style="color: red;">*</span>
                 <label for="contactNum">联系电话：</label>
             </div>
             <div class="weui-cell__bd weui-cell_primary">
@@ -130,8 +133,29 @@
 
 <script>
     $(function () {
+
         // 点击 “投诉” 按钮提交表单
         $("#submitComplaint").click(function () {
+            // 检查必填项：异常实现、联系人姓名、联系方式
+            var sketch = $("#sketchSelect option:selected").val();
+            var username = $("#username").val();
+            var contactNum = $("#contactNum").val();
+
+            if ((sketch == null || sketch == ""){
+                alert("请选择异常事项");
+                $("#sketchSelect").focus();
+                return;
+            }
+            if (username == null || username == "") {
+                alert("请填写联系人姓名");
+                $("#username").focus();
+                return;
+            }
+            if (contactNum == null || contactNum == "") {
+                alert("请填写联系方式");
+                $("#contactNum").focus();
+                return;
+            }
             $("form")[0].submit();
         });
 
@@ -142,7 +166,6 @@
         $("#uploadImageBtn").click(function () {
             var jsApiList = ['chooseImage', 'uploadImage', 'downloadImage'];
 
-            // alert("点击了“上传图片”按钮");
             // 发送 AJAX 请求向后台获取配置JS-SDK的参数，并进行配置
             $.ajax({
                 url: "/wechat/configJsSdk",
@@ -184,10 +207,7 @@
                             alert("您的微信版本太低，不支持微信JS接口，请升级到最新的微信版本！");
                             return;
                         } else {
-//                            alert("下面进行图片上传工作");
                             wxChooseImage();
-//                    wx.chooseImage();
-//                            $("#imgUrl").val(imgUrl);
                         }
                     }
                 });

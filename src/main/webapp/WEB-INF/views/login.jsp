@@ -44,7 +44,17 @@
         });
 
         $("#loginBtn").click(function () {
-            $("form")[0].submit();
+            // 检查手机号码是否填写正确
+            var number = $("#contactNum").val();
+
+            var numReg = /^[1][3,4,5,7,8][0-9]{9}$/;
+
+            if (!numReg.test(number)) {
+                alert("手机号码格式错误");
+            } else {
+                $("form")[0].submit();
+            }
+
         });
     });
 </script>

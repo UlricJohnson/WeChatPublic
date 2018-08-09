@@ -10,54 +10,6 @@
     <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 </head>
 <body>
-<%--<div class="weui_cells_title">单选列表项</div>
-<div class="weui_cell weui_cells_radio">
-    <label class="weui_cell weui_check_label" for="x11">
-        <div class="weui_cell_bd">
-            <p style="color: red; font-weight: bold;">电梯关人，急需救援！</p>
-        </div>
-        <div class="weui_cell_ft">
-            <input type="radio" class="weui_check" name="radio1" id="x11"/>
-            <span class="weui_icon_checked"></span>
-        </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x12">
-        <div class="weui_cell_bd">
-            <p>异常抖动</p>
-        </div>
-        <div class="weui_cell_ft">
-            <input type="radio" name="radio1" class="weui_check" id="x12"/>
-            <span class="weui_icon_checked"></span>
-        </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x13">
-        <div class="weui_cell_bd">
-            <p>异常声响</p>
-        </div>
-        <div class="weui_cell_ft">
-            <input type="radio" name="radio1" class="weui_check" id="x13"/>
-            <span class="weui_icon_checked"></span>
-        </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x14">
-        <div class="weui_cell_bd">
-            <p>电梯停运</p>
-        </div>
-        <div class="weui_cell_ft">
-            <input type="radio" name="radio1" class="weui_check" id="x14"/>
-            <span class="weui_icon_checked"></span>
-        </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x15">
-        <div class="weui_cell_bd">
-            <p>其他</p>
-        </div>
-        <div class="weui_cell_ft">
-            <input type="radio" name="radio1" class="weui_check" id="x15"/>
-            <span class="weui_icon_checked"></span>
-        </div>
-    </label>
-</div>--%>
 
 <div>
     <div id="certificateDiv">
@@ -74,12 +26,12 @@
         <input type="hidden" name="certificate" value="${elevator.certificateOfUse}">
         <div class="weui-cells weui-cells_form">
             <div class="weui-cell">
+                <span style="color: red;">*</span>
                 <div class="weui-cell__hd">
                     <label class="weui-label">电梯异常事项：</label>
                 </div>
                 <div class="weui-cell__bd weui-cell_primary">
                     <%--<input class="weui-input" name="name" type="text" placeholder="请在此输入姓名" />--%>
-                    <span style="color: red;">*</span>
                     <select id="sketchSelect" name="sketch">
                         <option value="">--请选择--</option>
                         <option value="电梯关人">电梯关人</option>
@@ -92,8 +44,8 @@
             </div>
         </div>
         <div class="weui-cell">
+            <span style="color: red;">*</span>
             <div class="weui-cell__hd">
-                <span style="color: red;">*</span>
                 <label for="username">联系人：</label>
             </div>
             <div class="weui-cell__bd weui-cell_primary">
@@ -101,8 +53,8 @@
             </div>
         </div>
         <div class="weui-cell">
+            <span style="color: red;">*</span>
             <div class="weui-cell__hd">
-                <span style="color: red;">*</span>
                 <label for="contactNum">联系电话：</label>
             </div>
             <div class="weui-cell__bd weui-cell_primary">
@@ -141,7 +93,7 @@
             var username = $("#username").val();
             var contactNum = $("#contactNum").val();
 
-            if ((sketch == null || sketch == ""){
+            if (sketch == null || sketch == ""){
                 alert("请选择异常事项");
                 $("#sketchSelect").focus();
                 return;

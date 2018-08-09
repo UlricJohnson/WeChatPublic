@@ -12,14 +12,20 @@
 <form action="/user/login" method="post">
     <div class="weui-cells weui-cells_form">
         <div class="weui-cell">
-            <div class="weui-cell__hd"><label for="username" class="weui-label">用户名</label></div>
+            <span style="color: red;">*</span>
+            <div class="weui-cell__hd">
+                <label for="username" class="weui-label">用户名</label>
+            </div>
             <div class="weui-cell__bd">
                 <input id="username" class="weui-input" type="text" name="username"
                        placeholder="请输入用户名"/>
             </div>
         </div>
         <div class="weui-cell">
-            <div class="weui-cell__hd"><label for="contactNum" class="weui-label">联系电话</label></div>
+            <span style="color: red;">*</span>
+            <div class="weui-cell__hd">
+                <label for="contactNum" class="weui-label">联系电话</label>
+            </div>
             <div class="weui-cell__bd">
                 <input id="contactNum" class="weui-input" type="tel" name="contactNum"
                        pattern="^[1][3,4,5,7,8][0-9]{9}$" placeholder="请输入手机号码"/>
@@ -33,17 +39,35 @@
 
 <script>
     $(function () {
-        // 判断输入框是否全部填写完
-        $("input").each(function () {
-            $(this).change(function () {
-                // 如果还有没填写的就提示用户填写
-                if ($(this).val() == "") {
+        // 检查输入框，测试时的版本（不用使用正则验证手机号），部署前添加下面
+        $("#loginBtn").click(function () {
+            var flag = true;
+
+            // 检查是否填写
+            $("input").each(function () {
+                var value = $(this).val();
+                if (value == null || value == "") {
                     alert($(this).attr("placeholder"));
+                    flag = false;
+                    return false; // 结束 each 循环，结束本次循环返回true
                 }
             });
+
+            // 正则验证手机号格式（部署前记得解除注释）
+            /*var number = $("#contactNum").val();
+            var numReg = /^[1][3,4,5,7,8][0-9]{9}$/;
+            if (!numReg.test(number)) {
+                alert("手机号码格式错误");
+                flag = false;
+            }*/
+
+            if (flag) {
+                $("form")[0].submit();
+            }
         });
 
-        $("#loginBtn").click(function () {
+        // 检查输入框
+        /*$("#loginBtn").click(function () {
             // 检查手机号码是否填写正确
             var number = $("#contactNum").val();
 
@@ -54,8 +78,7 @@
             } else {
                 $("form")[0].submit();
             }
-
-        });
+        });*/
     });
 </script>
 

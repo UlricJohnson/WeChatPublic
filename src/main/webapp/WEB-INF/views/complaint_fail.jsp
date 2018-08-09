@@ -17,7 +17,7 @@
                 由于系统异常，您对电梯
                 <i style="color: #7B68EE;">${certificate}</i>
                 &nbsp;的反馈失败，请稍后重试！
-                <a href="javascript:void(0);">文字链接</a>
+                <%--<a href="javascript:void(0);">文字链接</a>--%>
             </p>
         </div>
     </div>

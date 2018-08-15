@@ -54,12 +54,12 @@
             });
 
             // 正则验证手机号格式（部署前记得解除注释）
-            /*var number = $("#contactNum").val();
+            var number = $("#contactNum").val();
             var numReg = /^[1][3,4,5,7,8][0-9]{9}$/;
             if (!numReg.test(number)) {
                 alert("手机号码格式错误");
                 flag = false;
-            }*/
+            }
 
             if (flag) {
                 $("form")[0].submit();

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.casaba.mapper.WeChatUserMapper">
+    <!-- 不包括 User -->
+    <resultMap id="wechat_user_map_base" type="com.casaba.entity.WeChatUser">
+        <id property="id" column="ID"/>
+        <result property="openId" column="OPEN_ID"/>
+        <result property="sex" column="SEX"/>
+    </resultMap>
+
+    <!-- 根据 open id 查询微信用户 -->
+    <select id="selectByOpenId" resultMap="wechat_user_map_base">
+        SELECT * FROM tb_wechat_user WHERE WC_OPEN_ID = #{openId}
+    </select>
+</mapper>

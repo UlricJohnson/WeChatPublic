@@ -6,14 +6,19 @@
         <id property="id" column="ID"/>
         <result property="username" column="USERNAME"/>
         <result property="contactNum" column="CONTACT_NUM"/>
+        <result property="wcOpenId" column="WC_OPEN_ID"/>
     </resultMap>
 
-    <!-- 查询 User 类对象，包括 complaintList -->
+    <!-- User 类对象映射，包括 complaintList -->
     <resultMap id="user_map_all" type="com.casaba.entity.User">
-        <!-- 因为主表和从表主键名一样，所以需要其中一个起别名，这里的 column 也跟着改 -->
+        <!-- 因为主表和从表主键名一样，所以需要其中一个起别名。这里的 column 是指查询结果中的列名，所以也要跟着改 -->
         <id property="id" column="UID"/>
         <result property="username" column="USERNAME"/>
         <result property="contactNum" column="CONTACT_NUM"/>
+        <result property="wcOpenId" column="WC_OPEN_ID"/>
+        <!-- property：在从表中的主表类对象的变量名；column：主表的关联的字段名；select：查询从表数据的方法； -->
+        <association property="weChatUser" column="WC_OPEN_ID" javaType="com.casaba.entity.WeChatUser"
+                     select="com.casaba.mapper.WeChatUserMapper.selectByOpenId"/>
         <collection property="complaintList" ofType="com.casaba.entity.Complaint" column="USER_ID">
             <id property="id" column="ID"/>
             <result property="details" column="DETAILS"/>

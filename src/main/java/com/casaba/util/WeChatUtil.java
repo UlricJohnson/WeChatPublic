@@ -18,7 +18,10 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.ServletContext;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * created by Ulric on 2018/7/25
@@ -27,9 +30,6 @@ import java.util.Arrays;
 public final class WeChatUtil {
 
     private static Log LOGGER = LogFactory.getLog(WeChatUtil.class);
-
-    // 在微信公众平台后台 -> 服务器配置 中设置的开发者自定义的Token
-//    public static final String TOKEN = "nhtx";
 
     /**
      * 检查微信服务器传过来的 signature 参数，从而验证请求是否来自微信服务器
@@ -47,7 +47,9 @@ public final class WeChatUtil {
         //3.生成字符串
         StringBuffer stringBuffer = new StringBuffer();
 
-        for (String s : arr) { stringBuffer.append(s); }
+        for (String s : arr) {
+            stringBuffer.append(s);
+        }
 
         //4.sha1加密,网上均有现成代码
         String temp = CommonUtil.encryptInSha1(stringBuffer.toString());
@@ -64,7 +66,6 @@ public final class WeChatUtil {
      * @author Ulric
      * @date 2018/7/26
      */
-//    public static String getAccessToken(String apiUrl, String appId, String appSecret) {
     public static String getAccessToken() {
         Object lock = new Object();
         synchronized (lock) {
@@ -192,5 +193,60 @@ public final class WeChatUtil {
                 return jsapiTicket;
             }
         }
+    }
+
+    /**
+     * 网页授权
+     *
+     * @param redirectUri 授权后重定向的回调链接地址， 要使用 urlEncode 对链接进行处理（MIME编码）
+     * @param isBase      授权作用域：是否为静默授权： snsapi_base（不弹出授权页面），是则为true，否则（snsapi_userinfo）为false
+     * @param state       跳转到回调页面携带的参数，要拼接成url参数形式（p1=v1&p2=v2）
+     * @author casaba-u
+     * @date 2018/8/16
+     */
+    public static Map<String, Object> oAuth(String redirectUri, boolean isBase, String state) {
+        Map<String, Object> resultMap = new HashMap();
+
+        String scope = null;
+        if (isBase) {
+            scope = "snsapi_base";
+        } else {
+            scope = "snsapi_userinfo";
+        }
+
+        // 重定向页面需要携带参数
+        String statePram = "";
+        if (state != null && state != "") {
+            statePram = "&state=" + state;
+        }
+
+        /**
+         * 由于授权操作安全等级较高，所以在发起授权请求时，微信会对授权链接做正则强匹配校验，
+         * 如果链接的参数顺序不对，授权页面将无法正常访问
+         */
+        String requestUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
+                "appid=wxf0e81c3bee622d60" +
+                "&redirect_uri=" + URLEncoder.encode(redirectUri) +
+                "&response_type=code" +
+                "&scope=" + scope +
+                statePram +
+                "#wechat_redirect";
+
+        LOGGER.info("=====完整的请求URL：" + requestUrl);
+
+        JsonObject respJsonObj = null;
+        try {
+            respJsonObj = CommonUtil.requestGet(requestUrl);
+            if (respJsonObj != null) {
+                resultMap.put("success", true);
+                resultMap.put("json", respJsonObj);
+            }
+        } catch (IOException e) {
+            resultMap.put("success", false);
+            e.printStackTrace();
+        } finally {
+            return resultMap;
+        }
+
     }
 }

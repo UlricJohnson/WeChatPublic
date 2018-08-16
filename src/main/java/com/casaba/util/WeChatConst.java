@@ -14,7 +14,10 @@ public final class WeChatConst {
     // AppSecret
     public static final String APP_SECRET = "698b110c15a07f274aa829c0a4b93874";
 
-    /*** ============================== ***/
+    // 域名，要跳转页面的话在后面加上 /toJsp/xxx
+    public static final String DOMAIN = "http://www.fsnhtx.net";
+
+    /*** ============access_token================== ***/
 
     // 获取 access_token 的 url（没有拼接参数）
     public static final String GET_ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token";
@@ -28,7 +31,7 @@ public final class WeChatConst {
     // 缓存 access_token 的文件名（没有后缀名）
 //    public static final String ACCESS_TOKEN_FILE_NAME = "accessTokenCache";
 
-    /*** =============================== ***/
+    /*** ==============jsapi_ticket================= ***/
 
     // 获取 jsapi_ticket 的 url
     public static final String GET_JSAPI_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket";

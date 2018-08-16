@@ -5,7 +5,14 @@
     <resultMap id="wechat_user_map_base" type="com.casaba.entity.WeChatUser">
         <id property="id" column="ID"/>
         <result property="openId" column="OPEN_ID"/>
+        <result property="nickname" column="NICKNAME"/>
         <result property="sex" column="SEX"/>
+        <result property="province" column="PROVINCE"/>
+        <result property="city" column="CITY"/>
+        <result property="country" column="COUNTRY"/>
+        <result property="headImgUrl" column="HEAD_IMG_URL"/>
+        <result property="privilege" column="PRIVILEGE"/>
+        <result property="unionId" column="UNION_ID"/>
     </resultMap>
 
     <!-- 根据 open id 查询微信用户 -->

@@ -131,16 +131,15 @@
                     var signature = result.signature;
 
                     // alert("开始wx.config()");
-
                     wx.config({
                         // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-                        debug: false,    // 发布前记得改为 false ！！！！
-                        appId: appId, // 必填，公众号的唯一标识
-                        timestamp: timestamp, // 必填，生成签名的时间戳
-                        nonceStr: noncestr, // 必填，生成签名的随机串
-                        signature: signature,// 必填，签名，见附录1
+                        "debug": true,    // 发布前记得改为 false ！！！！
+                        "appId": appId, // 必填，公众号的唯一标识
+                        "timestamp": timestamp, // 必填，生成签名的时间戳
+                        "nonceStr": noncestr, // 必填，生成签名的随机串
+                        "signature": signature,// 必填，签名，见附录1
                         // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-                        jsApiList: jsApiList
+                        "jsApiList": jsApiList
                     });
                 }
             });
@@ -149,7 +148,7 @@
             config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后。
             config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。
             对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
-        */
+            */
             wx.ready(function () {
                 wx.checkJsApi({
                     jsApiList: jsApiList,
@@ -165,7 +164,7 @@
                 });
             });
             wx.error(function (result) {
-                alert("验证失败，请重试！");
+                alert("wx.config()验证失败，请重试！");
                 wx.closeWindow();
             });
         });
@@ -196,10 +195,6 @@
                     for (var i = 0; i < images.localId.length; i++) {
                         $("#picDiv").append("<img style='width: 80px; height: 80px' src='" + images.localId[i] + "'/>");
                     }
-
-//                var currUpload = 0, length = images.localId.length;
-//                images.serverId = [];
-//                uploadImage(currUpload, length)
 
                     // 设置延迟100毫秒执行上传操作
                     setTimeout(wxUploadImage, 100);
@@ -245,111 +240,6 @@
         }
     });
 
-    // 上传图片
-    //    function uploadImage(curr, length) { // 当前已上传的图片数；总共要上传的图片数量
-    //        wx.uploadImage({
-    //            localId: images.localId[curr],
-    //            success: function (result) {
-    //                alert("wx.uploadImage：success");
-    //                curr++;
-    //                images.serverId.push(result.serverId); // 返回图片的服务器端ID，即 mediaId
-    //
-    //                // 将获取到的 serverId 传入后台，保存图片
-    //                $.post({
-    //                    url: "/complaint/saveImage",
-    //                    data: {serverId: images.serverId},
-    //                    success:function (result) {
-    //
-    //                    }
-    //                });
-    //
-    //                // 图片上传完成之后，进行图片的下载，图片上传完成之后会返回一个在腾讯服务器的存放的图片的ID--->serverId
-    //                wx.downloadImage({
-    //                    serverId: result.serverId,  // 需要下载的图片的服务器端ID，由 uploadImage 接口获得
-    //                    isShowProgressTips: 1,   // 1：显示进度提示（默认项）
-    //                    success: function (result) {
-    //                        alert("wx.downloadImage：success");
-    //                        var loacalId = result.localId;  // 返回图片下载后的本地ID（应该跟上传之前的 localId 不一样）
-    //
-    //                        // wx.getLocalImgData()接口仅在 iOS WKWebview 下提供，用于兼容 iOS WKWebview 不支持 localId 直接显示图片的问题
-    //
-    //                        // 通过下载的本地的 ID 获取的图片的 base64 数据，通过对数据的转换进行图片的保存
-    ////                        wx.getLocalImgData({
-    ////                            localId: localId,  // 图片的本地ID
-    ////                            success: function (result) {
-    ////                                alert("wx.getLocalImgData：success");
-    ////                                var localData = result.localData; // localData 是图片的 base64 数据，可以用 img 标签显示
-    //////                                alert("下载下来的图片数量：" + localData.length);
-    ////                                alert("下载下来的图片localData：" + localData);
-    ////
-    ////                                // 通过 AJAX 发送请求到后台，将 base64 数据转换成图片保存在本地
-    ////                                $.ajax({
-    ////                                    url: "/complaint/uploadImage",
-    ////                                    type: "POST",
-    ////                                    async: "false",
-    ////                                    dataType: "html",
-    ////                                    data: {localData: localData},
-    ////                                    success: function (result) {
-    //////                                        if ((typeof(result) == "object") &&
-    //////                                            (Object.prototype.toString.call(result).toLowerCase() == "[object object]") &&
-    //////                                            (!result.length)) { // 返回数据为JSON对象
-    //////                                            alert("返回JSON数据result\n----complaint.jsp");
-    //////                                        }
-    ////                                        var mydata = JSON.parse(result);
-    ////                                        if (mydata.success == true) {
-    ////                                            alert("已上传：" + curr + "/" + length);
-    ////                                        } else {
-    ////                                            alert("第 " + curr + "/" + length + "上传失败");
-    ////                                        }
-    ////                                    },
-    ////                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-    ////                                        alert("上传异常：" + errorThrown);
-    ////                                    }
-    ////                                });
-    ////                                $("#picDiv").append("<img src='" + localData + "'/>");
-    ////                                imgUrl += localData + ";";
-    ////                            }
-    ////                        });
-    //                    }
-    //                });
-    //                if (curr < length) { // 还有图片要上传
-    //                    uploadImage(curr, length);
-    //                    return;
-    //                }
-    //            },
-    //            fail: function (result) {
-    //                alert(JSON.stringify(result));
-    //            }
-    //        });
-    //    }
-
-    /*$(function () {
-        $("#submitComplaint").click(function () {
-            var sketchOption = $("#sketchSelect option:selected");
-            var certificate = $("#certificateDiv span").text();
-            var sketch = sketchOption.val();
-            var username = $("#username").val();
-            var contactNum = $("#contactNum").val();
-            var details = $("#details").val();
-
-            var data = JSON.stringify({
-                "certificate": $("#certificateDiv").text(),
-                "sketch": sketchOption.val(),
-                "username": $("#username").val(),
-                "contactNum": $("#contactNum").val(),
-                "details": $("#details").val()
-            });
-            $.ajax({
-                url: "/complaint/doComplaint",
-                type: "POST",
-                dataType: "JSON",
-                data: data,
-                success: function () {
-                    window.location.href = "complaint_success.jsp?username=" + username + "&certificate=" + certificate;
-                }
-            });
-        });
-    });*/
 </script>
 
 </body>

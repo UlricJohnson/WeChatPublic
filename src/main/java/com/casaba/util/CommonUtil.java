@@ -1,5 +1,17 @@
 package com.casaba.util;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+
+import java.io.IOException;
 import java.security.MessageDigest;
 
 /**
@@ -7,6 +19,7 @@ import java.security.MessageDigest;
  */
 
 public final class CommonUtil {
+    private static final Log LOGGER = LogFactory.getLog(CommonUtil.class);
 
     /**
      * 将字符串进行 sha1 加密
@@ -15,7 +28,9 @@ public final class CommonUtil {
      * @date 2018/7/17
      */
     public static String encryptInSha1(String str) {
-        if (str == null || str.length() == 0) { return null; }
+        if (str == null || str.length() == 0) {
+            return null;
+        }
 
         char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
@@ -57,4 +72,30 @@ public final class CommonUtil {
         }
         return (int) ((random * num));
     }
+
+    /**
+     * 传入一个完整的请求URL，返回JSON数据
+     *
+     * @author casaba-u
+     * @date 2018/8/16
+     */
+    public static JsonObject requestGet(String url) throws IOException {
+        LOGGER.info("=====请求URL：" + url);
+
+        HttpClient client = new DefaultHttpClient();
+        HttpGet get = new HttpGet(url);
+
+        JsonParser jsonParser = new JsonParser();
+
+        HttpResponse response = client.execute(get);
+        HttpEntity entity = response.getEntity();
+        // 将返回数据转成JSON字符串
+        String responseStr = EntityUtils.toString(entity, "UTF-8");
+
+        // 将JSON字符串转成JSON对象
+        JsonObject respJsonObj = jsonParser.parse(responseStr).getAsJsonObject();
+
+        return respJsonObj;
+    }
+
 }

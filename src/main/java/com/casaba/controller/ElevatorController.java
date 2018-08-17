@@ -51,7 +51,7 @@ public class ElevatorController {
         if (null == elevator) {
 //            resultMap.put("success", false);
 //            resultMap.put("message", "没有数据");
-            mv.setViewName("not_found");
+            mv.setViewName("error");
             mv.addObject("msg", "没有数据");
         } else {
 //            resultMap.put("success", true);

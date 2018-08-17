@@ -42,4 +42,12 @@ public interface UserMapper {
      * @date 2018/8/3
      */
     User selectUserByUserame$ContactNum(@Param("username") String username, @Param("contactNum") String contactNum);
+
+    /**
+     * 根据微信用户的openid查询
+     *
+     * @author casaba-u
+     * @date 2018/8/17
+     */
+    User selectByWcOpenId(@Param("openId") String openId);
 }

@@ -79,7 +79,7 @@ public final class CommonUtil {
      * @author casaba-u
      * @date 2018/8/16
      */
-    public static JsonObject requestGet(String url) throws IOException {
+    public static JsonObject doGetJson(String url) throws IOException {
         LOGGER.info("=====请求URL：" + url);
 
         HttpClient client = new DefaultHttpClient();
@@ -94,6 +94,9 @@ public final class CommonUtil {
 
         // 将JSON字符串转成JSON对象
         JsonObject respJsonObj = jsonParser.parse(responseStr).getAsJsonObject();
+
+        // 释放链接
+        get.releaseConnection();
 
         return respJsonObj;
     }

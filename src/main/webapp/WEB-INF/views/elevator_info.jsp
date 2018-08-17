@@ -141,10 +141,13 @@
     </div>
 
     <form action="/complaint/toComplaint_eleInfo" method="post">
+    <%--<form action="/wechat/wclogin" method="post">--%>
         <%-- 使用证编号 --%>
         <input type="hidden" value="${elevator.certificateOfUse}" name="certificateOfUse">
         <%-- 设备地址 --%>
         <input type="hidden" value="${elevator.deviceAddress}" name="deviceAddress">
+        <%-- 网页授权后的回调地址 --%>
+        <%--<input type="hidden" value="/complaint/toComplaint_eleInfo" name="redirectUri">--%>
         <div class="weui-btn-area">
             <a class="weui-btn weui-btn_warn" id="complaintBtn" href="javascript:">投诉</a>
         </div>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -48,21 +49,29 @@ public class ComplaintController {
      * @date 2018/7/23
      */
     @RequestMapping("/toComplaint_fillIn")
-    public ModelAndView toComplaint_fillIn(String certificateOfUse) {
+    public ModelAndView toComplaint_fillIn(String certificateOfUse, RedirectAttributes rediAttr) {
         LOGGER.info("=====您要投诉的电梯为：" + certificateOfUse);
 
         ModelAndView mv = new ModelAndView();
 
-
         // 查找出该电梯的设备地址
         Elevator elevator = iElevatorService.findByCertificate(certificateOfUse);
 
-        if(elevator==null){
-            mv.setViewName("not_found");
-            mv.addObject("msg","您查找的数据不存在");
-        }else{
-            mv.setViewName("complaint");
-            mv.addObject("elevator", elevator);
+        if (elevator == null) {
+            mv.setViewName("error");
+            mv.addObject("msg", "您查找的数据不存在");
+        } else {
+//            mv.setViewName("complaint");
+//            mv.addObject("elevator", elevator);
+
+            Map paramMap = new HashMap();
+
+            paramMap.put("elevator", elevator);
+
+            rediAttr.addAttribute("toJsp", "complaint"); // 授权后要跳到 complaint.jsp
+            rediAttr.addAttribute("paramMap", paramMap); // 携带的参数
+
+            mv.setViewName("redirect:/wechat/wclogin");
         }
 
         return mv;
@@ -74,16 +83,30 @@ public class ComplaintController {
      * @author Ulric
      * @date 2018/7/23
      */
-    @RequestMapping(value = "/toComplaint_eleInfo", method = RequestMethod.POST)
+//    @RequestMapping(value = "/toComplaint_eleInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/toComplaint_eleInfo")
 //    @ResponseBody   // @ResponseBody 注解表示返回的字符串不是视图名称，而是JSON字符串
-    public ModelAndView toComplaint_eleInfo(String certificateOfUse, String deviceAddress) {
+    public ModelAndView toComplaint_eleInfo(String certificateOfUse, String deviceAddress, RedirectAttributes rediAttr) {
         Elevator elevator = new Elevator();
         elevator.setCertificateOfUse(certificateOfUse);
         elevator.setDeviceAddress(deviceAddress);
 
+        Map paramMap = new HashMap();
+
+//        paramMap.put("certificateOfUse", certificateOfUse);
+//        paramMap.put("deviceAddress", deviceAddress);
+        paramMap.put("elevator", elevator);
+
+        rediAttr.addAttribute("toJsp", "complaint"); // 授权后要跳到 complaint.jsp
+        rediAttr.addAttribute("paramMap", paramMap); // 携带的参数
+
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("complaint");
-        mv.addObject("elevator", elevator);
+
+        // 先进行微信登录
+        mv.setViewName("redirect:/wechat/wclogin");
+
+//        mv.setViewName("complaint");
+//        mv.addObject("elevator", elevator);
 
         return mv;
     }
@@ -152,7 +175,7 @@ public class ComplaintController {
         }
         String imgRootPath = webRootPath + "/img_upload";
         File imgDir = new File(imgRootPath);
-        if(!imgDir.exists()){
+        if (!imgDir.exists()) {
             imgDir.mkdirs();
         }
         imgName = System.currentTimeMillis() + CommonUtil.genRandom(4) + ".png";
@@ -188,7 +211,6 @@ public class ComplaintController {
             }
             return resultMap;
         }
-
 
 //        String imageBase64Str = getImageBase64Str(localData);
 //

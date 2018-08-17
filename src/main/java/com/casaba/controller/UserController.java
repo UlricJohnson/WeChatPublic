@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -41,15 +42,22 @@ public class UserController {
      * @date 2018/8/3
      */
     @RequestMapping("/login")
-    public ModelAndView login(String username, String contactNum) {
+    public ModelAndView login(String username, String contactNum, String toJsp, String openId) {
         LOGGER.info("=====接收到的参数：\n\t#username: " + username +
-                "\n\t#contactNum: " + contactNum);
+                "\n\t#contactNum: " + contactNum +
+                "\n\t#toJsp: " + toJsp +
+                "\n\t#openId: " + openId);
 
         ModelAndView mv = new ModelAndView();
 
         User user = new User();
         user.setUsername(username);
         user.setContactNum(contactNum);
+
+        // 微信用户和电梯用户进行绑定
+        if (openId != null && (!"".equals(openId))) {
+            user.setWcOpenId(openId);
+        }
 
         // 用户登录
         User loginUser = iUserService.login(user);
@@ -84,11 +92,14 @@ public class UserController {
 
             mv.addObject("loginUser", loginUser);
             mv.addObject("complaintList", complaintList);
-//            mv.addObject("elevatorList", elevatorList);
-            mv.setViewName("my_complaint");
+
+            if (toJsp != null && (!"".equals(toJsp))) {
+                mv.setViewName(toJsp);
+            }
+//            mv.setViewName("my_complaint");
         } else {
             mv.addObject("msg", "用户不存在");
-            mv.setViewName("not_found");
+            mv.setViewName("error");
         }
 
         return mv;

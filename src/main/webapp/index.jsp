@@ -11,11 +11,14 @@
 </head>
 <body>
 <h2>Hello World!</h2>
-<a href="/toJsp/complaint_fill_in" class="weui-btn weui-btn_warn">投诉电梯</a>
-<br>
 <a href="/toJsp/search_elevator" class="weui-btn weui-btn_primary">查找电梯</a>
 <br>
-<a href="/toJsp/login" class="weui-btn weui-btn_default">用户登录</a>
+<a href="/toJsp/complaint_fill_in" class="weui-btn weui-btn_warn">投诉电梯</a>
+<br>
+<a href="/toJsp/login" class="weui-btn weui-btn_default">我的投诉</a>
 <%--<a href="/toHtml/test">测试SpringMVC和HTML交互</a>--%>
+<br>
+<a href="/wechat/wclogin" class="weui-btn weui-btn_plain-default">微信登录</a>
+
 </body>
 </html>

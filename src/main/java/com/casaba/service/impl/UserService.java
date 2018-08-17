@@ -43,4 +43,20 @@ public class UserService implements IUserService {
 
         return user;
     }
+
+    /**
+     * 根据微信用户的openid查询电梯用户
+     *
+     * @param openId
+     * @author casaba-u
+     * @date 2018/8/17
+     */
+    @Override
+    public User findByWcOpenId(String openId) {
+        LOGGER.info("=====接收到的参数：\n\t#openId：" + openId);
+
+
+
+        return null;
+    }
 }

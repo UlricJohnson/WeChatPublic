@@ -17,6 +17,7 @@ import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Arrays;
@@ -204,49 +205,50 @@ public final class WeChatUtil {
      * @author casaba-u
      * @date 2018/8/16
      */
-    public static Map<String, Object> oAuth(String redirectUri, boolean isBase, String state) {
-        Map<String, Object> resultMap = new HashMap();
-
-        String scope = null;
-        if (isBase) {
-            scope = "snsapi_base";
-        } else {
-            scope = "snsapi_userinfo";
-        }
-
-        // 重定向页面需要携带参数
-        String statePram = "";
-        if (state != null && state != "") {
-            statePram = "&state=" + state;
-        }
-
-        /**
-         * 由于授权操作安全等级较高，所以在发起授权请求时，微信会对授权链接做正则强匹配校验，
-         * 如果链接的参数顺序不对，授权页面将无法正常访问
-         */
-        String requestUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
-                "appid=wxf0e81c3bee622d60" +
-                "&redirect_uri=" + URLEncoder.encode(redirectUri) +
-                "&response_type=code" +
-                "&scope=" + scope +
-                statePram +
-                "#wechat_redirect";
-
-        LOGGER.info("=====完整的请求URL：" + requestUrl);
-
-        JsonObject respJsonObj = null;
-        try {
-            respJsonObj = CommonUtil.requestGet(requestUrl);
-            if (respJsonObj != null) {
-                resultMap.put("success", true);
-                resultMap.put("json", respJsonObj);
-            }
-        } catch (IOException e) {
-            resultMap.put("success", false);
-            e.printStackTrace();
-        } finally {
-            return resultMap;
-        }
-
-    }
+//    public static void oAuth(String redirectUri, boolean isBase, String state, HttpServletResponse response) throws IOException {
+////        Map<String, Object> resultMap = new HashMap();
+//
+//        String scope = null;
+//        if (isBase) {
+//            scope = "snsapi_base";
+//        } else {
+//            scope = "snsapi_userinfo";
+//        }
+//
+//        // 重定向页面需要携带参数
+//        String statePram = "";
+//        if (state != null && state != "") {
+//            statePram = "&state=" + state;
+//        }
+//
+//        /**
+//         * 由于授权操作安全等级较高，所以在发起授权请求时，微信会对授权链接做正则强匹配校验，
+//         * 如果链接的参数顺序不对，授权页面将无法正常访问
+//         */
+//        String requestUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
+//                "appid=" + WeChatConst.APP_ID +
+//                "&redirect_uri=" + URLEncoder.encode(redirectUri) +
+//                "&response_type=code" +
+//                "&scope=" + scope +
+//                statePram +
+//                "#wechat_redirect";
+//
+//        LOGGER.info("=====完整的请求URL：" + requestUrl);
+//
+////        JsonObject respJsonObj = null;
+////        try {
+////            respJsonObj = CommonUtil.doGetJson(requestUrl);
+////            if (respJsonObj != null) {
+////                resultMap.put("success", true);
+////                resultMap.put("json", respJsonObj);
+////            }
+////        } catch (IOException e) {
+////            resultMap.put("success", false);
+////            e.printStackTrace();
+////        } finally {
+////            return resultMap;
+////        }
+//        // 用重定向的方式进行请求
+//        response.sendRedirect(requestUrl);
+//    }
 }

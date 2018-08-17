@@ -31,6 +31,8 @@
                        pattern="^[1][3,4,5,7,8][0-9]{9}$" placeholder="请输入手机号码"/>
             </div>
         </div>
+        <input type="hidden" name="toJsp" value="${toJsp}">
+        <input type="hidden" name="openId" value="${wcUser.openId}">
         <div class="weui-btn-area">
             <a id="loginBtn" href="javascript:;" class="weui-btn weui-btn_primary">登录</a>
         </div>

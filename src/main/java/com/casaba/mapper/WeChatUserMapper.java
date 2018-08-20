@@ -17,4 +17,12 @@ public interface WeChatUserMapper {
      */
     WeChatUser selectByOpenId(@Param("openId") String openId);
 
+    /**
+     * 添加一个微信用户
+     *
+     * @author casaba-u
+     * @date 2018/8/20
+     */
+    boolean insertWeChatUser(@Param("wcUser") WeChatUser wcUser);
+
 }

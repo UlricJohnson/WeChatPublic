@@ -17,6 +17,13 @@
 
     <!-- 根据 open id 查询微信用户 -->
     <select id="selectByOpenId" resultMap="wechat_user_map_base">
-        SELECT * FROM tb_wechat_user WHERE WC_OPEN_ID = #{openId}
+        SELECT * FROM tb_wechat_user WHERE OPEN_ID = #{openId}
     </select>
+
+    <!-- 添加一个微信用户 -->
+    <insert id="insertWeChatUser" parameterType="com.casaba.entity.WeChatUser">
+        INSERT INTO tb_wechat_user VALUES (#{wcUser.id}, #{wcUser.openId}, #{wcUser.nickname}, #{wcUser.sex}, #{wcUser.province},
+            #{wcUser.city}, #{wcUser.country}, #{wcUser.headImgUrl}, #{wcUser.privilege}, #{wcUser.unionId})
+    </insert>
+
 </mapper>

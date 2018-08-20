@@ -35,8 +35,8 @@
     </select>
 
     <!-- 添加一个用户 -->
-    <insert id="addUser" parameterType="com.casaba.entity.User">
-        INSERT INTO tb_user VALUES (#{id}, #{username}, #{contactNum})
+    <insert id="insertUser" parameterType="com.casaba.entity.User">
+        INSERT INTO tb_user VALUES (#{id}, #{username}, #{contactNum}, #{wcOpenId})
     </insert>
 
     <!--获取最新插入的主键ID（即最大的ID）-->
@@ -65,4 +65,12 @@
     <select id="selectByWcOpenId" resultMap="user_map_base">
         SELECT * FROM tb_user WHERE WC_OPEN_ID = #{openId}
     </select>
+
+    <!-- 根据用户名，更新电梯用户信息 -->
+    <update id="updateUserByName" parameterType="com.casaba.entity.User">
+        UPDATE tb_user
+        SET CONTACT_NUM = #{contactNum},
+            WC_OPEN_ID = #{wcOpenId}
+        WHERE USERNAME = #{username}
+    </update>
 </mapper>

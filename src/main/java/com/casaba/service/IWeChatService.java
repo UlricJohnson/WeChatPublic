@@ -15,4 +15,11 @@ public interface IWeChatService {
      */
     boolean addWcUser(WeChatUser wcUser);
 
+    /**
+     * 根据 open id 查询是否存在指定微信用户
+     * @author casaba-u
+     * @date 2018/8/20
+     */
+    boolean isExist(String openid);
+
 }

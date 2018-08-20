@@ -64,12 +64,12 @@ public class ComplaintController {
 //            mv.setViewName("complaint");
 //            mv.addObject("elevator", elevator);
 
-            Map paramMap = new HashMap();
+//            Map paramMap = new HashMap();
 
-            paramMap.put("elevator", elevator);
+//            paramMap.put("elevator", elevator);
 
             rediAttr.addAttribute("toJsp", "complaint"); // 授权后要跳到 complaint.jsp
-            rediAttr.addAttribute("paramMap", paramMap); // 携带的参数
+//            rediAttr.addAttribute("paramMap", paramMap); // 携带的参数
 
             mv.setViewName("redirect:/wechat/wclogin");
         }
@@ -95,10 +95,11 @@ public class ComplaintController {
 
 //        paramMap.put("certificateOfUse", certificateOfUse);
 //        paramMap.put("deviceAddress", deviceAddress);
+
         paramMap.put("elevator", elevator);
 
         rediAttr.addAttribute("toJsp", "complaint"); // 授权后要跳到 complaint.jsp
-        rediAttr.addAttribute("paramMap", paramMap); // 携带的参数
+//        rediAttr.addAttribute("paramMap", paramMap); // 携带的参数
 
         ModelAndView mv = new ModelAndView();
 
@@ -121,10 +122,10 @@ public class ComplaintController {
     public ModelAndView doComplaint(String certificate, String sketch, String username, String contactNum, String
             details, String imgUrl) {
         LOGGER.info("=====接收到的参数：\n\t#certificate：" + certificate +
-                "\n\tsketch：" + sketch +
-                "\n\tusername：" + username +
-                "\n\tcontactNum：" + contactNum +
-                "\n\tdetails：" + details +
+                "\n\t#sketch：" + sketch +
+                "\n\t#username：" + username +
+                "\n\t#contactNum：" + contactNum +
+                "\n\t#details：" + details +
                 "\n\t#imgUrl：" + imgUrl);
 
         ModelAndView mv = new ModelAndView();

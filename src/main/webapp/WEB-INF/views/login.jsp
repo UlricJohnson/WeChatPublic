@@ -27,14 +27,14 @@
                 <label for="contactNum" class="weui-label">联系电话</label>
             </div>
             <div class="weui-cell__bd">
-                <input id="contactNum" class="weui-input" type="tel" name="contactNum"
+                <input id="contactNum" class="weui-input" type="text" name="contactNum"
                        pattern="^[1][3,4,5,7,8][0-9]{9}$" placeholder="请输入手机号码"/>
             </div>
         </div>
         <input type="hidden" name="toJsp" value="${toJsp}">
         <input type="hidden" name="openId" value="${wcUser.openId}">
         <div class="weui-btn-area">
-            <a id="loginBtn" href="javascript:;" class="weui-btn weui-btn_primary">登录</a>
+            <a id="loginBtn" href="javascript:;" class="weui-btn weui-btn_primary">登录/注册</a>
         </div>
     </div>
 </form>
@@ -46,7 +46,7 @@
             var flag = true;
 
             // 检查是否填写
-            $("input").each(function () {
+            $("input [type='text']").each(function () {
                 var value = $(this).val();
                 if (value == null || value == "") {
                     alert($(this).attr("placeholder"));

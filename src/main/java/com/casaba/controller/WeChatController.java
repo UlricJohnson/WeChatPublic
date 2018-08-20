@@ -17,6 +17,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
@@ -162,10 +163,10 @@ public class WeChatController {
      * @date 2018/8/17
      */
     @RequestMapping("/wclogin")
-    public void wcLogin(HttpServletResponse response,
-                        @ModelAttribute("toJsp") String toJsp, /* 授权完成之后要跳到的页面 */
-                        @ModelAttribute("paramMap") Map paramMap,/* 携带到那个页面的参数 */
-                        RedirectAttributes rediAttr) {
+    public void wcLogin(HttpServletRequest request,
+                        HttpServletResponse response,
+                        @ModelAttribute("toJsp") String toJsp /* 授权完成之后要跳到的页面 */
+            /*RedirectAttributes rediAttr*/) {
         // 回调地址
         String redirectUri = WeChatConst.DOMAIN + "/wechat/wcCallback";
 
@@ -198,16 +199,20 @@ public class WeChatController {
              */
             String requestUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
                     "appid=" + WeChatConst.APP_ID +
-                    "&redirect_uri=" + URLEncoder.encode(redirectUri) +
+                    "&redirect_uri=" + URLEncoder.encode(redirectUri, "UTF-8") +
                     "&response_type=code" +
                     "&scope=snsapi_userinfo" +
-//                    stateParamBuf.toString() +
+//                    stateParamBuf.toString() + // state 参数是为了防止数据被拦截？可以不用
                     "#wechat_redirect";
 
             LOGGER.info("=====完整的请求URL：" + requestUrl);
 
-            rediAttr.addAttribute("toJsp", toJsp);
-            rediAttr.addAttribute("paramMap", paramMap);
+//            rediAttr.addAttribute("toJsp", toJsp);
+//            rediAttr.addAttribute("paramMap", paramMap);
+
+            HttpSession session = request.getSession();
+            session.setAttribute("toJsp", toJsp);
+            session.setMaxInactiveInterval(60); // 配置会话有效时长为1分钟
 
             // 用重定向的方式进行请求
             response.sendRedirect(requestUrl);
@@ -223,16 +228,20 @@ public class WeChatController {
      * @date 2018/8/17
      */
     @RequestMapping("/wcCallback")
-    public ModelAndView wcCallback(HttpServletRequest request,
-                                   @ModelAttribute("toJsp") String toJsp, /* 授权完成之后要跳到的页面 */
-                                   @ModelAttribute("paramMap") Map paramMap,/* 携带到那个页面的参数 */
-                                   RedirectAttributes rediAttr) throws IOException {
+    public ModelAndView wcCallback(HttpServletRequest request
+//                                   @ModelAttribute("toJsp") String toJsp, /* 授权完成之后要跳到的页面 */
+//                                   @ModelAttribute("paramMap") Map paramMap,/* 携带到那个页面的参数 */
+                                   /*RedirectAttributes rediAttr*/) throws IOException {
 //        LOGGER.info("=====");
 
         ModelAndView mv = new ModelAndView();
 
         // 获取微信传回的 code
         String code = request.getParameter("code");
+
+        // 获取 授权完成之后要跳到的页面 名称 toJsp
+        HttpSession session = request.getSession();
+        String toJsp = (String) session.getAttribute("toJsp");
 
         /*
          * 1、获取code后，请求以下链接获取access_token：
@@ -298,20 +307,26 @@ public class WeChatController {
 
         // ==============1、根据openid可以查询到电梯用户，说明已经绑定微信用户
         if (eleUser != null) {
+            LOGGER.info("=====已经绑定微信用户");
+
             // 使用电梯用户登录
             mv.setViewName(toJsp);
-            if (toJsp.equals("complaint")) { // 如果要跳转到投诉页面 complaint.jsp，则携带的参数为 elevator
-                Elevator elevator = (Elevator) paramMap.get("elevator");
-                mv.addObject("elevator", elevator);
-            }
+            mv.addObject("eleUser",eleUser);
+//            if (toJsp.equals("complaint")) { // 如果要跳转到投诉页面 complaint.jsp，则携带的参数为 elevator
+//                Elevator elevator = (Elevator) paramMap.get("elevator");
+//                mv.addObject("elevator", elevator);
+//            }
             return mv;
         }
 
         // ==========2、未绑定微信用户
+        LOGGER.info("=====未绑定微信用户");
+
         WeChatUser wcUser = new WeChatUser();
         wcUser.setOpenId(wcInfoJson.get("openid").getAsString());
         wcUser.setNickname(wcInfoJson.get("nickname").getAsString());
         wcUser.setSex(wcInfoJson.get("sex").getAsInt());
+//        wcInfoJson.get("language").getAsString();
         wcUser.setProvince(wcInfoJson.get("province").getAsString());
         wcUser.setCity(wcInfoJson.get("city").getAsString());
         wcUser.setCountry(wcInfoJson.get("country").getAsString());
@@ -323,10 +338,19 @@ public class WeChatController {
             strBuf.append(privileges.get(i).getAsString() + ";");
         }
 
-        wcUser.setUnionId(wcInfoJson.get("unionid").getAsString());
+        // unionid 要绑定开放平台才会有
+        if (wcInfoJson.has("unionid")) {
+            wcUser.setUnionId(wcInfoJson.get("unionid").getAsString());
+        }
 
-        // 把微信用户添加到数据库
-        iWeChatService.addWcUser(wcUser);
+        try {
+            // 如果微信用户在数据库中不存在，则把ta添加到数据库
+            if (!iWeChatService.isExist(wcUser.getOpenId())) {
+                iWeChatService.addWcUser(wcUser);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // 跳到登录页面，使用账号和手机号登录，然后进行电梯用户绑定微信用户的操作
         mv.setViewName("login");

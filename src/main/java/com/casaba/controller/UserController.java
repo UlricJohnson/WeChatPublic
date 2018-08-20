@@ -6,6 +6,7 @@ import com.casaba.entity.User;
 import com.casaba.service.IComplaintService;
 import com.casaba.service.IElevatorService;
 import com.casaba.service.IUserService;
+import com.casaba.service.impl.UserService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.jws.WebParam;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -60,11 +62,11 @@ public class UserController {
         }
 
         // 用户登录
-        User loginUser = iUserService.login(user);
+        User loginUser = iUserService.login(user.getUsername(), user.getContactNum());
 
         LOGGER.info("=====用户登录：查询出来的用户：" + loginUser);
 
-        if (user != null) {
+        if (loginUser != null) {
             // 该用户的所有投诉单
 //            List<Complaint> complaintList = iComplaintService.findComplaintsByUser(loginUser);
             List<Complaint> complaintList = loginUser.getComplaintList();
@@ -83,6 +85,7 @@ public class UserController {
 
             LOGGER.info("=====返回页面的数据：\n\t#loginUser: " + loginUser +
                     "\n\t#complaintList: " + complaintList);
+
 //                    "\n\t#elevatorList: " + elevatorList);
 
 //            LOGGER.info("=====complaintList中的Elevator：");
@@ -98,8 +101,41 @@ public class UserController {
             }
 //            mv.setViewName("my_complaint");
         } else {
-            mv.addObject("msg", "用户不存在");
+//            mv.addObject("msg", "用户不存在");
+//            mv.setViewName("error");
+
+            // 用户不存在则注册
+            iUserService.register(user.getUsername(), user.getContactNum());
+
+            // 绑定微信用户和电梯用户
+            boolean bindSuccess = iUserService.updateUserByName(user);
+
+            mv.setViewName(toJsp); // 注册完之后跳转页面
+            mv.addObject("eleUser", user);
+        }
+
+        return mv;
+    }
+
+    /**
+     * 用户注册
+     *
+     * @author casaba-u
+     * @date 2018/8/20
+     */
+    @RequestMapping("/register")
+    public ModelAndView register(String username, String contactNum, String toJsp) {
+        ModelAndView mv = new ModelAndView();
+
+        boolean success = iUserService.register(username, contactNum);
+
+        if (success) { // 注册成功，跳转到页面
+            mv.setViewName(toJsp);
+            User loginUser = iUserService.login(username, contactNum);
+            mv.addObject("user", loginUser);
+        } else {
             mv.setViewName("error");
+            mv.addObject("msg", "注册失败");
         }
 
         return mv;

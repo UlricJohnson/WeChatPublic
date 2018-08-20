@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -49,7 +50,14 @@
                 <label for="username">联系人：</label>
             </div>
             <div class="weui-cell__bd weui-cell_primary">
-                <input id="username" class="weui-input" name="username" type="text" placeholder="请在此输入您的姓名"/>
+                <c:choose>
+                    <c:when test="${!empty eleUser}">
+                        <input id="username" class="weui-input" name="username" type="text" value="${eleUser.username}"/>
+                    </c:when>
+                    <c:otherwise>
+                        <input id="username" class="weui-input" name="username" type="text" placeholder="请在此输入您的姓名"/>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
         <div class="weui-cell">
@@ -58,7 +66,15 @@
                 <label for="contactNum">联系电话：</label>
             </div>
             <div class="weui-cell__bd weui-cell_primary">
-                <input id="contactNum" class="weui-input" name="contactNum" type="text" placeholder="请在此输入您的联系方式"/>
+                <c:choose>
+                    <c:when test="${!empty eleUser}">
+                        <input id="contactNum" class="weui-input" name="contactNum" type="text" value="${eleUser.contactNum}"/>
+                    </c:when>
+                    <c:otherwise>
+                        <input id="contactNum" class="weui-input" name="contactNum" type="text" placeholder="请在此输入您的联系方式"/>
+                    </c:otherwise>
+                </c:choose>
+
             </div>
         </div>
         <div class="weui-cell">
@@ -133,7 +149,7 @@
                     // alert("开始wx.config()");
                     wx.config({
                         // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-                        "debug": true,    // 发布前记得改为 false ！！！！
+                        "debug": false,    // 发布前记得改为 false ！！！！
                         "appId": appId, // 必填，公众号的唯一标识
                         "timestamp": timestamp, // 必填，生成签名的时间戳
                         "nonceStr": noncestr, // 必填，生成签名的随机串

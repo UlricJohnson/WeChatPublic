@@ -25,7 +25,7 @@ public interface UserMapper {
      * @author Ulric
      * @date 2018/7/24
      */
-    boolean addUser(User user);
+    boolean insertUser(User user);
 
     /**
      * 获取最新插入的主键ID
@@ -50,4 +50,12 @@ public interface UserMapper {
      * @date 2018/8/17
      */
     User selectByWcOpenId(@Param("openId") String openId);
+
+    /**
+     * 根据用户名，更新电梯用户信息
+     *
+     * @author casaba-u
+     * @date 2018/8/20
+     */
+    boolean updateUserByName(User user);
 }

@@ -69,7 +69,7 @@ public class ComplaintService implements IComplaintService {
             user.setUsername(username);
             user.setContactNum(contactNum);
 
-            isSuccess = userMapper.addUser(user);
+            isSuccess = userMapper.insertUser(user);
             // 添加用户失败，则回滚，取消全部操作
             if (!isSuccess) {
                 throw new RuntimeException("添加用户失败");

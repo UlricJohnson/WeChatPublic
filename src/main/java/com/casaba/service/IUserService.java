@@ -13,7 +13,16 @@ public interface IUserService {
      * @author casaba-u
      * @date 2018/8/3
      */
-    User login(User loginUser);
+//    User login(User loginUser);
+    User login(String username, String contactNum);
+
+    /**
+     * 用户注册
+     *
+     * @author casaba-u
+     * @date 2018/8/20
+     */
+    boolean register(String username, String contactNum);
 
     /**
      * 根据微信用户的openid查询电梯用户
@@ -22,4 +31,12 @@ public interface IUserService {
      * @date 2018/8/17
      */
     User findByWcOpenId(String openId);
+
+    /**
+     * 根据用户名，更新电梯用户信息
+     *
+     * @author casaba-u
+     * @date 2018/8/20
+     */
+    boolean updateUserByName(User user);
 }

@@ -6,25 +6,35 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/weui/style/weui.css">
     <script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.min.js"></script>
 </head>
-<body ontouchstart>
+<body>
 <%--<p>请输入电梯使用证编号：</p>--%>
-<form action="/elevator/findByCertificate" method="post">
-    <div class="weui-cells">
-        <div class="weui-cell">
-            <div class="weui-cell__hd">
-                <label class="weui-label">电梯使用证编号：</label>
-            </div>
-            <div class="weui-cell__hd weui-cell_primary">
-                <input class="weui-input" name="certificate" type="text" placeholder="请在此输入使用证编号"/>
+
+<div style="width: 100%; height: 50%;">
+    <%-- 电梯的图片 --%>
+    <div style="width: 100%; height: 100%; margin: auto;">
+        <img src="<%=request.getContextPath()%>/img/elevator.png" alt="图片找不到了">
+    </div>
+</div>
+
+<div style="width: 100%; height: 50%; position: absolute; bottom: 0;">
+    <form action="/elevator/findByCertificate" method="post">
+        <div class="weui-cells">
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">使用证编号：</label>
+                </div>
+                <div class="weui-cell__hd weui-cell_primary">
+                    <input class="weui-input" name="certificate" type="text" placeholder="请输入电梯使用证编号"/>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="weui-btn-area">
-        <a class="weui-btn weui-btn_primary" id="submitBtn" href="javascript:">提交</a>
-    </div>
-    <%--<input id="textCertificate" type="text" name="certificate">--%>
-    <%--<input id="submitBtn" type="submit" value="提交">--%>
-</form>
+        <div class="weui-btn-area">
+            <a class="weui-btn weui-btn_primary" id="submitBtn" href="javascript:">提交</a>
+        </div>
+        <%--<input id="textCertificate" type="text" name="certificate">--%>
+        <%--<input id="submitBtn" type="submit" value="提交">--%>
+    </form>
+</div>
 
 <script>
     $(function () {

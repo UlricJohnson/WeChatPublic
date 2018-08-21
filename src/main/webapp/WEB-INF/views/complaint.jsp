@@ -15,16 +15,16 @@
 <div>
     <div id="certificateDiv">
         <strong>电梯使用证编号：</strong>
-        <span>${elevator.certificateOfUse}</span>
+        <span>${paramMap.elevator.certificateOfUse}</span>
     </div>
     <div>
         <strong>设备地址：</strong>
-        <span>${elevator.deviceAddress}</span>
+        <span>${paramMap.elevator.deviceAddress}</span>
     </div>
 </div>
 <div>
     <form action="/complaint/doComplaint" method="post">
-        <input type="hidden" name="certificate" value="${elevator.certificateOfUse}">
+        <input type="hidden" name="certificate" value="${paramMap.elevator.certificateOfUse}">
         <div class="weui-cells weui-cells_form">
             <div class="weui-cell">
                 <span style="color: red;">*</span>
@@ -51,8 +51,8 @@
             </div>
             <div class="weui-cell__bd weui-cell_primary">
                 <c:choose>
-                    <c:when test="${!empty eleUser}">
-                        <input id="username" class="weui-input" name="username" type="text" value="${eleUser.username}"/>
+                    <c:when test="${!empty paramMap.eleUser}">
+                        <input id="username" class="weui-input" name="username" type="text" value="${paramMap.eleUser.username}"/>
                     </c:when>
                     <c:otherwise>
                         <input id="username" class="weui-input" name="username" type="text" placeholder="请在此输入您的姓名"/>
@@ -67,8 +67,8 @@
             </div>
             <div class="weui-cell__bd weui-cell_primary">
                 <c:choose>
-                    <c:when test="${!empty eleUser}">
-                        <input id="contactNum" class="weui-input" name="contactNum" type="text" value="${eleUser.contactNum}"/>
+                    <c:when test="${!empty paramMap.eleUser}">
+                        <input id="contactNum" class="weui-input" name="contactNum" type="text" value="${paramMap.eleUser.contactNum}"/>
                     </c:when>
                     <c:otherwise>
                         <input id="contactNum" class="weui-input" name="contactNum" type="text" placeholder="请在此输入您的联系方式"/>

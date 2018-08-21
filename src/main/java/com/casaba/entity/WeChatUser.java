@@ -1,5 +1,7 @@
 package com.casaba.entity;
 
+import java.io.Serializable;
+
 /**
  * 微信用户
  * <p>
@@ -18,7 +20,7 @@ package com.casaba.entity;
  * created by Ulric on 2018/7/16
  */
 
-public class WeChatUser {
+public class WeChatUser implements Serializable {
     private Long id;    // 主键ID
 
     private String openId;// 微信用户的OpenID

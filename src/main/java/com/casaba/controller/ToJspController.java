@@ -6,6 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * 用于跳转页面，因为页面在WEB-INF文件夹下，不能直接跳转
@@ -56,5 +61,17 @@ public class ToJspController {
         return jspName;
     }
 
+    /**
+     * 携带参数跳转页面（重定向，）
+     *
+     * @author casaba-u
+     * @date 2018/8/21
+     */
+    public ModelAndView withParams(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+                                   RedirectAttributes rediAttr) {
+
+
+        return null;
+    }
 
 }

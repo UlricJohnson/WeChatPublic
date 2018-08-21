@@ -1,11 +1,13 @@
 package com.casaba.entity;
 
+import java.io.Serializable;
+
 /**
  * 投诉单，关联关系：用户（投诉人，一方），电梯（一方）
  * created by Ulric on 2018/7/16
  */
 
-public class Complaint {
+public class Complaint implements Serializable {
     private Long id;    // 主键ID
 
     private String details; // 投诉详情

@@ -1,12 +1,13 @@
 package com.casaba.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 用户（投诉人）
  * created by Ulric on 2018/7/16
  */
-public class User {
+public class User implements Serializable {
     private Long id;    // 主键ID
 
     private String username;// 用户名

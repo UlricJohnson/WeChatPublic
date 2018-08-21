@@ -21,8 +21,8 @@ public class WeChatService implements IWeChatService {
     private WeChatUserMapper weChatUserMapper;
 
     /**
-     * @param wcUser
-     * @desciption
+     * 添加一个微信用户
+     *
      * @author casaba-u
      * @date 2018/8/17
      */

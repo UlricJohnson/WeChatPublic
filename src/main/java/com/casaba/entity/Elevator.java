@@ -1,5 +1,6 @@
 package com.casaba.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import java.util.List;
  * created by Ulric on 2018/7/16
  */
 
-public class Elevator {
+public class Elevator implements Serializable {
     private Long id;    // 主键ID
 
     private Integer totDevice;// 使用单位设备总数

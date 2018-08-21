@@ -3,6 +3,7 @@ package com.casaba.controller;
 import com.casaba.entity.Complaint;
 import com.casaba.entity.Elevator;
 import com.casaba.entity.User;
+import com.casaba.entity.WeChatUser;
 import com.casaba.service.IComplaintService;
 import com.casaba.service.IElevatorService;
 import com.casaba.service.IUserService;
@@ -16,8 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.jws.WebParam;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * created by casaba-u on 2018/8/3
@@ -44,21 +48,27 @@ public class UserController {
      * @date 2018/8/3
      */
     @RequestMapping("/login")
-    public ModelAndView login(String username, String contactNum, String toJsp, String openId) {
+    public ModelAndView login(HttpServletRequest request, String username, String contactNum/*, String toJsp, String openId*/) {
         LOGGER.info("=====接收到的参数：\n\t#username: " + username +
-                "\n\t#contactNum: " + contactNum +
-                "\n\t#toJsp: " + toJsp +
-                "\n\t#openId: " + openId);
+                        "\n\t#contactNum: " + contactNum
+//                "\n\t#toJsp: " + toJsp +
+                /*"\n\t#openId: " + openId*/);
 
         ModelAndView mv = new ModelAndView();
+
+        HttpSession session = request.getSession();
+        String toJsp = (String) session.getAttribute("toJsp");
+        Map paramMap = (Map) session.getAttribute("paramMap");
 
         User user = new User();
         user.setUsername(username);
         user.setContactNum(contactNum);
 
+        WeChatUser wcUser = (WeChatUser) paramMap.get("wcUser");
+
         // 微信用户和电梯用户进行绑定
-        if (openId != null && (!"".equals(openId))) {
-            user.setWcOpenId(openId);
+        if (wcUser.getOpenId() != null && (!"".equals(wcUser.getOpenId()))) {
+            user.setWcOpenId(wcUser.getOpenId());
         }
 
         // 用户登录
@@ -93,8 +103,11 @@ public class UserController {
 //                System.out.println("=====#" + (i + 1) + ": " + complaintList.get(i).getElevator());
 //            }
 
-            mv.addObject("loginUser", loginUser);
-            mv.addObject("complaintList", complaintList);
+//            mv.addObject("loginUser", loginUser);
+//            mv.addObject("complaintList", complaintList);
+
+            paramMap.put("loginUser", loginUser);
+            paramMap.put("complaintList", complaintList);
 
             if (toJsp != null && (!"".equals(toJsp))) {
                 mv.setViewName(toJsp);
@@ -111,8 +124,11 @@ public class UserController {
             boolean bindSuccess = iUserService.updateUserByName(user);
 
             mv.setViewName(toJsp); // 注册完之后跳转页面
-            mv.addObject("eleUser", user);
+//            mv.addObject("eleUser", user);
+            paramMap.put("eleUser", user);
         }
+
+        session.setAttribute("paramMap", paramMap);
 
         return mv;
     }
@@ -129,10 +145,14 @@ public class UserController {
 
         boolean success = iUserService.register(username, contactNum);
 
+        Map paramMap = new HashMap();
+
         if (success) { // 注册成功，跳转到页面
             mv.setViewName(toJsp);
             User loginUser = iUserService.login(username, contactNum);
-            mv.addObject("user", loginUser);
+//            mv.addObject("user", loginUser);
+            paramMap.put("user", loginUser);
+            mv.addObject("paramMap", paramMap);
         } else {
             mv.setViewName("error");
             mv.addObject("msg", "注册失败");

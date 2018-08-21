@@ -164,9 +164,9 @@ public class WeChatController {
      */
     @RequestMapping("/wclogin")
     public void wcLogin(HttpServletRequest request,
-                        HttpServletResponse response,
-                        @ModelAttribute("toJsp") String toJsp /* 授权完成之后要跳到的页面 */
-            /*RedirectAttributes rediAttr*/) {
+                        HttpServletResponse response
+            /*@ModelAttribute("toJsp") String toJsp,*/ /* 授权完成之后要跳到的页面 */
+            /*@ModelAttribute("paramMap") Map paramMap*/) {
         // 回调地址
         String redirectUri = WeChatConst.DOMAIN + "/wechat/wcCallback";
 
@@ -210,9 +210,10 @@ public class WeChatController {
 //            rediAttr.addAttribute("toJsp", toJsp);
 //            rediAttr.addAttribute("paramMap", paramMap);
 
-            HttpSession session = request.getSession();
-            session.setAttribute("toJsp", toJsp);
-            session.setMaxInactiveInterval(60); // 配置会话有效时长为1分钟
+//            HttpSession session = request.getSession();
+//            session.setAttribute("toJsp", toJsp);
+//            session.setAttribute("paramMap", paramMap);
+//            session.setMaxInactiveInterval(600); // 配置会话有效时长为10分钟
 
             // 用重定向的方式进行请求
             response.sendRedirect(requestUrl);
@@ -231,7 +232,7 @@ public class WeChatController {
     public ModelAndView wcCallback(HttpServletRequest request
 //                                   @ModelAttribute("toJsp") String toJsp, /* 授权完成之后要跳到的页面 */
 //                                   @ModelAttribute("paramMap") Map paramMap,/* 携带到那个页面的参数 */
-                                   /*RedirectAttributes rediAttr*/) throws IOException {
+            /*RedirectAttributes rediAttr*/) throws IOException {
 //        LOGGER.info("=====");
 
         ModelAndView mv = new ModelAndView();
@@ -239,9 +240,10 @@ public class WeChatController {
         // 获取微信传回的 code
         String code = request.getParameter("code");
 
-        // 获取 授权完成之后要跳到的页面 名称 toJsp
+        // 获取 授权完成之后要跳到的页面 toJsp，以及携带到那个页面的参数
         HttpSession session = request.getSession();
         String toJsp = (String) session.getAttribute("toJsp");
+        Map paramMap = (Map) session.getAttribute("paramMap");
 
         /*
          * 1、获取code后，请求以下链接获取access_token：
@@ -303,15 +305,17 @@ public class WeChatController {
          */
         User eleUser = iUserService.findByWcOpenId(openId2);
 
-//        HttpSession session = request.getSession();
-
         // ==============1、根据openid可以查询到电梯用户，说明已经绑定微信用户
         if (eleUser != null) {
             LOGGER.info("=====已经绑定微信用户");
 
             // 使用电梯用户登录
             mv.setViewName(toJsp);
-            mv.addObject("eleUser",eleUser);
+//            mv.addObject("eleUser", eleUser);
+//            mv.addObject("paramMap", paramMap);
+            paramMap.put("eleUser", eleUser);
+
+            session.setAttribute("paramMap", paramMap);
 //            if (toJsp.equals("complaint")) { // 如果要跳转到投诉页面 complaint.jsp，则携带的参数为 elevator
 //                Elevator elevator = (Elevator) paramMap.get("elevator");
 //                mv.addObject("elevator", elevator);
@@ -354,9 +358,17 @@ public class WeChatController {
 
         // 跳到登录页面，使用账号和手机号登录，然后进行电梯用户绑定微信用户的操作
         mv.setViewName("login");
-        mv.addObject("toJsp", toJsp);
-        mv.addObject("wcUser", wcUser);
+        paramMap.put("wcUser", wcUser);
+
+//        mv.addObject("toJsp", toJsp);
+//        mv.addObject("wcUser", wcUser);
+//        mv.addObject("paramMap", paramMap);
+
+        session.setAttribute("toJsp", toJsp);
+        session.setAttribute("paramMap", paramMap);
 
         return mv;
     }
+
+
 }

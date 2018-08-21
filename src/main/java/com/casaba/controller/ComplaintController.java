@@ -1,5 +1,6 @@
 package com.casaba.controller;
 
+import com.casaba.entity.Complaint;
 import com.casaba.entity.Elevator;
 import com.casaba.service.IComplaintService;
 import com.casaba.service.IElevatorService;
@@ -19,6 +20,7 @@ import sun.misc.BASE64Encoder;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -49,7 +51,9 @@ public class ComplaintController {
      * @date 2018/7/23
      */
     @RequestMapping("/toComplaint_fillIn")
-    public ModelAndView toComplaint_fillIn(String certificateOfUse, RedirectAttributes rediAttr) {
+    public ModelAndView toComplaint_fillIn(HttpServletRequest request,
+                                           String certificateOfUse
+            /*RedirectAttributes rediAttr*/) {
         LOGGER.info("=====您要投诉的电梯为：" + certificateOfUse);
 
         ModelAndView mv = new ModelAndView();
@@ -64,12 +68,17 @@ public class ComplaintController {
 //            mv.setViewName("complaint");
 //            mv.addObject("elevator", elevator);
 
-//            Map paramMap = new HashMap();
+            Map paramMap = new HashMap();
 
-//            paramMap.put("elevator", elevator);
+            paramMap.put("elevator", elevator);
 
-            rediAttr.addAttribute("toJsp", "complaint"); // 授权后要跳到 complaint.jsp
+//            rediAttr.addAttribute("toJsp", "complaint"); // 授权后要跳到 complaint.jsp
 //            rediAttr.addAttribute("paramMap", paramMap); // 携带的参数
+
+            HttpSession session = request.getSession();
+            session.setAttribute("toJsp", "complaint");
+            session.setAttribute("paramMap", paramMap);
+//            session.setMaxInactiveInterval(600); // 超时时间：10 分钟
 
             mv.setViewName("redirect:/wechat/wclogin");
         }
@@ -86,7 +95,9 @@ public class ComplaintController {
 //    @RequestMapping(value = "/toComplaint_eleInfo", method = RequestMethod.POST)
     @RequestMapping(value = "/toComplaint_eleInfo")
 //    @ResponseBody   // @ResponseBody 注解表示返回的字符串不是视图名称，而是JSON字符串
-    public ModelAndView toComplaint_eleInfo(String certificateOfUse, String deviceAddress, RedirectAttributes rediAttr) {
+    public ModelAndView toComplaint_eleInfo(String certificateOfUse, String deviceAddress,
+                                            HttpServletRequest request
+            /*RedirectAttributes rediAttr*/) {
         Elevator elevator = new Elevator();
         elevator.setCertificateOfUse(certificateOfUse);
         elevator.setDeviceAddress(deviceAddress);
@@ -98,8 +109,13 @@ public class ComplaintController {
 
         paramMap.put("elevator", elevator);
 
-        rediAttr.addAttribute("toJsp", "complaint"); // 授权后要跳到 complaint.jsp
-//        rediAttr.addAttribute("paramMap", paramMap); // 携带的参数
+        // addFlashAttribute 相当于放到 session 中
+//        rediAttr.addFlashAttribute("toJsp", "complaint"); // 授权后要跳到 complaint.jsp
+//        rediAttr.addFlashAttribute("paramMap", paramMap); // 携带的参数
+
+        HttpSession session = request.getSession();
+        session.setAttribute("toJsp", "complaint");
+        session.setAttribute("paramMap", paramMap);
 
         ModelAndView mv = new ModelAndView();
 

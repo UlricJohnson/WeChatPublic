@@ -11,7 +11,7 @@
 </head>
 <body>
 <h2>Hello World!</h2>
-<a href="/toJsp/search_elevator" class="weui-btn weui-btn_primary">查找电梯</a>
+<a href="/toJsp/search_elevator" class="weui-btn weui-btn_primary">查询电梯</a>
 <br>
 <a href="/toJsp/complaint_fill_in" class="weui-btn weui-btn_warn">投诉电梯</a>
 <br>

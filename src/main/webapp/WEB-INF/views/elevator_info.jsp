@@ -52,15 +52,15 @@
             <tr>
                 <td>序号</td>
                 <%--<td id="elevatorId">${requestScope.elevator.id}</td>--%>
-                <td>${requestScope.elevator.id}</td>
+                <td>${elevator.id}</td>
             </tr>
             <tr>
                 <td>使用单位设备总数</td>
-                <td>${requestScope.elevator.totDevice}</td>
+                <td>${elevator.totDevice}</td>
             </tr>
             <tr>
                 <td>使用单位名称</td>
-                <td>${requestScope.elevator.unitOfUse}</td>
+                <td>${elevator.unitOfUse}</td>
             </tr>
             <tr>
                 <td>使用单位地址</td>

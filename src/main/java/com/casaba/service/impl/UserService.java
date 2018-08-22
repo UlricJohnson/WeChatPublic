@@ -28,25 +28,28 @@ public class UserService implements IUserService {
      * @date 2018/8/3
      */
     @Override
-    public User login(String username, String contactNum) {
-//        LOGGER.info("=====接收到的参数：\n\t#User: " + loginUser);
-        LOGGER.info("=====接收到的参数：\n\t#username: " + username +
-                "\n\t#contactNum：" + contactNum);
+    public User login(User user) {
+//    public User login(String username, String contactNum) {
+        LOGGER.info("=====接收到的参数：\n\t#User: " + user);
+//        LOGGER.info("=====接收到的参数：\n\t#username: " + username +
+//                "\n\t#contactNum：" + contactNum);
 
-        User user = null;
+        User loginUser = null;
 
-//        if (loginUser != null) {
-//            user = userMapper.selectUserByUserame$ContactNum(
+        if (user != null) {
+//            loginUser = userMapper.selectUserByUserame$ContactNum(
 //                    loginUser.getUsername(), loginUser.getContactNum());
-//        }
 
-        if ((username != null && !username.equals("")) && (contactNum != null && !contactNum.equals(""))) {
-            user = userMapper.selectUserByUserame$ContactNum(username, username);
+            loginUser = userMapper.selectAllInfo(user);
         }
 
-        LOGGER.info("=====查询出来的用户user: " + user);
+//        if ((username != null && !username.equals("")) && (contactNum != null && !contactNum.equals(""))) {
+//            loginUser = userMapper.selectByUserame$ContactNum(username, contactNum);
+//        }
 
-        return user;
+        LOGGER.info("=====查询出来的用户user: " + loginUser);
+
+        return loginUser;
     }
 
     /**

@@ -72,7 +72,8 @@ public class UserController {
         }
 
         // 用户登录
-        User loginUser = iUserService.login(user.getUsername(), user.getContactNum());
+//        User loginUser = iUserService.login(user.getUsername(), user.getContactNum());
+        User loginUser = iUserService.login(user);
 
         LOGGER.info("=====用户登录：查询出来的用户：" + loginUser);
 
@@ -149,7 +150,11 @@ public class UserController {
 
         if (success) { // 注册成功，跳转到页面
             mv.setViewName(toJsp);
-            User loginUser = iUserService.login(username, contactNum);
+//            User loginUser = iUserService.login(username, contactNum);
+            User user = new User();
+            user.setUsername(username);
+            user.setContactNum(contactNum);
+            User loginUser = iUserService.login(user);
 //            mv.addObject("user", loginUser);
             paramMap.put("user", loginUser);
             mv.addObject("paramMap", paramMap);
@@ -157,6 +162,23 @@ public class UserController {
             mv.setViewName("error");
             mv.addObject("msg", "注册失败");
         }
+
+        return mv;
+    }
+
+    /**
+     * @desciption
+     * @author casaba-u
+     * @date 2018/8/22
+     */
+    @RequestMapping("/myComplaint")
+    public ModelAndView myComplaint(HttpServletRequest request) {
+        ModelAndView mv = new ModelAndView();
+
+        HttpSession session = request.getSession();
+        session.setAttribute("toJsp", "my_complaint");
+
+        mv.setViewName("redirect:/wechat/wclogin");
 
         return mv;
     }

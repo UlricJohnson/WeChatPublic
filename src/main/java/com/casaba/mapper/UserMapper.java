@@ -20,14 +20,6 @@ public interface UserMapper {
     User findUserByUsername(String username);
 
     /**
-     * 添加一个用户
-     *
-     * @author Ulric
-     * @date 2018/7/24
-     */
-    boolean insertUser(User user);
-
-    /**
      * 获取最新插入的主键ID
      *
      * @author Ulric
@@ -41,7 +33,7 @@ public interface UserMapper {
      * @author casaba-u
      * @date 2018/8/3
      */
-    User selectUserByUserame$ContactNum(@Param("username") String username, @Param("contactNum") String contactNum);
+    User selectByUserame$ContactNum(@Param("username") String username, @Param("contactNum") String contactNum);
 
     /**
      * 根据微信用户的openid查询
@@ -50,6 +42,22 @@ public interface UserMapper {
      * @date 2018/8/17
      */
     User selectByWcOpenId(@Param("openId") String openId);
+
+    /**
+     * 根据用户的基本信息，关联查询所有数据
+     *
+     * @author casaba-u
+     * @date 2018/8/22
+     */
+    User selectAllInfo(User user);
+
+    /**
+     * 添加一个用户
+     *
+     * @author Ulric
+     * @date 2018/7/24
+     */
+    boolean insertUser(User user);
 
     /**
      * 根据用户名，更新电梯用户信息

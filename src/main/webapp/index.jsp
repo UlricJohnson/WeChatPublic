@@ -15,10 +15,9 @@
 <br>
 <a href="/toJsp/complaint_fill_in" class="weui-btn weui-btn_warn">投诉电梯</a>
 <br>
-<a href="/toJsp/login" class="weui-btn weui-btn_default">我的投诉</a>
-<%--<a href="/toHtml/test">测试SpringMVC和HTML交互</a>--%>
+<a href="/user/myComplaint" class="weui-btn weui-btn_default">我的投诉</a>
 <br>
-<a href="/wechat/wclogin" class="weui-btn weui-btn_plain-default">微信登录</a>
+<%--<a href="/wechat/wclogin" class="weui-btn weui-btn_plain-default">微信登录</a>--%>
 
 </body>
 </html>

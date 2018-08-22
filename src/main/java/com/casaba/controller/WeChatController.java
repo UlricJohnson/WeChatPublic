@@ -245,6 +245,10 @@ public class WeChatController {
         String toJsp = (String) session.getAttribute("toJsp");
         Map paramMap = (Map) session.getAttribute("paramMap");
 
+        if (paramMap == null) {
+            paramMap = new HashMap();
+        }
+
         /*
          * 1、获取code后，请求以下链接获取access_token：
          * https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
@@ -303,15 +307,26 @@ public class WeChatController {
          * 根据openid查询电梯用户，如果可以查到则说明绑定了微信用户，
          * 然后核对数据库中的微信用户的openid和返回JSON中的openid是否一致，如果一致则直接使用电梯用户登录
          */
-        User eleUser = iUserService.findByWcOpenId(openId2);
+        User user = null;
+        try {
+            user = iUserService.findByWcOpenId(openId2); // 只能获取电梯用户自身的基本信息，没有关联查询
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // ==============1、根据openid可以查询到电梯用户，说明已经绑定微信用户
-        if (eleUser != null) {
+        if (user != null) {
             LOGGER.info("=====已经绑定微信用户");
+
+//            String username = user.getUsername();
+//            String contactNum = user.getContactNum();
+//            user = iUserService.login(username, contactNum);// 使用登录方法获取电梯用户的所有信息
+
+             User eleUser = iUserService.login(user);
 
             // 使用电梯用户登录
             mv.setViewName(toJsp);
-//            mv.addObject("eleUser", eleUser);
+//            mv.addObject("user", user);
 //            mv.addObject("paramMap", paramMap);
             paramMap.put("eleUser", eleUser);
 

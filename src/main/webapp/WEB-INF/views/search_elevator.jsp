@@ -11,9 +11,8 @@
 
 <div style="width: 100%; height: 50%;">
     <%-- 电梯的图片 --%>
-    <div style="width: 100%; height: 100%; margin: auto;">
-        <img src="<%=request.getContextPath()%>/img/elevator.png" alt="图片找不到了">
-    </div>
+    <img src="<%=request.getContextPath()%>/img/elevator.png" alt="图片找不到了"
+         style="display: block; margin: auto; padding-top: 80px;">
 </div>
 
 <div style="width: 100%; height: 50%; position: absolute; bottom: 0;">

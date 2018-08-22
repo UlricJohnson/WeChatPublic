@@ -9,8 +9,8 @@
         <result property="wcOpenId" column="WC_OPEN_ID"/>
     </resultMap>
 
-    <!-- User 类对象映射，包括 complaintList，不包括 WeChatUser -->
-    <resultMap id="user_map_comp" type="com.casaba.entity.User">
+    <!-- User 类对象映射，包括 complaintList 和 WeChatUser -->
+    <resultMap id="user_map_all" type="com.casaba.entity.User">
         <!-- 因为主表和从表主键名一样，所以需要其中一个起别名。这里的 column 是指查询结果中的列名，所以也要跟着改 -->
         <id property="id" column="UID"/>
         <result property="username" column="USERNAME"/>
@@ -34,18 +34,13 @@
         SELECT * FROM tb_user WHERE USERNAME = #{username}
     </select>
 
-    <!-- 添加一个用户 -->
-    <insert id="insertUser" parameterType="com.casaba.entity.User">
-        INSERT INTO tb_user VALUES (#{id}, #{username}, #{contactNum}, #{wcOpenId})
-    </insert>
-
     <!--获取最新插入的主键ID（即最大的ID）-->
     <select id="selectMaxId" resultType="java.lang.Long">
         SELECT max(id) FROM tb_user
     </select>
 
     <!-- 根据用户名和联系方式查询用户及其投诉单 -->
-    <select id="selectUserByUserame$ContactNum" resultMap="user_map_comp">
+    <select id="selectByUserame$ContactNum" resultMap="user_map_all">
         SELECT u.ID UID, u.USERNAME, u.CONTACT_NUM, c.* FROM tb_user u
         JOIN tb_complaint c ON u.ID = c.USER_ID
         <choose>
@@ -61,10 +56,35 @@
         </choose>
     </select>
 
-    <!-- 根据openid查询电梯用户 -->
-    <select id="selectByWcOpenId" resultMap="user_map_base">
+    <!-- 根据 openid 查询电梯用户 -->
+    <select id="selectByWcOpenId" parameterType="java.lang.String" resultMap="user_map_base">
         SELECT * FROM tb_user WHERE WC_OPEN_ID = #{openId}
     </select>
+
+    <!-- 根据用户的基本信息，关联查询所有数据 -->
+    <select id="selectAllInfo" parameterType="com.casaba.entity.User" resultMap="user_map_all">
+        SELECT u.ID UID, u.USERNAME, u.CONTACT_NUM, u.WC_OPEN_ID, c.*, wc.* FROM tb_user u
+            JOIN tb_complaint c ON u.ID = c.USER_ID
+        <choose>
+            <when test="wcOpenId != null">
+                JOIN tb_wechat_user wc ON wc.OPEN_ID = #{wcOpenId}
+            </when>
+            <when test="username != null">
+                WHERE u.USERNAME = #{username}
+                <if test="contactNum != null">
+                    AND u.CONTACT_NUM = #{contactNum}
+                </if>
+            </when>
+            <otherwise>
+                WHERE u.CONTACT_NUM = #{contactNum}
+            </otherwise>
+        </choose>
+    </select>
+
+    <!-- 添加一个用户 -->
+    <insert id="insertUser" parameterType="com.casaba.entity.User">
+        INSERT INTO tb_user VALUES (#{id}, #{username}, #{contactNum}, #{wcOpenId})
+    </insert>
 
     <!-- 根据用户名，更新电梯用户信息 -->
     <update id="updateUserByName" parameterType="com.casaba.entity.User">
@@ -73,4 +93,5 @@
             WC_OPEN_ID = #{wcOpenId}
         WHERE USERNAME = #{username}
     </update>
+
 </mapper>

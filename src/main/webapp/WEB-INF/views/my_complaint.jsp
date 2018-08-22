@@ -51,10 +51,10 @@
     <div class="weui-panel__hd" style="font-size: large;color: black;font-weight: bold;">
         <%--<h2 class="page__title">用户：${loginUser.username}，您好</h2>
         <p class="page__desc">您的投诉单如下：</p>--%>
-        用户：${loginUser.username}，您好
+        用户：${paramMap.eleUser.username}，您好
     </div>
     <div class="weui-panel__bd">
-        <c:forEach items="${complaintList}" var="complaint" varStatus="currIndex">
+        <c:forEach items="${paramMap.eleUser.complaintList}" var="complaint" varStatus="currIndex">
             <div class="weui-cells__title">投诉单#${currIndex.index + 1}：</div>
             <div class="weui-cells">
                 <div class="weui-cell">

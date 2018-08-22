@@ -1,6 +1,7 @@
 package com.casaba.service;
 
 import com.casaba.entity.User;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * created by Ulric on 2018/7/24
@@ -13,8 +14,8 @@ public interface IUserService {
      * @author casaba-u
      * @date 2018/8/3
      */
-//    User login(User loginUser);
-    User login(String username, String contactNum);
+    User login(@Param("user") User user);
+//    User login(String username, String contactNum);
 
     /**
      * 用户注册

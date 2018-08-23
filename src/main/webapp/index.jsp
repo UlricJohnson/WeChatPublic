@@ -10,7 +10,12 @@
     <script src="<%=request.getContextPath()%>/js/jquery-1.12.1.min.js"></script>
 </head>
 <body>
-<h2>Hello World!</h2>
+<div style="width: 100%; height: 50%;">
+    <%-- 电梯的图片 --%>
+    <img src="<%=request.getContextPath()%>/img/elevator.png" alt="图片找不到了"
+         style="display: block; margin: auto; padding-top: 80px;">
+</div>
+<br>
 <a href="/toJsp/search_elevator" class="weui-btn weui-btn_primary">查询电梯</a>
 <br>
 <a href="/toJsp/complaint_fill_in" class="weui-btn weui-btn_warn">投诉电梯</a>

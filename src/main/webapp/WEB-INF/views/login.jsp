@@ -8,36 +8,43 @@
 </head>
 <body>
 
-<%--<div class="weui-cells__title">表单</div>--%>
-<form action="/user/login" method="post">
-    <div class="weui-cells weui-cells_form">
-        <div class="weui-cell">
-            <span style="color: red;">*</span>
-            <div class="weui-cell__hd">
-                <label for="username" class="weui-label">用户名</label>
+<div style="width: 100%; height: 50%;">
+    <%-- 电梯的图片 --%>
+    <img src="<%=request.getContextPath()%>/img/elevator.png" alt="图片找不到了"
+         style="display: block; margin: auto; padding-top: 80px;">
+</div>
+
+<div style="width: 100%; height: 50%; position: absolute; bottom: 0;">
+    <form action="/user/login_register" method="post">
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <span style="color: red;">*</span>
+                <div class="weui-cell__hd">
+                    <label for="username" class="weui-label">用户名</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input id="username" class="weui-input" type="text" name="username"
+                           placeholder="请输入用户名"/>
+                </div>
             </div>
-            <div class="weui-cell__bd">
-                <input id="username" class="weui-input" type="text" name="username"
-                       placeholder="请输入用户名"/>
+            <div class="weui-cell">
+                <span style="color: red;">*</span>
+                <div class="weui-cell__hd">
+                    <label for="contactNum" class="weui-label">联系电话</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input id="contactNum" class="weui-input" type="text" name="contactNum"
+                           pattern="^[1][3,4,5,7,8][0-9]{9}$" placeholder="请输入手机号码"/>
+                </div>
+            </div>
+            <input type="hidden" name="toJsp" value="${paramMap.toJsp}">
+            <input type="hidden" name="openId" value="${paramMap.wcUser.openId}">
+            <div class="weui-btn-area">
+                <a id="loginBtn" href="javascript:;" class="weui-btn weui-btn_primary">登录/注册</a>
             </div>
         </div>
-        <div class="weui-cell">
-            <span style="color: red;">*</span>
-            <div class="weui-cell__hd">
-                <label for="contactNum" class="weui-label">联系电话</label>
-            </div>
-            <div class="weui-cell__bd">
-                <input id="contactNum" class="weui-input" type="text" name="contactNum"
-                       pattern="^[1][3,4,5,7,8][0-9]{9}$" placeholder="请输入手机号码"/>
-            </div>
-        </div>
-        <input type="hidden" name="toJsp" value="${paramMap.toJsp}">
-        <input type="hidden" name="openId" value="${paramMap.wcUser.openId}">
-        <div class="weui-btn-area">
-            <a id="loginBtn" href="javascript:;" class="weui-btn weui-btn_primary">登录/注册</a>
-        </div>
-    </div>
-</form>
+    </form>
+</div>
 
 <script>
     $(function () {

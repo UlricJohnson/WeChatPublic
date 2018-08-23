@@ -320,7 +320,7 @@ public class WeChatController {
 
 //            String username = user.getUsername();
 //            String contactNum = user.getContactNum();
-//            user = iUserService.login(username, contactNum);// 使用登录方法获取电梯用户的所有信息
+//            user = iUserService.login(username, contactNum); // 使用登录方法获取电梯用户的所有信息
 
              User eleUser = iUserService.login(user);
 

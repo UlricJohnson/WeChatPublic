@@ -6,7 +6,6 @@
     <%--<link href="https://cdn.bootcss.com/weui/1.1.0/style/weui.css" rel="stylesheet">--%>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/weui/style/weui.css">
     <script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.min.js"></script>
-
     <style>
         .container {
             margin: 10px;
@@ -49,14 +48,17 @@
             <th>数据</th>
             </thead>
             <tbody>
-            <tr>
+            <%--<tr>
                 <td>序号</td>
-                <%--<td id="elevatorId">${requestScope.elevator.id}</td>--%>
                 <td>${elevator.id}</td>
             </tr>
             <tr>
                 <td>使用单位设备总数</td>
                 <td>${elevator.totDevice}</td>
+            </tr>--%>
+            <tr>
+                <td>设备详情</td>
+                <td>${elevator.deviceDetails}</td>
             </tr>
             <tr>
                 <td>使用单位名称</td>
@@ -131,10 +133,6 @@
             <tr>
                 <td>维保单位</td>
                 <td>${elevator.maintenanceUnit}</td>
-            </tr>
-            <tr>
-                <td>设备详情</td>
-                <td>${elevator.deviceDetails}</td>
             </tr>
             </tbody>
         </table>

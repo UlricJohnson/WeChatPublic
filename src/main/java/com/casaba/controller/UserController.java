@@ -47,8 +47,8 @@ public class UserController {
      * @author casaba-u
      * @date 2018/8/3
      */
-    @RequestMapping("/login")
-    public ModelAndView login(HttpServletRequest request, String username, String contactNum/*, String toJsp, String openId*/) {
+    @RequestMapping("/login_register")
+    public ModelAndView loginRegister(HttpServletRequest request, String username, String contactNum/*, String toJsp, String openId*/) {
         LOGGER.info("=====接收到的参数：\n\t#username: " + username +
                         "\n\t#contactNum: " + contactNum
 //                "\n\t#toJsp: " + toJsp +

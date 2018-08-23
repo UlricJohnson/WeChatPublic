@@ -29,11 +29,11 @@
             <div class="weui-cell">
                 <span style="color: red;">*</span>
                 <div class="weui-cell__hd">
-                    <label class="weui-label">电梯异常事项：</label>
+                    <label class="weui-label">电梯异常：</label>
                 </div>
                 <div class="weui-cell__bd weui-cell_primary">
                     <%--<input class="weui-input" name="name" type="text" placeholder="请在此输入姓名" />--%>
-                    <select id="sketchSelect" name="sketch">
+                    <select id="sketchSelect" name="sketch" class="weui-select">
                         <option value="">--请选择--</option>
                         <option value="电梯关人">电梯关人</option>
                         <option value="异常抖动">异常抖动</option>
@@ -52,7 +52,8 @@
             <div class="weui-cell__bd weui-cell_primary">
                 <c:choose>
                     <c:when test="${!empty paramMap.eleUser}">
-                        <input id="username" class="weui-input" name="username" type="text" value="${paramMap.eleUser.username}"/>
+                        <input id="username" class="weui-input" name="username" type="text"
+                               value="${paramMap.eleUser.username}"/>
                     </c:when>
                     <c:otherwise>
                         <input id="username" class="weui-input" name="username" type="text" placeholder="请在此输入您的姓名"/>
@@ -68,13 +69,14 @@
             <div class="weui-cell__bd weui-cell_primary">
                 <c:choose>
                     <c:when test="${!empty paramMap.eleUser}">
-                        <input id="contactNum" class="weui-input" name="contactNum" type="text" value="${paramMap.eleUser.contactNum}"/>
+                        <input id="contactNum" class="weui-input" name="contactNum" type="text"
+                               value="${paramMap.eleUser.contactNum}"/>
                     </c:when>
                     <c:otherwise>
-                        <input id="contactNum" class="weui-input" name="contactNum" type="text" placeholder="请在此输入您的联系方式"/>
+                        <input id="contactNum" class="weui-input" name="contactNum" type="text"
+                               placeholder="请在此输入您的联系方式"/>
                     </c:otherwise>
                 </c:choose>
-
             </div>
         </div>
         <div class="weui-cell">
@@ -83,7 +85,7 @@
             </div>
             <div class="weui-cell__bd weui-cell_primary">
                 <%--<input id="details" class="weui-input" name="details" type="text" />--%>
-                <textarea name="details" id="details" cols="30" rows="10"></textarea>
+                <textarea name="details" id="details" cols="30" rows="10" style="resize: none;"></textarea>
             </div>
         </div>
         <input id="imgUrl" type="hidden" name="imgUrl">
@@ -95,8 +97,7 @@
             <a class="weui-btn weui-btn_warn" id="submitComplaint" href="javascript:">投诉</a>
         </div>
     </form>
-    <div id="picDiv"></div>
-
+    <div id="picDiv" style="width: 100%; margin: auto;"></div>
 </div>
 
 <script>
@@ -109,8 +110,8 @@
             var username = $("#username").val();
             var contactNum = $("#contactNum").val();
 
-            if (sketch == null || sketch == ""){
-                alert("请选择异常事项");
+            if (sketch == null || sketch == "") {
+                alert("请选择电梯异常事项");
                 $("#sketchSelect").focus();
                 return;
             }
@@ -124,6 +125,7 @@
                 $("#contactNum").focus();
                 return;
             }
+
             $("form")[0].submit();
         });
 

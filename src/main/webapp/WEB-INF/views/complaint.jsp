@@ -9,16 +9,42 @@
     <%--<script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.min.js"></script>--%>
     <script src="<%=request.getContextPath()%>/js/jquery-1.12.1.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+
+    <style>
+        .selectDiv {
+            /*用div的样式代替select的样式*/
+            width: 150px;
+            border-radius: 3px;
+            /*盒子阴影修饰作用*/
+            box-shadow: 0 0 2px #000;
+            position: relative;
+        }
+
+        .selectDiv > select {
+            /*清除select的边框样式*/
+            border: none;
+            /*清除select聚焦时候的边框颜色*/
+            outline: none;
+            /*将select的宽高等于div的宽高*/
+            width: 100%;
+
+            /*通过padding-left的值让文字居中*/
+            padding-left: 25%;
+            text-align: center;
+        }
+    </style>
+
 </head>
 <body>
-
-<div>
-    <div id="certificateDiv">
-        <strong>电梯使用证编号：</strong>
+<div class="weui-cells">
+    <div id="certificateDiv" class="weui-cell">
+        <span><b>电梯使用证编号：</b></span>
         <span>${paramMap.elevator.certificateOfUse}</span>
     </div>
-    <div>
-        <strong>设备地址：</strong>
+    <div class="weui-cell">
+        <span><b>
+            &nbsp;设&nbsp;&nbsp;备&nbsp;&nbsp;地&nbsp;&nbsp;址：&nbsp;&nbsp;
+        </b></span>
         <span>${paramMap.elevator.deviceAddress}</span>
     </div>
 </div>
@@ -33,75 +59,84 @@
                 </div>
                 <div class="weui-cell__bd weui-cell_primary">
                     <%--<input class="weui-input" name="name" type="text" placeholder="请在此输入姓名" />--%>
-                    <select id="sketchSelect" name="sketch" class="weui-select">
-                        <option value="">--请选择--</option>
-                        <option value="电梯关人">电梯关人</option>
-                        <option value="异常抖动">异常抖动</option>
-                        <option value="异常声响">异常声响</option>
-                        <option value="电梯停运">电梯停运</option>
-                        <option value="其他">其他</option>
-                    </select>
+                    <div class="selectDiv">
+                        <select id="sketchSelect" name="sketch" class="">
+                            <option value="">--请选择--</option>
+                            <option value="电梯关人">电梯关人</option>
+                            <option value="异常抖动">异常抖动</option>
+                            <option value="异常声响">异常声响</option>
+                            <option value="电梯停运">电梯停运</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <span style="color: red;">*</span>
+                <div class="weui-cell__hd">
+                    <label for="username">联&nbsp;系&nbsp;人：</label>
+                </div>
+                <div class="weui-cell__bd weui-cell_primary">
+                    <c:choose>
+                        <c:when test="${!empty paramMap.eleUser}">
+                            <input id="username" class="weui-input" name="username" type="text"
+                                   value="${paramMap.eleUser.username}"/>
+                        </c:when>
+                        <c:otherwise>
+                            <input id="username" class="weui-input" name="username" type="text"
+                                   placeholder="请在此输入您的姓名"/>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <span style="color: red;">*</span>
+                <div class="weui-cell__hd">
+                    <label for="contactNum">联系电话：</label>
+                </div>
+                <div class="weui-cell__bd weui-cell_primary">
+                    <c:choose>
+                        <c:when test="${!empty paramMap.eleUser}">
+                            <input id="contactNum" class="weui-input" name="contactNum" type="text"
+                                   value="${paramMap.eleUser.contactNum}"/>
+                        </c:when>
+                        <c:otherwise>
+                            <input id="contactNum" class="weui-input" name="contactNum" type="text"
+                                   placeholder="请在此输入您的联系方式"/>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <span id="detailsSpan" style="position: relative;">
+                        <label for="details">问题描述：</label>
+                    </span>
+                </div>
+                <div class="weui-cell__bd weui-cell_primary">
+                    <textarea name="details" id="details" class="weui-textarea" cols="25" rows="6"
+                              style="resize: none; border:solid gray 1px;"></textarea>
                 </div>
             </div>
         </div>
-        <div class="weui-cell">
-            <span style="color: red;">*</span>
-            <div class="weui-cell__hd">
-                <label for="username">联系人：</label>
-            </div>
-            <div class="weui-cell__bd weui-cell_primary">
-                <c:choose>
-                    <c:when test="${!empty paramMap.eleUser}">
-                        <input id="username" class="weui-input" name="username" type="text"
-                               value="${paramMap.eleUser.username}"/>
-                    </c:when>
-                    <c:otherwise>
-                        <input id="username" class="weui-input" name="username" type="text" placeholder="请在此输入您的姓名"/>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-        </div>
-        <div class="weui-cell">
-            <span style="color: red;">*</span>
-            <div class="weui-cell__hd">
-                <label for="contactNum">联系电话：</label>
-            </div>
-            <div class="weui-cell__bd weui-cell_primary">
-                <c:choose>
-                    <c:when test="${!empty paramMap.eleUser}">
-                        <input id="contactNum" class="weui-input" name="contactNum" type="text"
-                               value="${paramMap.eleUser.contactNum}"/>
-                    </c:when>
-                    <c:otherwise>
-                        <input id="contactNum" class="weui-input" name="contactNum" type="text"
-                               placeholder="请在此输入您的联系方式"/>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-        </div>
-        <div class="weui-cell">
-            <div class="weui-cell__hd">
-                <label for="details">问题描述：</label>
-            </div>
-            <div class="weui-cell__bd weui-cell_primary">
-                <%--<input id="details" class="weui-input" name="details" type="text" />--%>
-                <textarea name="details" id="details" cols="30" rows="10" style="resize: none;"></textarea>
-            </div>
-        </div>
+
+        <div id="picDiv" style="margin: auto;"></div>
         <input id="imgUrl" type="hidden" name="imgUrl">
         <%--<input id="submitComplaint" type="submit" value="投诉">--%>
         <div class="weui-btn-area">
             <a id="uploadImageBtn" class="weui-btn weui-btn_plain-primary" href="javascript:void(0);">上传图片</a>
             <%--<span style="width: 50px;"></span>--%>
-            <br><br>
+            <br>
             <a class="weui-btn weui-btn_warn" id="submitComplaint" href="javascript:">投诉</a>
         </div>
     </form>
-    <div id="picDiv" style="width: 100%; margin: auto;"></div>
 </div>
 
 <script>
     $(function () {
+        // 调整 “问题描述” 4个字的位置
+        var textareaHeight = $("#details").height();
+        $("#detailsSpan").css("top", (-1 * (textareaHeight / 2 - 10)) + "px");
 
         // 点击 “投诉” 按钮提交表单
         $("#submitComplaint").click(function () {

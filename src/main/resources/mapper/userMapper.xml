@@ -30,7 +30,7 @@
     </resultMap>
 
     <!-- 根据用户名搜索该用户是否已经存在 -->
-    <select id="findUserByUsername" resultType="com.casaba.entity.User" parameterType="java.lang.String">
+    <select id="selectByUsername" resultMap="user_map_base" parameterType="java.lang.String">
         SELECT * FROM tb_user WHERE USERNAME = #{username}
     </select>
 
@@ -62,14 +62,20 @@
     </select>
 
     <!-- 根据用户的基本信息，关联查询所有数据 -->
-    <select id="selectAllInfo" parameterType="com.casaba.entity.User" resultMap="user_map_all">
+    <!--<select id="selectAllInfo" parameterType="com.casaba.entity.User" resultMap="user_map_all">
         SELECT u.ID UID, u.USERNAME, u.CONTACT_NUM, u.WC_OPEN_ID, c.*, wc.* FROM tb_user u
             JOIN tb_complaint c ON u.ID = c.USER_ID
-        <choose>
-            <when test="wcOpenId != null">
+        <if test="wcOpenId != null">
+            JOIN tb_wechat_user wc ON wc.OPEN_ID = #{wcOpenId}
+        </if>
+        <if test="username != null">
+            WHERE u.USERNAME = #{username}
+        </if>
+        &lt;!&ndash;<choose>
+            &lt;!&ndash;<when test="wcOpenId != null">
                 JOIN tb_wechat_user wc ON wc.OPEN_ID = #{wcOpenId}
-            </when>
-            <when test="username != null">
+            </when>&ndash;&gt;
+             <when test="username != null">
                 WHERE u.USERNAME = #{username}
                 <if test="contactNum != null">
                     AND u.CONTACT_NUM = #{contactNum}
@@ -78,8 +84,8 @@
             <otherwise>
                 WHERE u.CONTACT_NUM = #{contactNum}
             </otherwise>
-        </choose>
-    </select>
+        </choose>&ndash;&gt;
+    </select>-->
 
     <!-- 添加一个用户 -->
     <insert id="insertUser" parameterType="com.casaba.entity.User">

@@ -23,7 +23,8 @@ public interface IUserService {
      * @author casaba-u
      * @date 2018/8/20
      */
-    boolean register(String username, String contactNum);
+//    boolean register(String username, String contactNum);
+    boolean register(User user);
 
     /**
      * 根据微信用户的openid查询电梯用户
@@ -40,4 +41,12 @@ public interface IUserService {
      * @date 2018/8/20
      */
     boolean updateUserByName(User user);
+
+    /**
+     * 判断用户是否存在
+     *
+     * @author casaba-u
+     * @date 2018/8/24
+     */
+    boolean isExist(User user);
 }

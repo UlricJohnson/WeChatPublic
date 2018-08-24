@@ -52,7 +52,7 @@ public class UserController {
         LOGGER.info("=====接收到的参数：\n\t#username: " + username +
                         "\n\t#contactNum: " + contactNum
 //                "\n\t#toJsp: " + toJsp +
-                /*"\n\t#openId: " + openId*/);
+                /*"\n\t#openId: " + openId */);
 
         ModelAndView mv = new ModelAndView();
 
@@ -64,6 +64,15 @@ public class UserController {
         user.setUsername(username);
         user.setContactNum(contactNum);
 
+        User loginUser = null;
+
+        // 先判断该用户是否存在，如果不存在，则先注册该用户
+        if (!iUserService.isExist(user)) {
+            iUserService.register(user);
+        } else { // 否则就登录
+            loginUser = iUserService.login(user);
+        }
+
         WeChatUser wcUser = (WeChatUser) paramMap.get("wcUser");
 
         // 微信用户和电梯用户进行绑定
@@ -73,7 +82,6 @@ public class UserController {
 
         // 用户登录
 //        User loginUser = iUserService.login(user.getUsername(), user.getContactNum());
-        User loginUser = iUserService.login(user);
 
         LOGGER.info("=====用户登录：查询出来的用户：" + loginUser);
 
@@ -119,7 +127,7 @@ public class UserController {
 //            mv.setViewName("error");
 
             // 用户不存在则注册
-            iUserService.register(user.getUsername(), user.getContactNum());
+//            iUserService.register(user.getUsername(), user.getContactNum());
 
             // 绑定微信用户和电梯用户
             boolean bindSuccess = iUserService.updateUserByName(user);
@@ -140,31 +148,31 @@ public class UserController {
      * @author casaba-u
      * @date 2018/8/20
      */
-    @RequestMapping("/register")
-    public ModelAndView register(String username, String contactNum, String toJsp) {
-        ModelAndView mv = new ModelAndView();
-
-        boolean success = iUserService.register(username, contactNum);
-
-        Map paramMap = new HashMap();
-
-        if (success) { // 注册成功，跳转到页面
-            mv.setViewName(toJsp);
-//            User loginUser = iUserService.login(username, contactNum);
-            User user = new User();
-            user.setUsername(username);
-            user.setContactNum(contactNum);
-            User loginUser = iUserService.login(user);
-//            mv.addObject("user", loginUser);
-            paramMap.put("user", loginUser);
-            mv.addObject("paramMap", paramMap);
-        } else {
-            mv.setViewName("error");
-            mv.addObject("msg", "注册失败");
-        }
-
-        return mv;
-    }
+//    @RequestMapping("/register")
+//    public ModelAndView register(String username, String contactNum, String toJsp) {
+//        ModelAndView mv = new ModelAndView();
+//
+//        boolean success = iUserService.register(username, contactNum);
+//
+//        Map paramMap = new HashMap();
+//
+//        if (success) { // 注册成功，跳转到页面
+//            mv.setViewName(toJsp);
+////            User loginUser = iUserService.login(username, contactNum);
+//            User user = new User();
+//            user.setUsername(username);
+//            user.setContactNum(contactNum);
+//            User loginUser = iUserService.login(user);
+////            mv.addObject("user", loginUser);
+//            paramMap.put("user", loginUser);
+//            mv.addObject("paramMap", paramMap);
+//        } else {
+//            mv.setViewName("error");
+//            mv.addObject("msg", "注册失败");
+//        }
+//
+//        return mv;
+//    }
 
     /**
      * @desciption

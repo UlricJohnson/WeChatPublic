@@ -62,7 +62,7 @@ public class ComplaintService implements IComplaintService {
         complaint.setDetails(details);
         complaint.setElevatorId(elevator.getId());
 
-        User user = userMapper.findUserByUsername(username);
+        User user = userMapper.selectByUsername(username);
         // 该用户不存在，则需要存入该用户，然后获取新插入的主键ID
         if (user == null) {
             user = new User();

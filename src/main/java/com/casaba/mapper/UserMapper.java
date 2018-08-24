@@ -17,7 +17,7 @@ public interface UserMapper {
      * @author Ulric
      * @date 2018/7/24
      */
-    User findUserByUsername(String username);
+    User selectByUsername(String username);
 
     /**
      * 获取最新插入的主键ID
@@ -49,7 +49,7 @@ public interface UserMapper {
      * @author casaba-u
      * @date 2018/8/22
      */
-    User selectAllInfo(User user);
+//    User selectAllInfo(User user);
 
     /**
      * 添加一个用户
@@ -66,4 +66,11 @@ public interface UserMapper {
      * @date 2018/8/20
      */
     boolean updateUserByName(User user);
+
+    /**
+     * 根据用户名判断用户是否存在
+     * @author casaba-u
+     * @date 2018/8/24
+     */
+
 }

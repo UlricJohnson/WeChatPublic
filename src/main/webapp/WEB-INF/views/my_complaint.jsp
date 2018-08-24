@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/weui/style/weui.css">
     <%--<link rel="stylesheet" href="<%=request.getContextPath()%>/weui/example/example.css">--%>
     <script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.min.js"></script>
+
     <%-- 使用 jquery-weui --%>
     <%--<!-- head 中 -->
     <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.3/style/weui.min.css">
@@ -53,39 +54,48 @@
         <p class="page__desc">您的投诉单如下：</p>--%>
         用户：${paramMap.eleUser.username}，您好
     </div>
-    <div class="weui-panel__bd">
-        <c:forEach items="${paramMap.eleUser.complaintList}" var="complaint" varStatus="currIndex">
-            <div class="weui-cells__title">投诉单#${currIndex.index + 1}：</div>
-            <div class="weui-cells">
-                <div class="weui-cell">
-                        <%--<div class="weui-cell__hd"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" style="width:20px;margin-right:5px;display:block"></div>--%>
-                    <div class="weui-cell__bd">
-                        <p>投诉简述：</p>
+    <c:choose>
+        <c:when test="${empty paramMap.eleUser.complaintList}">
+            <h3>您还没有投诉过电梯</h3>
+        </c:when>
+        <c:otherwise>
+            <div class="weui-panel__bd">
+                <c:forEach items="${paramMap.eleUser.complaintList}" var="complaint" varStatus="currIndex">
+                    <div class="weui-cells__title">投诉单#${currIndex.index + 1}：</div>
+                    <div class="weui-cells">
+                        <div class="weui-cell">
+                                <%--<div class="weui-cell__hd"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" style="width:20px;margin-right:5px;display:block"></div>--%>
+                            <div class="weui-cell__bd">
+                                <p>投诉简述：</p>
+                            </div>
+                            <div class="weui-cell__ft">${complaint.sketch}</div>
+                        </div>
+                        <div class="weui-cell">
+                                <%--<div class="weui-cell__hd"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" style="width:20px;margin-right:5px;display:block"></div>--%>
+                            <div class="weui-cell__bd">
+                                <p>投诉详情：</p>
+                            </div>
+                            <div class="weui-cell__ft">${complaint.details}</div>
+                        </div>
+                            <%-- 显示该投诉单相关电梯的使用证编号，点击跳到电梯信息页面 --%>
+                        <div class="weui-cell">
+                            <c:if test="${not empty complaint.elevator}">
+                                <form action="/elevator/findByCertificate" method="post"
+                                      style="display:block; width: 100%">
+                                    <input name="certificate" type="hidden"
+                                           value="${complaint.elevator.certificateOfUse}"/>
+                                    <input type="submit" value="查看电梯信息">
+                                        <%--<a class="weui-btn weui-btn_plain-primary" href="javascript:;"
+                                           onclick="checkEleInfo(this)">查看图片</a>--%>
+                                </form>
+                            </c:if>
+                        </div>
                     </div>
-                    <div class="weui-cell__ft">${complaint.sketch}</div>
-                </div>
-                <div class="weui-cell">
-                        <%--<div class="weui-cell__hd"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" style="width:20px;margin-right:5px;display:block"></div>--%>
-                    <div class="weui-cell__bd">
-                        <p>投诉详情：</p>
-                    </div>
-                    <div class="weui-cell__ft">${complaint.details}</div>
-                </div>
-                    <%-- 显示该投诉单相关电梯的使用证编号，点击跳到电梯信息页面 --%>
-                <div class="weui-cell">
-                    <c:if test="${not empty complaint.elevator}">
-                        <form action="/elevator/findByCertificate" method="post"
-                              style="display:block; width: 100%">
-                            <input name="certificate" type="hidden" value="${complaint.elevator.certificateOfUse}"/>
-                            <input type="submit" value="查看电梯信息">
-                            <%--<a class="weui-btn weui-btn_plain-primary" href="javascript:;"
-                               onclick="checkEleInfo(this)">查看图片</a>--%>
-                        </form>
-                    </c:if>
-                </div>
+                </c:forEach>
             </div>
-        </c:forEach>
-    </div>
+        </c:otherwise>
+    </c:choose>
+
 
 </div>
 

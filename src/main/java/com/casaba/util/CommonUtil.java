@@ -101,4 +101,21 @@ public final class CommonUtil {
         return respJsonObj;
     }
 
+    /**
+     * 判断一个字符串是否为空或空串，若为空或空串则返回true
+     *
+     * @author casaba-u
+     * @date 2018/8/24
+     */
+    public static boolean isStringBlank(String string) {
+        if (string == null) {
+            return true;
+        }
+
+        if (string.trim().equals("")) {
+            return true;
+        }
+
+        return false;
+    }
 }

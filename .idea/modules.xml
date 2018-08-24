@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/WeChatPublic.iml" filepath="$PROJECT_DIR$/WeChatPublic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wechat-public.iml" filepath="$PROJECT_DIR$/wechat-public.iml" />
     </modules>
   </component>
 </project>

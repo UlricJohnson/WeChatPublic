@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.casaba.mapper.DataMapper">
+
+    <!-- 基础属性映射 -->
+    <resultMap id="base_data_map" type="com.casaba.entity.Data">
+        <id property="id" column="ID"/>
+        <result property="eventCode" column="EVENT_CODE"/>
+        <result property="eventData" column="EVENT_DATA"/>
+        <result property="eventStatus" column="EVENT_STATUS"/>
+        <result property="eventTime" column="EVENT_TIME"/>
+        <result property="msgSeq" column="MSG_SEQ"/>
+        <result property="regCode" column="REG_CODE"/>
+        <result property="tdSerial" column="TD_SERIAL"/>
+    </resultMap>
+
+    <!-- 获取全部数据 -->
+    <select id="selectAll" resultMap="base_data_map" resultType="java.util.List">
+        SELECT * FROM tb_data
+    </select>
+
+    <!-- 根据 regCode 查询数据 -->
+    <select id="selectByRegCode" resultMap="base_data_map">
+        SELECT * FROM tb_data WHERE #{regCode} = REG_CODE
+    </select>
+
+    <!-- 添加一项数据 -->
+    <insert id="insert" parameterType="com.casaba.entity.Data">
+        INSERT INTO tb_data VALUES
+            (NULL, #{eventCode}, #{eventData}, #{eventStatus}, #{eventTime}, #{msgSeq}, #{regCode}, #{tdSerial})
+    </insert>
+
+</mapper>

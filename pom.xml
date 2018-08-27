@@ -43,9 +43,9 @@
         <junit.version>4.12</junit.version>
 
         <!-- === 写接口（web service框架）：cxf：jax-rs === -->
-        <cxf.version>3.0.12</cxf.version>
+        <!--<cxf.version>3.0.12</cxf.version>-->
         <!-- jettison：java的json读写类库，使CXF框架可以实现基于JSON的web service -->
-        <jettison.version>1.3.7</jettison.version>
+        <!--<jettison.version>1.3.7</jettison.version>-->
 
         <!-- httpclient -->
         <httpclient.version>4.5.1</httpclient.version>
@@ -55,6 +55,9 @@
         <!--<log4j.version>2.8.2</log4j.version>-->
         <!-- 2、groupId：log4j -->
         <log4j.version>1.2.17</log4j.version>
+
+        <!--  -->
+        <commons-lang3.version>3.7</commons-lang3.version>
     </properties>
 
     <dependencies>
@@ -291,6 +294,13 @@
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
         </dependency>-->
+
+        <!--  -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
     </dependencies>
 
 

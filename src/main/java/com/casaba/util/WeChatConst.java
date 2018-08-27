@@ -29,9 +29,6 @@ public final class WeChatConst {
     // 获取 access_token 的完整url（拼接参数）
     public static final String GET_ACCESS_TOKEN_URL_FULL = GET_ACCESS_TOKEN_URL + "?" + GET_ACCESS_TOKEN_PARAMS;
 
-    // 缓存 access_token 的文件名（没有后缀名）
-//    public static final String ACCESS_TOKEN_FILE_NAME = "accessTokenCache";
-
     /*** ==============jsapi_ticket================= ***/
 
     // 获取 jsapi_ticket 的 url

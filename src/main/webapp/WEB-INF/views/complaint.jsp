@@ -120,7 +120,7 @@
             </div>
         </div>
 
-        <div id="picDiv" style="margin: auto;"></div>
+        <div id="picDiv" style="width:100%; margin-top: 15px; text-align: center;"></div>
         <input id="imgUrl" type="hidden" name="imgUrl">
         <%--<input id="submitComplaint" type="submit" value="投诉">--%>
         <div class="weui-btn-area">
@@ -246,7 +246,9 @@
 
                     // 显示图片
                     for (var i = 0; i < images.localId.length; i++) {
-                        $("#picDiv").append("<img style='width: 80px; height: 80px' src='" + images.localId[i] + "'/>");
+                        $("#picDiv").append(
+                            "<img style='margin-left:5px; margin-right:5px; width: 100px; height: 100px' src='"
+                            + images.localId[i] + "'/>");
                     }
 
                     // 设置延迟100毫秒执行上传操作
@@ -285,7 +287,7 @@
                         });
                     },
                     fail: function (result) {
-                        alert("上传图片失败，请重试");
+                        alert("上传图片失败");
                         $("#picDiv").html("");
                     }
                 });

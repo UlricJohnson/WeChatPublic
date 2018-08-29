@@ -63,11 +63,13 @@ public class ElevatorService implements IElevatorService {
         List<Elevator> elevatorList = new LinkedList<>();
         // 根据使用证编号查找
         if (!StringUtils.isBlank(certificate)) {
-            Elevator elevator = elevatorMapper.selectByCertificate(certificate);
-            elevatorList.add(elevator);
+            elevatorList = elevatorMapper.selectByCertificateFuzzy(certificate);
+            /*if(elevator==null){
+                return null;
+            }
+            elevatorList.add(elevator);*/
         } else if (!StringUtils.isBlank(addressOfUse)) {
             // 根据使用单位地址模糊查找
-
             String[] strings = addressOfUse.trim().split("\\s+"); // 根据一个或多个空白符号切割
             elevatorList = elevatorMapper.selectByAddressOfUse(strings);
         } else {

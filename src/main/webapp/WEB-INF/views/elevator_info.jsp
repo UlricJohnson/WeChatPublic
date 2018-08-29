@@ -149,12 +149,20 @@
         &lt;%&ndash;<input type="submit" value="投诉">&ndash;%&gt;
     </form>
 </div>--%>
-
 <c:forEach items="${paramMap.elevatorList}" var="elevator" varStatus="currIndex">
-    <div class="ui-collapsible ui-collapsible-inset ui-corner-all ui-collapsible-themed-content ui-first-child ui-collapsible-collapsed">
+    <div class="ui-collapsible ui-collapsible-inset ui-corner-all ui-collapsible-themed-content ui-first-child ui-collapsible-collapsed"
+         style="margin: 20px 5px;">
         <h1 class="my-collapse ui-collapsible-heading ui-collapsible-heading-collapsed">
             <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-right ui-btn-b ui-icon-carat-l">
-                    ${elevator.addressOfUse}
+                <c:choose>
+                    <c:when test="${queryByCertificate == true}">
+                        ${elevator.certificateOfUse}
+                    </c:when>
+                    <c:otherwise>
+                        ${elevator.addressOfUse}
+                    </c:otherwise>
+                </c:choose>
+
             </a>
         </h1>
         <div style="display: none;" class="ui-collapsible-content ui-body-a">

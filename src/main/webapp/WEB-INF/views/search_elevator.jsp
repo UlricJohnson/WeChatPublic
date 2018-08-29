@@ -28,10 +28,10 @@
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__hd">
-                    <label class="weui-label">使用单位地址：</label>
+                    <label class="weui-label">单位地址：</label>
                 </div>
                 <div class="weui-cell__hd weui-cell_primary">
-                    <input class="weui-input" name="addressOfUse" type="text" placeholder="请输入使用单位地址的关键字"/>
+                    <input class="weui-input" name="addressOfUse" type="text" placeholder="请输入单位地址关键字"/>
                 </div>
             </div>
         </div>

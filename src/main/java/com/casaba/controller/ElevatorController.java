@@ -39,7 +39,8 @@ public class ElevatorController {
 //    public Map<String, Object> findByCertificate(String certificate) {
     @RequestMapping("/queryElevator")
     public ModelAndView queryElevator(String certificate, String addressOfUse) {
-        LOGGER.info("=====接收到的certificate为：" + certificate);
+        LOGGER.info("=====接收到的参数\n\t#certificate：" + certificate
+                + "\n\t#addressOfUse: " + addressOfUse);
 
         Map<String, Object> resultMap = new HashMap<>();
 
@@ -55,6 +56,11 @@ public class ElevatorController {
         } else {
             resultMap.put("elevatorList", elevatorList);
             mv.setViewName("elevator_info");
+            if (!StringUtils.isBlank(certificate)) {
+                mv.addObject("queryByCertificate", true); // 在搜索结果页面显示编号
+            } else if (!StringUtils.isBlank(addressOfUse)) {
+                mv.addObject("queryByCertificate", false);
+            }
             mv.addObject("paramMap", resultMap);
         }
 

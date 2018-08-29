@@ -34,10 +34,16 @@
         INSTALLATION_UNIT, MAINTENANCE_UNIT, DEVICE_DETAILS
     </sql>
 
-    <!-- 按照使用证编号查找 -->
+    <!-- 按照使用证编号精确查找 -->
     <select id="selectByCertificate" resultMap="Result_Map_Base" parameterType="java.lang.String">
         select * from tb_elevator
-        where CERTIFICATE_OF_USE LIKE CONCAT('%', #{certificate}, '%')
+            where CERTIFICATE_OF_USE = #{certificate}
+    </select>
+
+    <!-- 根据使用证编号查找电梯，模糊查找 -->
+    <select id="selectByCertificateFuzzy" resultMap="Result_Map_Base">
+        select * from tb_elevator
+            where CERTIFICATE_OF_USE LIKE CONCAT('%', #{certificate}, '%')
     </select>
 
     <!--

@@ -16,13 +16,21 @@ import java.util.List;
 @Component
 public interface ElevatorMapper {
     /**
-     * 根据使用证编号(CERTIFICATE_OF_USE)查找电梯
+     * 根据使用证编号(CERTIFICATE_OF_USE)查找电梯，精确查找
      *
      * @param certificate
      * @author Ulric
      * @date 2018/7/17
      */
     Elevator selectByCertificate(String certificate);
+
+    /**
+     * 根据使用证编号查找电梯，模糊查找
+     *
+     * @author casaba-u
+     * @date 2018/8/29
+     */
+    List<Elevator> selectByCertificateFuzzy(String certificate);
 
     /**
      * 根据投诉单查询相关的电梯

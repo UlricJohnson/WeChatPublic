@@ -18,7 +18,15 @@ public interface IElevatorService {
      * @author Ulric
      * @date 2018/7/17
      */
-    Elevator findByCertificate(String certificate);
+    Elevator queryByCertificate(String certificate);
+
+    /**
+     * 根据使用证编号准确查询 或 根据使用单位地址模糊查询
+     *
+     * @author casaba-u
+     * @date 2018/8/28
+     */
+    List<Elevator> queryElevator(String certificate, String addressOfUse);
 
     /**
      * 根据投诉单查询相关的电梯

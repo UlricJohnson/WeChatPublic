@@ -31,4 +31,12 @@ public interface ElevatorMapper {
      * @date 2018/8/5
      */
     List<Elevator> selectByComplaints(List<Complaint> complaintList);
+
+    /**
+     * 根据（多个）使用单位地址模糊查找
+     *
+     * @author casaba-u
+     * @date 2018/8/28
+     */
+    List<Elevator> selectByAddressOfUse(String[] addressOfUses);
 }

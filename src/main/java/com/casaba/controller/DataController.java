@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +41,9 @@ public class DataController {
      * @date 2018/8/27
      */
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public Map<String, Object> getAllData(HttpServletRequest request) {
+    public Map<String, Object> getAllData(HttpServletRequest request,HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
         List<Data> dataList = dataService.findAllData();
 
         Map<String, Object> resultMap = new HashMap<>();
@@ -65,7 +68,9 @@ public class DataController {
      * @date 2018/8/27
      */
     @RequestMapping(value = "/addOne", method = RequestMethod.POST)
-    public Map addOne(@RequestBody String jsonStr) {
+    public Map addOne(@RequestBody String jsonStr,HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
         LOGGER.info("=====接收到的数据：" + jsonStr);
 
         Map<String, Object> resultMap = new HashMap<>();
@@ -121,10 +126,14 @@ public class DataController {
      * @date 2018/8/27
      */
     @RequestMapping("/queryByRegCode")
-    public Map queryByRegCode(HttpServletRequest request) {
+    public Map queryByRegCode(HttpServletRequest request, HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
         Map<String, Object> resultMap = new HashMap<>();
 
         String regCode = request.getParameter("regCode");
+
+        LOGGER.info("=====get参数：\n\t#regCode: " + regCode);
 
         Data data = dataService.queryByRegCode(regCode);
 

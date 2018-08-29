@@ -16,7 +16,7 @@
 </div>
 
 <div style="width: 100%; height: 50%; position: absolute; bottom: 0;">
-    <form action="/elevator/findByCertificate" method="post">
+    <form action="/elevator/queryElevator" method="post">
         <div class="weui-cells">
             <div class="weui-cell">
                 <div class="weui-cell__hd">
@@ -24,6 +24,14 @@
                 </div>
                 <div class="weui-cell__hd weui-cell_primary">
                     <input class="weui-input" name="certificate" type="text" placeholder="请输入电梯使用证编号"/>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">使用单位地址：</label>
+                </div>
+                <div class="weui-cell__hd weui-cell_primary">
+                    <input class="weui-input" name="addressOfUse" type="text" placeholder="请输入使用单位地址的关键字"/>
                 </div>
             </div>
         </div>

@@ -21,7 +21,7 @@
 
     <!-- 根据 regCode 查询数据 -->
     <select id="selectByRegCode" resultMap="base_data_map">
-        SELECT * FROM tb_data WHERE #{regCode} = REG_CODE
+        SELECT * FROM tb_data WHERE REG_CODE = #{regCode}
     </select>
 
     <!-- 添加一项数据 -->

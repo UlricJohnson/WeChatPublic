@@ -4,6 +4,7 @@ import com.casaba.entity.Complaint;
 import com.casaba.entity.Elevator;
 import com.casaba.mapper.ElevatorMapper;
 import com.casaba.service.IElevatorService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -38,11 +40,39 @@ public class ElevatorService implements IElevatorService {
      * @date 2018/7/17
      */
     @Override
-    public Elevator findByCertificate(String certificate) {
-//        System.out.println("=====ElevatorService--findByCertificate()");
-        LOGGER.debug("=====接收到的certificate为：" + certificate);
+    public Elevator queryByCertificate(String certificate) {
+        LOGGER.info("=====接收到的certificate为：" + certificate);
 
         Elevator elevator = elevatorMapper.selectByCertificate(certificate);
+
+        return elevator;
+    }
+
+    /**
+     * 根据使用证编号准确查询 或 根据使用单位地址模糊查询
+     *
+     * @author casaba-u
+     * @date 2018/8/28
+     */
+    @Override
+    public List<Elevator> queryElevator(String certificate, String addressOfUse) {
+//        System.out.println("=====ElevatorService--findByCertificate()");
+        LOGGER.info("=====接收到的参数：\n\t#certificate: " + certificate
+                + "\n\t#addressOfUse: " + addressOfUse);
+
+        List<Elevator> elevatorList = new LinkedList<>();
+        // 根据使用证编号查找
+        if (!StringUtils.isBlank(certificate)) {
+            Elevator elevator = elevatorMapper.selectByCertificate(certificate);
+            elevatorList.add(elevator);
+        } else if (!StringUtils.isBlank(addressOfUse)) {
+            // 根据使用单位地址模糊查找
+
+            String[] strings = addressOfUse.trim().split("\\s+"); // 根据一个或多个空白符号切割
+            elevatorList = elevatorMapper.selectByAddressOfUse(strings);
+        } else {
+            return null;
+        }
 
         // 转换日期格式
 //        Date nextYearlyInspection = elevator.getNextYearlyInspection();
@@ -61,7 +91,7 @@ public class ElevatorService implements IElevatorService {
 //            return elevator;
 //        }
 
-        return elevator;
+        return elevatorList;
     }
 
     /**

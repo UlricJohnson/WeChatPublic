@@ -53,7 +53,7 @@ public class ComplaintService implements IComplaintService {
         boolean isSuccess = false;
 
         // 根据使用证编号查找出电梯
-        Elevator elevator = iElevatorService.findByCertificate(certificate);
+        Elevator elevator = iElevatorService.queryByCertificate(certificate);
 
         // 创建投诉单对象，并赋值简述和详情属性，以及将电梯的主键赋值到投诉单的电梯外键
         Complaint complaint = new Complaint();

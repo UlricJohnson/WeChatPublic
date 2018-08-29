@@ -46,6 +46,13 @@ public class DataService implements IDataService {
     public boolean addOne(Data data) {
         LOGGER.info("=====接收到的数据：" + data);
 
+        Data dataFound = dataMapper.selectByRegCode(data.getRegCode());
+
+        // 数据库中已经存在，则不进行操作
+        if (dataFound != null) {
+            return true;
+        }
+
         boolean insertSuccess = dataMapper.insert(data);
 
         return insertSuccess;

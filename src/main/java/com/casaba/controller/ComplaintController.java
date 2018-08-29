@@ -59,7 +59,7 @@ public class ComplaintController {
         ModelAndView mv = new ModelAndView();
 
         // 查找出该电梯的设备地址
-        Elevator elevator = iElevatorService.findByCertificate(certificateOfUse);
+        Elevator elevator = iElevatorService.queryByCertificate(certificateOfUse);
 
         if (elevator == null) {
             mv.setViewName("error");

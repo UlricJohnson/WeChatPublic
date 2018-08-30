@@ -155,7 +155,7 @@
         <h1 class="my-collapse ui-collapsible-heading ui-collapsible-heading-collapsed">
             <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-right ui-btn-b ui-icon-carat-l">
                 <c:choose>
-                    <c:when test="${queryByCertificate == true}">
+                    <c:when test="${paramMap.queryByCertificate == true}">
                         ${elevator.certificateOfUse}
                     </c:when>
                     <c:otherwise>

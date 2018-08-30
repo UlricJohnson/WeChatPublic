@@ -17,12 +17,8 @@ import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * created by Ulric on 2018/7/25
@@ -149,7 +145,7 @@ public final class WeChatUtil {
 
             // 完整的请求 jsapi_ticket 的路径
             String requestUrlFull = WeChatConst.GET_JSAPI_TICKET_URL + "?" +
-                    WeChatConst.GET_JASPI_TICKET_PARAMS_MISSING + accessToken;
+                    WeChatConst.GET_JASPI_TICKET_PARAMS + accessToken;
 
             LOGGER.info("=====请求 jsapi_ticket 的完整URL：" + requestUrlFull);
 

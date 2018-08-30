@@ -35,5 +35,5 @@ public final class WeChatConst {
     public static final String GET_JSAPI_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket";
 
     // 获取 jsapi_ticket 的参数串（使用的时候在最后拼接上 access_token 就行了）
-    public static final String GET_JASPI_TICKET_PARAMS_MISSING = "type=jsapi&access_token=";
+    public static final String GET_JASPI_TICKET_PARAMS = "type=jsapi&access_token=";
 }

@@ -1,22 +1,17 @@
 package com.casaba.controller;
 
-import com.casaba.entity.Complaint;
 import com.casaba.entity.Elevator;
 import com.casaba.service.IComplaintService;
 import com.casaba.service.IElevatorService;
 import com.casaba.util.CommonUtil;
-import com.casaba.util.WeChatSignUtil;
 import com.casaba.util.WeChatUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +20,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,10 +34,10 @@ public class ComplaintController {
     private static final Log LOGGER = LogFactory.getLog(ComplaintController.class);
 
     @Resource
-    private IElevatorService iElevatorService;
+    private IElevatorService elevatorService;
 
     @Resource
-    private IComplaintService iComplaintService;
+    private IComplaintService complaintService;
 
 
     /**
@@ -52,36 +48,42 @@ public class ComplaintController {
      */
     @RequestMapping("/toComplaint_fillIn")
     public ModelAndView toComplaint_fillIn(HttpServletRequest request,
-                                           String certificateOfUse
-            /*RedirectAttributes rediAttr*/) {
-        LOGGER.info("=====您要投诉的电梯为：" + certificateOfUse);
+                                           String certificate, String addressOfUse) {
+        LOGGER.info("=====接收到的参数：\n\t#certificate: " + certificate
+                + "\n\t#addressOfUse: " + addressOfUse);
 
         ModelAndView mv = new ModelAndView();
 
-        // 查找出该电梯的设备地址
-        Elevator elevator = iElevatorService.queryByCertificate(certificateOfUse);
+        Map paramMap = new HashMap();
 
-        if (elevator == null) {
+        HttpSession session = request.getSession();
+
+        // 查找出该电梯的设备地址
+//        Elevator elevator = elevatorService.queryByCertificate(certificate);
+        List<Elevator> elevatorList = elevatorService.queryElevator(certificate, addressOfUse);
+
+//        if (elevator == null) {
+        if (null == elevatorList || elevatorList.isEmpty()) {
             mv.setViewName("error");
             mv.addObject("msg", "您查找的数据不存在");
-        } else {
-//            mv.setViewName("complaint");
-//            mv.addObject("elevator", elevator);
-
-            Map paramMap = new HashMap();
-
-            paramMap.put("elevator", elevator);
-
-//            rediAttr.addAttribute("toJsp", "complaint"); // 授权后要跳到 complaint.jsp
-//            rediAttr.addAttribute("paramMap", paramMap); // 携带的参数
-
-            HttpSession session = request.getSession();
+            return mv;
+        } else if (elevatorList.size() == 1) { // 只查询到一台电梯则直接跳转到投诉页面
+            paramMap.put("elevator", elevatorList.get(0));
             session.setAttribute("toJsp", "complaint");
-            session.setAttribute("paramMap", paramMap);
-//            session.setMaxInactiveInterval(600); // 超时时间：10 分钟
-
-            mv.setViewName("redirect:/wechat/wclogin");
+        } else {
+            paramMap.put("elevatorList", elevatorList); // 如果查询到多台电梯则跳转到电梯信息页面
+            if (!StringUtils.isBlank(certificate)) {
+                // 在搜索结果页面显示编号
+                paramMap.put("queryByCertificate", true);
+            } else if (!StringUtils.isBlank(addressOfUse)) {
+                // 显示地址
+                paramMap.put("queryByCertificate", false);
+            }
+            session.setAttribute("toJsp", "elevator_info");
         }
+
+        session.setAttribute("paramMap", paramMap);
+        mv.setViewName("redirect:/wechat/wclogin");
 
         return mv;
     }
@@ -92,26 +94,16 @@ public class ComplaintController {
      * @author Ulric
      * @date 2018/7/23
      */
-//    @RequestMapping(value = "/toComplaint_eleInfo", method = RequestMethod.POST)
     @RequestMapping(value = "/toComplaint_eleInfo")
-//    @ResponseBody   // @ResponseBody 注解表示返回的字符串不是视图名称，而是JSON字符串
     public ModelAndView toComplaint_eleInfo(String certificateOfUse, String deviceAddress,
-                                            HttpServletRequest request
-            /*RedirectAttributes rediAttr*/) {
+                                            HttpServletRequest request) {
         Elevator elevator = new Elevator();
         elevator.setCertificateOfUse(certificateOfUse);
         elevator.setDeviceAddress(deviceAddress);
 
         Map paramMap = new HashMap();
 
-//        paramMap.put("certificateOfUse", certificateOfUse);
-//        paramMap.put("deviceAddress", deviceAddress);
-
         paramMap.put("elevator", elevator);
-
-        // addFlashAttribute 相当于放到 session 中
-//        rediAttr.addFlashAttribute("toJsp", "complaint"); // 授权后要跳到 complaint.jsp
-//        rediAttr.addFlashAttribute("paramMap", paramMap); // 携带的参数
 
         HttpSession session = request.getSession();
         session.setAttribute("toJsp", "complaint");
@@ -121,9 +113,6 @@ public class ComplaintController {
 
         // 先进行微信登录
         mv.setViewName("redirect:/wechat/wclogin");
-
-//        mv.setViewName("complaint");
-//        mv.addObject("elevator", elevator);
 
         return mv;
     }
@@ -151,7 +140,7 @@ public class ComplaintController {
         // 将用户（投诉人）、投诉单、电梯信息保存到数据库
         try {
             boolean isSuccess =
-                    iComplaintService.saveComplaintSheet(certificate, username, contactNum, sketch, details, imgUrl);
+                    complaintService.saveComplaintSheet(certificate, username, contactNum, sketch, details, imgUrl);
             if (!isSuccess) {
                 throw new RuntimeException("保存数据失败");
             }
@@ -186,11 +175,12 @@ public class ComplaintController {
 
         // 服务器保存图片的路径
         String webRootPath = request.getSession().getServletContext().getRealPath("/");
-        if (webRootPath.endsWith("/") || webRootPath.endsWith("\\")) {
+        if (webRootPath.endsWith("/") || webRootPath.endsWith("\\")) { // 如果获取的项目根目录最后有斜杠，就去掉
             String temp = webRootPath.substring(0, webRootPath.length() - 1);
             webRootPath = temp;
         }
-        String imgRootPath = webRootPath + "/img_upload";
+//        String imgRootPath = webRootPath + "/img_upload";
+        String imgRootPath = new File(webRootPath).getParent() + "/ele_img_upload"; // 在项目的上一级创建图片文件夹，这样迭代项目的时候就不会把图片也删除
         File imgDir = new File(imgRootPath);
         if (!imgDir.exists()) {
             imgDir.mkdirs();

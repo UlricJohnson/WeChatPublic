@@ -57,9 +57,11 @@ public class ElevatorController {
             resultMap.put("elevatorList", elevatorList);
             mv.setViewName("elevator_info");
             if (!StringUtils.isBlank(certificate)) {
-                mv.addObject("queryByCertificate", true); // 在搜索结果页面显示编号
+//                mv.addObject("queryByCertificate", true); // 在搜索结果页面显示编号
+                resultMap.put("queryByCertificate",true);
             } else if (!StringUtils.isBlank(addressOfUse)) {
-                mv.addObject("queryByCertificate", false);
+//                mv.addObject("queryByCertificate", false);
+                resultMap.put("queryByCertificate", false);
             }
             mv.addObject("paramMap", resultMap);
         }

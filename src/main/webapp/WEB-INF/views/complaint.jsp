@@ -11,27 +11,27 @@
     <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 
     <style>
-        .selectDiv {
-            /*用div的样式代替select的样式*/
+        /*.sketchDiv {
+            !*用div的样式代替select的样式*!
             width: 150px;
             border-radius: 3px;
-            /*盒子阴影修饰作用*/
+            !*盒子阴影修饰作用*!
             box-shadow: 0 0 2px #000;
             position: relative;
         }
 
-        .selectDiv > select {
-            /*清除select的边框样式*/
+        .sketchDiv > select {
+            !*清除select的边框样式*!
             border: none;
-            /*清除select聚焦时候的边框颜色*/
+            !*清除select聚焦时候的边框颜色*!
             outline: none;
-            /*将select的宽高等于div的宽高*/
+            !*将select的宽高等于div的宽高*!
             width: 100%;
 
-            /*通过padding-left的值让文字居中*/
+            !*通过padding-left的值让文字居中*!
             padding-left: 25%;
             text-align: center;
-        }
+        }*/
     </style>
 
 </head>
@@ -58,17 +58,29 @@
                     <label class="weui-label">电梯异常：</label>
                 </div>
                 <div class="weui-cell__bd weui-cell_primary">
-                    <%--<input class="weui-input" name="name" type="text" placeholder="请在此输入姓名" />--%>
-                    <div class="selectDiv">
-                        <select id="sketchSelect" name="sketch" class="">
+                    <%--<input class="weui-input" name="name" type="text" placeholder="请在此输入姓名"/>--%>
+                    <div class="sketchDiv">
+                        <%--<select id="sketchSelect" name="sketch">
                             <option value="">--请选择--</option>
                             <option value="电梯关人">电梯关人</option>
                             <option value="异常抖动">异常抖动</option>
                             <option value="异常声响">异常声响</option>
                             <option value="电梯停运">电梯停运</option>
                             <option value="其他">其他</option>
-                        </select>
+                        </select>--%>
+                        <input type="checkbox" value="电梯关人">
+                        <span>电梯关人</span>
+                        <input type="checkbox" value="异常抖动">
+                        <span>异常抖动</span>
+                        <input type="checkbox" value="异常声响">
+                        <span>异常声响</span>
+                        <input type="checkbox" value="电梯停运">
+                        <span>电梯停运</span>
+                        <input type="radio" value="其他">
+                        <span>其他</span>
+                        <input type="hidden" name="sketch">
                     </div>
+                    <div></div>
                 </div>
             </div>
             <div class="weui-cell">
@@ -127,7 +139,7 @@
             <a id="uploadImageBtn" class="weui-btn weui-btn_plain-primary" href="javascript:void(0);">上传图片</a>
             <%--<span style="width: 50px;"></span>--%>
             <br>
-            <a class="weui-btn weui-btn_warn" id="submitComplaint" href="javascript:">投诉</a>
+            <a class="weui-btn weui-btn_warn" id="submitComplaint" href="javascript:">发表意见</a>
         </div>
     </form>
 </div>
@@ -138,10 +150,16 @@
         var textareaHeight = $("#details").height();
         $("#detailsSpan").css("top", (-1 * (textareaHeight / 2 - 10)) + "px");
 
+        // 电梯异常事项
+
+
         // 点击 “投诉” 按钮提交表单
         $("#submitComplaint").click(function () {
-            // 检查必填项：异常实现、联系人姓名、联系方式
-            var sketch = $("#sketchSelect option:selected").val();
+            // 检查必填项：异常事项、联系人姓名、联系方式
+
+            // 拼接异常事项
+            // var sketch = $("#sketchSelect option:selected").val();
+
             var username = $("#username").val();
             var contactNum = $("#contactNum").val();
 

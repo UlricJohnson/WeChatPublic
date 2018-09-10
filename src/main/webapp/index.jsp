@@ -17,7 +17,8 @@
 </div>
 <br>
 <%--<a href="/toJsp/search_elevator" class="weui-btn weui-btn_primary">查询电梯</a>--%>
-<a href="/redirect/investigation" class="weui-btn weui-btn_primary">问卷调查</a>
+<%--<a href="/redirect/investigation" class="weui-btn weui-btn_primary">问卷调查</a>--%>
+<a href="https://www.wjx.cn/m/27872200.aspx" class="weui-btn weui-btn_primary">问卷调查</a>
 <br>
 <a href="/toJsp/complaint_fill_in" class="weui-btn weui-btn_warn">投诉电梯</a>
 <br>

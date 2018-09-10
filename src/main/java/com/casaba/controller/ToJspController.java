@@ -61,17 +61,4 @@ public class ToJspController {
         return jspName;
     }
 
-    /**
-     * 携带参数跳转页面（重定向，）
-     *
-     * @author casaba-u
-     * @date 2018/8/21
-     */
-    public ModelAndView withParams(HttpServletRequest request, HttpServletResponse response, HttpSession session,
-                                   RedirectAttributes rediAttr) {
-
-
-        return null;
-    }
-
 }

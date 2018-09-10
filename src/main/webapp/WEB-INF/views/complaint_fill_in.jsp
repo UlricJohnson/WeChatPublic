@@ -13,7 +13,7 @@
 <body>
 <div style="width: 100%; height: 50%;">
     <%-- 电梯的图片 --%>
-    <img src="<%=request.getContextPath()%>/img/elevator.png" alt="图片找不到了"
+    <img src="<%=request.getContextPath()%>/img/headImg.png" alt="图片找不到了"
          style="display: block; margin: auto; padding-top: 80px;">
 </div>
 

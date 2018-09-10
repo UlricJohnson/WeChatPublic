@@ -1,6 +1,5 @@
 package com.casaba.controller;
 
-import com.casaba.entity.Elevator;
 import com.casaba.entity.JsapiTicket;
 import com.casaba.entity.User;
 import com.casaba.entity.WeChatUser;
@@ -15,14 +14,11 @@ import com.google.gson.JsonObject;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
@@ -45,10 +41,10 @@ public class WeChatController {
     private static final Log LOGGER = LogFactory.getLog(WeChatController.class);
 
     @Resource
-    private IUserService iUserService;
+    private IUserService userService;
 
     @Resource
-    private IWeChatService iWeChatService;
+    private IWeChatService weChatService;
 
     /**
      * @description
@@ -309,7 +305,7 @@ public class WeChatController {
          */
         User user = null;
         try {
-            user = iUserService.findByWcOpenId(openId2); // 只能获取电梯用户自身的基本信息，没有关联查询
+            user = userService.findByWcOpenId(openId2); // 只能获取电梯用户自身的基本信息，没有关联查询
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -320,9 +316,9 @@ public class WeChatController {
 
 //            String username = user.getUsername();
 //            String contactNum = user.getContactNum();
-//            user = iUserService.login(username, contactNum); // 使用登录方法获取电梯用户的所有信息
+//            user = userService.login(username, contactNum); // 使用登录方法获取电梯用户的所有信息
 
-             User eleUser = iUserService.login(user);
+             User eleUser = userService.login(user);
 
             // 使用电梯用户登录
             mv.setViewName(toJsp);
@@ -364,8 +360,8 @@ public class WeChatController {
 
         try {
             // 如果微信用户在数据库中不存在，则把ta添加到数据库
-            if (!iWeChatService.isExist(wcUser.getOpenId())) {
-                iWeChatService.addWcUser(wcUser);
+            if (!weChatService.isExist(wcUser.getOpenId())) {
+                weChatService.addWcUser(wcUser);
             }
         } catch (Exception e) {
             e.printStackTrace();

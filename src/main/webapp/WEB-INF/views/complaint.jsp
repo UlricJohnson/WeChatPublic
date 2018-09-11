@@ -32,6 +32,11 @@
             padding-left: 25%;
             text-align: center;
         }*/
+
+        textarea {
+            resize: none;
+            border: solid grey 1px;
+        }
     </style>
 
 </head>
@@ -59,7 +64,7 @@
                 </div>
                 <div class="weui-cell__bd weui-cell_primary">
                     <%--<input class="weui-input" name="name" type="text" placeholder="请在此输入姓名"/>--%>
-                    <div class="sketchDiv">
+                    <div id="sketchDiv">
                         <%--<select id="sketchSelect" name="sketch">
                             <option value="">--请选择--</option>
                             <option value="电梯关人">电梯关人</option>
@@ -68,19 +73,27 @@
                             <option value="电梯停运">电梯停运</option>
                             <option value="其他">其他</option>
                         </select>--%>
-                        <input type="checkbox" value="电梯关人">
-                        <span>电梯关人</span>
-                        <input type="checkbox" value="异常抖动">
-                        <span>异常抖动</span>
-                        <input type="checkbox" value="异常声响">
-                        <span>异常声响</span>
-                        <input type="checkbox" value="电梯停运">
-                        <span>电梯停运</span>
-                        <input type="radio" value="其他">
-                        <span>其他</span>
+                        <div style="margin: 0 10px;">
+                            <input type="checkbox" value="电梯关人">
+                            <span>电梯关人</span>
+                            <input type="checkbox" value="异常抖动">
+                            <span>异常抖动</span>
+                        </div>
+                        <div style="margin: 0 10px;">
+                            <input type="checkbox" value="异常声响">
+                            <span>异常声响</span>
+                            <input type="checkbox" value="电梯停运">
+                            <span>电梯停运</span>
+                        </div>
+                        <div id="textareaDiv" style="margin: 0 10px;">
+                            <input type="checkbox" value="其他">
+                            <span>其他</span>
+                            <div style="display: none;">
+                                <textarea cols="20" rows="5" placeholder="请描述异常"></textarea>
+                            </div>
+                        </div>
                         <input type="hidden" name="sketch">
                     </div>
-                    <div></div>
                 </div>
             </div>
             <div class="weui-cell">
@@ -126,8 +139,7 @@
                     </span>
                 </div>
                 <div class="weui-cell__bd weui-cell_primary">
-                    <textarea name="details" id="details" class="weui-textarea" cols="25" rows="6"
-                              style="resize: none; border:solid gray 1px;"></textarea>
+                    <textarea name="details" id="details" cols="25" rows="6"></textarea>
                 </div>
             </div>
         </div>
@@ -151,15 +163,90 @@
         $("#detailsSpan").css("top", (-1 * (textareaHeight / 2 - 10)) + "px");
 
         // 电梯异常事项
+        var $sketchCheckboxes = $("#sketchDiv input[type='checkbox']");
+        // var sketch = "";
+        // 如果有多选框选中，则取消单选框 “其他” 的选中状态，并将选中的事项字符串拼接起来
+        $sketchCheckboxes.each(function (index) {
+            $(this).click(function () {
+                // if (index <= 0) {
+                //     sketch = "";
+                // }
 
+                // 取消单选框
+                // $($("#sketchDiv input[type='radio']")[0]).removeAttr("checked");
+                // 隐藏文本框
+                // $("#sketchDiv #textareaDiv div").css("display", "none");
+
+                // 如果是选中了，就内容拼接起来
+                // if ($(this).is(":checked")) {
+                //     // 获取选中的多选框的值
+                //     sketch += $(this).val() + ";";
+                // } else { // 如果是取消选中，就删除
+                //
+                // }
+            });
+        });
+
+        // 如果选中单选框 “其他”，则取消所有的多选框的选中状态，并显示文本框让用户填写
+        var otherSketch = $("#textareaDiv input")[0];
+        $(otherSketch).click(function () {
+            if ($(this).is(":checked")) {
+                // 取消所有多选框的选中状态
+                // $sketchCheckboxes.each(function (index) {
+                //     $(this).removeAttr("checked");
+                // });
+
+                // 显示文本框
+                $("#sketchDiv #textareaDiv div").css("display", "block");
+            } else {
+                // 隐藏文本框
+                $("#sketchDiv #textareaDiv div").css("display", "none");
+            }
+        });
+
+        // 获取文本框中的文字，赋值给sketch
+        // var sketchTextarea = $("#sketchDiv textarea")[0];
+        // $(sketchTextarea).change(function () {
+        //     if ($(sketchTextarea).text().trim() != "") {
+        //         sketch += $(sketchTextarea).text().trim();
+        //     } else {
+        //         sketch = "";
+        //     }
+        // });
+
+        function getSketch() {
+            var sketch = "";
+
+            // 获取选中的多选框的值，然后拼接
+            $sketchCheckboxes.each(function () {
+                if ($(this).is(":checked")) {
+                    if ($(this).val() != "其他") { // “其他” 多选框的值不用拼接
+                        sketch += $(this).val() + ";";
+                    }
+                }
+            });
+
+            // 如果 “其他” 多选框选中了，就获取文本框中的内容
+            if ($(otherSketch).is(":checked")) {
+                var sketchTextarea = $("#sketchDiv textarea")[0];
+                if ($(sketchTextarea).val().trim() != "") {
+                    sketch += $(sketchTextarea).val().trim() + ";";
+                } else {
+                    // 选中了，但是没填写内容，就提醒用户
+                    alert("请填写电梯异常\"其他\"项");
+                    $(sketchTextarea).focus();
+                    // sketch = "";
+                }
+            }
+
+            return sketch;
+        }
 
         // 点击 “投诉” 按钮提交表单
         $("#submitComplaint").click(function () {
-            // 检查必填项：异常事项、联系人姓名、联系方式
+            /***** 检查必填项：异常事项、联系人姓名、联系方式 *****/
 
-            // 拼接异常事项
-            // var sketch = $("#sketchSelect option:selected").val();
-
+            var sketch = getSketch();
             var username = $("#username").val();
             var contactNum = $("#contactNum").val();
 
@@ -179,8 +266,13 @@
                 return;
             }
 
+            $($("#sketchDiv input[name='sketch']")[0]).val(sketch);
+            // alert("sketch: " + $($("#sketchDiv input[name='sketch']")[0]).val());
+
             $("form")[0].submit();
         });
+
+        // ===============================================
 
         // 用来存放图片超链接imgUrl
         var imgUrl = ""; // 有多个超链接用分号;隔开
@@ -311,7 +403,8 @@
                 });
             }
         }
-    });
+    })
+    ;
 
 </script>
 

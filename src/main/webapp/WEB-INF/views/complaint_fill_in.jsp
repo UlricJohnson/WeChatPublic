@@ -31,7 +31,7 @@
 </div>
 
 <%--<div style="width: 100%; height: 50%; position: absolute; bottom: 0;">--%>
-<div>
+<div style="margin-top: 15px;">
     <form action="/complaint/toComplaint_fillIn" method="post">
         <%--<div class="weui-cells weui-cells_form">
             <div class="weui-cell">
@@ -53,15 +53,16 @@
                 </div>
             </div>
         </div>--%>
-        <div style="margin: 0; padding: 0;">
-            <div style="margin: 15px; height: 25px;">
+        <div style="padding: 0 10px;">
+            <div style="padding: 10px; height: 25px; border-top: solid rgb(192,192,192) 1px; border-bottom: solid rgb(192,192,192) 1px;">
                 <div style="height: 100%;">
                     <label for="certificate">使用证编号:</label>
-                    <span style="color: grey;">梯粤E</span>
+                    <span style="color: rgb(64,64,64);">梯粤E</span>
                     <input id="certificate" name="certificate" type="text" placeholder="请输入电梯使用证编号"/>
                 </div>
             </div>
-            <div style="margin: 15px;">
+            <%--<hr style="border: solid grey 1px;">--%>
+            <div style="padding: 10px; border-bottom: solid rgb(192,192,192) 1px;">
                 <div>
                     <label>单位地址:</label>
                     <input name="addressOfUse" type="text" placeholder="请输入单位地址关键字"/>

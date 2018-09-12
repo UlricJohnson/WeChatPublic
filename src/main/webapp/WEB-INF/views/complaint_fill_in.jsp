@@ -103,11 +103,10 @@
                         "hideDuration": "1",
                         "positionClass": "toast-top-center"
                     };
-                    toastr.info("只需填写其中一项");
+                    toastr.info("请选择其中一种查询方式");
                     return;
                 }
             }
-
             $("form")[0].submit();
         });
     });

@@ -96,6 +96,19 @@ public class UserService implements IUserService {
     }
 
     /**
+     * 根据用户名查询
+     *
+     * @param username
+     * @author casaba-u
+     * @date 2018/9/12
+     */
+    @Override
+    public User findByUsername(String username) {
+        User user = userMapper.selectByUsername(username);
+        return user;
+    }
+
+    /**
      * 根据微信用户的openid查询电梯用户
      *
      * @param openId
@@ -127,6 +140,7 @@ public class UserService implements IUserService {
 
     /**
      * 判断用户是否存在
+     *
      * @author casaba-u
      * @date 2018/8/24
      */

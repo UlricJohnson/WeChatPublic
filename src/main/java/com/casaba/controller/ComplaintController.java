@@ -1,8 +1,11 @@
 package com.casaba.controller;
 
 import com.casaba.entity.Elevator;
+import com.casaba.entity.User;
+import com.casaba.entity.WeChatUser;
 import com.casaba.service.IComplaintService;
 import com.casaba.service.IElevatorService;
+import com.casaba.service.IUserService;
 import com.casaba.util.CommonUtil;
 import com.casaba.util.WeChatUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -38,6 +41,9 @@ public class ComplaintController {
 
     @Resource
     private IComplaintService complaintService;
+
+    @Resource
+    private IUserService userService;
 
 
     /**
@@ -124,7 +130,7 @@ public class ComplaintController {
      * @date 2018/7/23
      */
     @RequestMapping("/doComplaint")
-    public ModelAndView doComplaint(String certificate, String sketch, String username, String contactNum, String
+    public ModelAndView doComplaint(HttpServletRequest request, String certificate, String sketch, String username, String contactNum, String
             details, String imgUrl) {
         LOGGER.info("=====接收到的参数：\n\t#certificate：" + certificate +
                 "\n\t#sketch：" + sketch +
@@ -132,6 +138,8 @@ public class ComplaintController {
                 "\n\t#contactNum：" + contactNum +
                 "\n\t#details：" + details +
                 "\n\t#imgUrl：" + imgUrl);
+
+        HttpSession session = request.getSession();
 
         ModelAndView mv = new ModelAndView();
         mv.addObject("username", username);
@@ -143,6 +151,20 @@ public class ComplaintController {
                     complaintService.saveComplaintSheet(certificate, username, contactNum, sketch, details, imgUrl);
             if (!isSuccess) {
                 throw new RuntimeException("保存数据失败");
+            }
+
+            // 如果传进来微信用户对象，则说明没绑定电梯用户，在这里进行绑定
+            HashMap paramMap = (HashMap) session.getAttribute("paramMap");
+            WeChatUser wcUser = null;
+            if (paramMap != null && !paramMap.isEmpty()) {
+                wcUser = (WeChatUser) paramMap.get("wcUser");
+            }
+            if (wcUser != null) {
+                User user = userService.findByUsername(username);
+                if (user != null) {
+                    user.setWcOpenId(wcUser.getOpenId());
+                    userService.updateUserByName(user);
+                }
             }
             mv.setViewName("complaint_success");
         } catch (Exception e) {

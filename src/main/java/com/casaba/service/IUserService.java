@@ -27,6 +27,14 @@ public interface IUserService {
     boolean register(User user);
 
     /**
+     * 根据用户名查询
+     *
+     * @author casaba-u
+     * @date 2018/9/12
+     */
+    User findByUsername(String username);
+
+    /**
      * 根据微信用户的openid查询电梯用户
      *
      * @author casaba-u

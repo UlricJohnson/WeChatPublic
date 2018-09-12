@@ -36,119 +36,8 @@
             width: 35%;
         }
     </style>
-
 </head>
 <body>
-<%--<div class="container">
-    <div class="table_container">
-        <table class="eleTable" cellspacing="0" cellpadding="3" border="1">
-            <thead>
-            <th>项目</th>
-            <th>数据</th>
-            </thead>
-            <tbody>
-            &lt;%&ndash;<tr>
-                <td>序号</td>
-                <td>${elevator.id}</td>
-            </tr>
-            <tr>
-                <td>使用单位设备总数</td>
-                <td>${elevator.totDevice}</td>
-            </tr>&ndash;%&gt;
-            <tr>
-                <td>设备详情</td>
-                <td>${elevator.deviceDetails}</td>
-            </tr>
-            <tr>
-                <td>使用单位名称</td>
-                <td>${elevator.unitOfUse}</td>
-            </tr>
-            <tr>
-                <td>使用单位地址</td>
-                <td>${elevator.addressOfUse}</td>
-            </tr>
-            <tr>
-                <td>联系人</td>
-                <td>${elevator.contact}</td>
-            </tr>
-            <tr>
-                <td>联系电话</td>
-                <td>${elevator.contactNumber}</td>
-            </tr>
-            <tr>
-                <td>使用证编号</td>
-                &lt;%&ndash;<td id="certificateOfUse">${elevator.certificateOfUse}</td>&ndash;%&gt;
-                <td>${elevator.certificateOfUse}</td>
-            </tr>
-            <tr>
-                <td>下次年检日期</td>
-                <td>${elevator.nextYearlyInspection}</td>
-            </tr>
-            <tr>
-                <td>设备型号</td>
-                <td>${elevator.deviceModel}</td>
-            </tr>
-            <tr>
-                <td>设备编号</td>
-                <td>${elevator.deviceNumber}</td>
-            </tr>
-            <tr>
-                <td>设备出厂编号</td>
-                <td>${elevator.deviceFactoryNumber}</td>
-            </tr>
-            <tr>
-                <td>设备注册号</td>
-                <td>${elevator.deviceRegistrationNumber}</td>
-            </tr>
-            <tr>
-                <td>设备地址</td>
-                &lt;%&ndash;<td id="deviceAddress">${elevator.deviceAddress}</td>&ndash;%&gt;
-                <td>${elevator.deviceAddress}</td>
-            </tr>
-            <tr>
-                <td>所在镇街</td>
-                <td>${elevator.town}</td>
-            </tr>
-            <tr>
-                <td>使用单位部门地址</td>
-                <td>${elevator.departmentAddress}</td>
-            </tr>
-            <tr>
-                <td>设备类型</td>
-                <td>${elevator.deviceType}</td>
-            </tr>
-            <tr>
-                <td>设备状态</td>
-                <td>${elevator.deviceState}</td>
-            </tr>
-            <tr>
-                <td>制造单位</td>
-                <td>${elevator.manufacturingUnit}</td>
-            </tr>
-            <tr>
-                <td>安装单位</td>
-                <td>${elevator.installationUnit}</td>
-            </tr>
-            <tr>
-                <td>维保单位</td>
-                <td>${elevator.maintenanceUnit}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <form action="/complaint/toComplaint_eleInfo" method="post">
-        &lt;%&ndash; 使用证编号 &ndash;%&gt;
-        <input type="hidden" value="${elevator.certificateOfUse}" name="certificateOfUse">
-        &lt;%&ndash; 设备地址 &ndash;%&gt;
-        <input type="hidden" value="${elevator.deviceAddress}" name="deviceAddress">
-        &lt;%&ndash; 网页授权后的回调地址 &ndash;%&gt;
-        &lt;%&ndash;<input type="hidden" value="/complaint/toComplaint_eleInfo" name="redirectUri">&ndash;%&gt;
-        <div class="weui-btn-area">
-            <a class="weui-btn weui-btn_warn" id="complaintBtn" href="javascript:">投诉</a>
-        </div>
-        &lt;%&ndash;<input type="submit" value="投诉">&ndash;%&gt;
-    </form>
-</div>--%>
 <c:forEach items="${paramMap.elevatorList}" var="elevator" varStatus="currIndex">
     <div class="ui-collapsible ui-collapsible-inset ui-corner-all ui-collapsible-themed-content ui-first-child ui-collapsible-collapsed"
          style="margin: 20px 5px;">
@@ -162,7 +51,6 @@
                         ${elevator.addressOfUse}
                     </c:otherwise>
                 </c:choose>
-
             </a>
         </h1>
         <div style="display: none;" class="ui-collapsible-content ui-body-a">
@@ -286,33 +174,7 @@
                 $("form")[index].submit();
             });
         });
-
     });
-
-
-    /*$(function () {
-        $("#complaintBtn").click(function () {
-            // 获取数据，并通过 JSON.stringify() 方法将对象或数组转换为JSON字符串
-            var data = JSON.stringify({
-                "id": $("#elevatorId").text(),  // 电梯ID
-                "certificateOfUse": $("#certificateOfUse").text(),  // 使用证编号
-                "deviceAddress": $("#deviceAddress").text() // 设备地址
-            });
-
-            $.ajax({
-                url: "/complaint/toComplaint_eleInfo",
-                dataType: "JSON", // 预期服务器返回的数据类型
-                type: "POST",     // 请求方式
-                asyn: false,    // 取消异步方式
-                contentType: "application/json",  // 发送信息至服务器时的内容编码格式（不配置有什么影响？）
-                // 发送到服务器的数据
-                data: data,
-                success: function () {
-                    alert("success");
-                }
-            });
-        });
-    });*/
 </script>
 
 </body>

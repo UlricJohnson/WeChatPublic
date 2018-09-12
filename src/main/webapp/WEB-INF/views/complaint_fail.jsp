@@ -7,8 +7,8 @@
     <script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.min.js"></script>
 </head>
 <body>
-<div>
-    <div class="weui-msg">
+<div style="height: 100%;">
+    <div class="weui-msg" style="padding-top: 20%;">
         <div class="weui-msg__icon-area"><i class="weui-icon-warn weui-icon_msg"></i></div>
         <div class="weui-msg__text-area">
             <h2 class="weui-msg__title">反馈失败</h2>

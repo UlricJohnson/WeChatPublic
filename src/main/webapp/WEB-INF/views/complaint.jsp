@@ -86,7 +86,7 @@
                             <span>电梯停运</span>
                         </div>
                         <div id="textareaDiv" style="margin: 0 10px;">
-                            <input type="checkbox" value="其他">
+                            <input type="checkbox" value="">
                             <span>其他</span>
                             <div style="display: none;">
                                 <textarea cols="20" rows="5" placeholder="请描述异常"></textarea>
@@ -151,7 +151,7 @@
             <a id="uploadImageBtn" class="weui-btn weui-btn_plain-primary" href="javascript:void(0);">上传图片</a>
             <%--<span style="width: 50px;"></span>--%>
             <br>
-            <a class="weui-btn weui-btn_warn" id="submitComplaint" href="javascript:">发表意见</a>
+            <a class="weui-btn weui-btn_warn" id="submitComplaint" href="javascript:">提交反馈</a>
         </div>
     </form>
 </div>
@@ -164,38 +164,11 @@
 
         // 电梯异常事项
         var $sketchCheckboxes = $("#sketchDiv input[type='checkbox']");
-        // var sketch = "";
-        // 如果有多选框选中，则取消单选框 “其他” 的选中状态，并将选中的事项字符串拼接起来
-        $sketchCheckboxes.each(function (index) {
-            $(this).click(function () {
-                // if (index <= 0) {
-                //     sketch = "";
-                // }
-
-                // 取消单选框
-                // $($("#sketchDiv input[type='radio']")[0]).removeAttr("checked");
-                // 隐藏文本框
-                // $("#sketchDiv #textareaDiv div").css("display", "none");
-
-                // 如果是选中了，就内容拼接起来
-                // if ($(this).is(":checked")) {
-                //     // 获取选中的多选框的值
-                //     sketch += $(this).val() + ";";
-                // } else { // 如果是取消选中，就删除
-                //
-                // }
-            });
-        });
 
         // 如果选中单选框 “其他”，则取消所有的多选框的选中状态，并显示文本框让用户填写
         var otherSketch = $("#textareaDiv input")[0];
         $(otherSketch).click(function () {
             if ($(this).is(":checked")) {
-                // 取消所有多选框的选中状态
-                // $sketchCheckboxes.each(function (index) {
-                //     $(this).removeAttr("checked");
-                // });
-
                 // 显示文本框
                 $("#sketchDiv #textareaDiv div").css("display", "block");
             } else {
@@ -204,27 +177,27 @@
             }
         });
 
-        // 获取文本框中的文字，赋值给sketch
-        // var sketchTextarea = $("#sketchDiv textarea")[0];
-        // $(sketchTextarea).change(function () {
-        //     if ($(sketchTextarea).text().trim() != "") {
-        //         sketch += $(sketchTextarea).text().trim();
-        //     } else {
-        //         sketch = "";
-        //     }
-        // });
-
         function getSketch() {
             var sketch = "";
+
+            // 如果没有一个多选框选中，则为false，然后提示用户进行选择，并将sketch返回空，以阻止表单提交
+            var isAnySelected = false;
 
             // 获取选中的多选框的值，然后拼接
             $sketchCheckboxes.each(function () {
                 if ($(this).is(":checked")) {
-                    if ($(this).val() != "其他") { // “其他” 多选框的值不用拼接
+                    isAnySelected = true; // 有一个多选框选中了就置为true
+                    // if ($(this).val() != "其他") { // “其他” 多选框的值不用拼接
+                    if ($(this).val().trim() != "") {
                         sketch += $(this).val() + ";";
                     }
                 }
             });
+
+            if(!isAnySelected){ // 如果用户没有选择任何一个多选框，则提示用户进行选择，然后返回null阻止表单提交
+                alert("请选择电梯异常事项");
+                return null;
+            }
 
             // 如果 “其他” 多选框选中了，就获取文本框中的内容
             if ($(otherSketch).is(":checked")) {
@@ -235,10 +208,9 @@
                     // 选中了，但是没填写内容，就提醒用户
                     alert("请填写电梯异常\"其他\"项");
                     $(sketchTextarea).focus();
-                    // sketch = "";
+                    return null;
                 }
             }
-
             return sketch;
         }
 
@@ -251,8 +223,8 @@
             var contactNum = $("#contactNum").val();
 
             if (sketch == null || sketch == "") {
-                alert("请选择电梯异常事项");
-                $("#sketchSelect").focus();
+                // alert("请选择电梯异常事项");
+                // $("#sketchSelect").focus();
                 return;
             }
             if (username == null || username == "") {

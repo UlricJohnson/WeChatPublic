@@ -194,16 +194,63 @@
             </form>
         </div>
     </div>--%>
-
-    <div class="box">
-        <label for="radio">选项一</label>
-        <input class="radio" type="radio" id="radio" name="radio"/>
-    </div>
-    <div class="msg">
-        <span>使用证编号：${elevator.certificateOfUse}</span>
-        <span>使用单位地址：${elevator.addressOfUse}</span>
-    </div>
     <div style="display: none;" class="ui-collapsible-content ui-body-a formDiv">
+        <table class="table-stripe eleTable" style="width: 100%;">
+            <thead>
+            <th>项目</th>
+            <th>数据</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>设备详情</td>
+                <td>${elevator.deviceDetails}</td>
+            </tr>
+            <tr>
+                <td>使用单位名称</td>
+                <td>${elevator.unitOfUse}</td>
+            </tr>
+            <tr>
+                <td>使用单位地址</td>
+                <td>${elevator.addressOfUse}</td>
+            </tr>
+            <tr>
+                <td>联系人</td>
+                <td>${elevator.contact}</td>
+            </tr>
+            <tr>
+                <td>联系电话</td>
+                <td>${elevator.contactNumber}</td>
+            </tr>
+            <tr>
+                <td>使用证编号</td>
+                <td>${elevator.certificateOfUse}</td>
+            </tr>
+            <tr>
+                <td>设备地址</td>
+                <td>${elevator.deviceAddress}</td>
+            </tr>
+            <tr>
+                <td>使用单位部门地址</td>
+                <td>${elevator.departmentAddress}</td>
+            </tr>
+            <tr>
+                <td>设备类型</td>
+                <td>${elevator.deviceType}</td>
+            </tr>
+            <tr>
+                <td>制造单位</td>
+                <td>${elevator.manufacturingUnit}</td>
+            </tr>
+            <tr>
+                <td>安装单位</td>
+                <td>${elevator.installationUnit}</td>
+            </tr>
+            <tr>
+                <td>维保单位</td>
+                <td>${elevator.maintenanceUnit}</td>
+            </tr>
+            </tbody>
+        </table>
         <form action="/complaint/toComplaint_eleInfo" method="post">
             <input type="hidden" value="${elevator.certificateOfUse}" name="certificateOfUse">
             <input type="hidden" value="${elevator.deviceAddress}" name="deviceAddress">

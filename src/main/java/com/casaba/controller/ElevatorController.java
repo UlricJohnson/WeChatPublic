@@ -70,13 +70,15 @@ public class ElevatorController {
      * @date 2018/9/18
      */
     @RequestMapping("/checkEleMsg")
-    public ModelAndView checkEleMsg(String certificateOfUse, String deviceAddress) {
+    public ModelAndView checkEleMsg(String certificateOfUse, String addressOfUse) {
         LOGGER.info("=====接收到的参数：\n\t#certificateOfUse: " + certificateOfUse
-                + "\n\t#deviceAddress: " + deviceAddress);
+                + "\n\t#addressOfUse: " + addressOfUse);
 
         ModelAndView mv = new ModelAndView();
 
-
+        mv.setViewName("complaint_fill_in");
+        mv.addObject("certificateOfUse", certificateOfUse);
+        mv.addObject("addressOfUse", addressOfUse);
 
         return mv;
     }

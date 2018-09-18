@@ -9,7 +9,6 @@
     <%--<script href="https://cdn.bootcss.com/jquery/1.12.1/jquery.min.js"></script>--%>
     <script src="<%=request.getContextPath()%>/js/jquery-1.12.1.min.js"></script>
     <script src="<%=request.getContextPath()%>/toastr/toastr.min.js"></script>
-
     <style>
         form input {
             border: 0;
@@ -20,7 +19,6 @@
             outline: 0;
         }
     </style>
-
 </head>
 <body>
 <%--<div style="width: 100%; height: 50%;">--%>
@@ -57,17 +55,22 @@
             <div style="padding: 10px; height: 25px; border-top: solid rgb(192,192,192) 1px; border-bottom: solid rgb(192,192,192) 1px;">
                 <div style="height: 100%;">
                     <label for="certificate">使用证编号:</label>
-                    <span style="color: rgb(64,64,64); margin-right: 8px;">梯粤E</span>
-                    <input id="certificate" name="certificate" type="text" placeholder="请输入电梯使用证编号"/>
-                    <%--<input type="button" class="submitBtn" value="查询">--%>
+                    <%--<span style="color: rgb(64,64,64); margin-right: 8px;">梯粤E</span>--%>
+                    <%--<input id="certificate" name="certificate" type="text" placeholder="请输入电梯使用证编号"/>--%>
+                    <input id="certificate" name="certificate" type="text" value="${certificateOfUse}"/>
                 </div>
             </div>
             <%--<hr style="border: solid grey 1px;">--%>
             <div style="padding: 10px; border-bottom: solid rgb(192,192,192) 1px;">
                 <div>
-                    <label for="address">单位地址:</label>
-                    <input id="address" name="addressOfUse" type="text" placeholder="请输入单位地址关键字"/>
-                    <%--<input type="button" class="submitBtn" value="查询">--%>
+                    <div style="display: inline-block;">
+                        <label for="address">单位地址:</label>
+                    </div>
+                    <%--<input id="address" name="addressOfUse" type="text" placeholder="请输入单位地址关键字"/>--%>
+                    <div style="display: inline-block;">
+                        <span>${addressOfUse}</span>
+                    </div>
+                    <input id="address" name="addressOfUse" type="hidden" value="${addressOfUse}"/>
                 </div>
             </div>
         </div>
@@ -77,7 +80,7 @@
     </form>
 </div>
 <%-- 用户填写提示 --%>
-<div style="margin: 20px; color: grey; font-size: 14px;">
+<%--<div style="margin: 20px; color: grey; font-size: 14px;">
     <span>
         <i style="color: red;">*</i>
         填写提示:
@@ -87,24 +90,24 @@
         2. 按照电梯单位地址查询，请填写单位地址的关键字，支持模糊查询，多个关键字请用空格隔开<br>
         3. 以上查询方式2选1
     </p>
-</div>
+</div>--%>
 
 <script>
     $(function () {
-        $(".submitBtn").each(function (index) {
+        /*$(".submitBtn").each(function (index) {
             $(this).click(function () {
                 var stringify = $("form").serializeArray();
                 alert(stringify);
             });
-        });
+        });*/
 
-        /*$("#submitBtn").click(function () {
+        $("#submitBtn").click(function () {
             // 让用户只填写其中一种查询方式
-            var certificate = $("input[name='certificate']").val();
+            /*var certificate = $("input[name='certificate']").val();
             var address = $("input[name='addressOfUse']").val();
 
-            if (certificate != null && certificate.trim() != "") { // 填写了使用编号
-                if (address != null && address.trim() != "") { // 填写了单位地址
+            if (certificate != null && certificate.trim() != "") {  // 填写了使用编号
+                if (address != null && address.trim() != "") {      // 填写了单位地址
                     toastr.options = {
                         "timeOut": "2000",
                         "preventDuplicates": true,
@@ -115,9 +118,10 @@
                     toastr.info("请选择其中一种查询方式");
                     return;
                 }
-            }
+            }*/
+
             $("form")[0].submit();
-        });*/
+        });
     });
 </script>
 

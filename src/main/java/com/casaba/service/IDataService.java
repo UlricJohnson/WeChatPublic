@@ -30,5 +30,6 @@ public interface IDataService {
      * @author casaba-u
      * @date 2018/8/27
      */
-    Data queryByRegCode(String regCode);
+//    Data queryByRegCode(String regCode);
+    List<Data> queryByRegCode(String regCode);
 }

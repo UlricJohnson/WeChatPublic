@@ -16,10 +16,10 @@
          style="display: block; margin: auto; padding-top: 80px;">
 </div>
 <br>
-<%--<a href="/toJsp/search_elevator" class="weui-btn weui-btn_primary">查询电梯</a>--%>
 <a href="https://www.wjx.cn/m/27872200.aspx" class="weui-btn weui-btn_primary">问卷调查</a>
 <br>
-<a href="/toJsp/complaint_fill_in" class="weui-btn weui-btn_warn">投诉电梯</a>
+<a href="/toJsp/search_elevator" class="weui-btn weui-btn_primary">查询电梯</a>
+<%--<a href="/toJsp/complaint_fill_in" class="weui-btn weui-btn_warn">投诉电梯</a>--%>
 <br>
 <a href="/user/myComplaint" class="weui-btn weui-btn_default">我的投诉</a>
 <br>

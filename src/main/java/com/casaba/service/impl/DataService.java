@@ -46,12 +46,12 @@ public class DataService implements IDataService {
     public boolean addOne(Data data) {
         LOGGER.info("=====接收到的数据：" + data);
 
-        Data dataFound = dataMapper.selectByRegCode(data.getRegCode());
+//        Data dataFound = dataMapper.selectByRegCode(data.getRegCode());
 
         // 数据库中已经存在，则不进行操作
-        if (dataFound != null) {
-            return true;
-        }
+//        if (dataFound != null) {
+//            return true;
+//        }
 
         boolean insertSuccess = dataMapper.insert(data);
 
@@ -65,13 +65,15 @@ public class DataService implements IDataService {
      * @date 2018/8/27
      */
     @Override
-    public Data queryByRegCode(String regCode) {
+//    public Data queryByRegCode(String regCode) {
+    public List<Data> queryByRegCode(String regCode) {
         LOGGER.info("=====接收到的数据：" + regCode);
 
-        Data data = dataMapper.selectByRegCode(regCode);
+//        Data data = dataMapper.selectByRegCode(regCode);
+        List<Data> dataList = dataMapper.selectByRegCode(regCode);
 
-        LOGGER.info("=====返回数据：" + data);
+        LOGGER.info("=====返回数据：" + dataList);
 
-        return data;
+        return dataList;
     }
 }

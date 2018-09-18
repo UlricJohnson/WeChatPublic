@@ -679,9 +679,9 @@ $( document ).on( "pagecreate", function( e ) {
 		$( this ).find( ".ui-collapsible-content" ).css( "max-height", maxHeight + "px" );
 
 		// keep line numbers and code lines in sync
-		$(".ui-collapsible:not(.ui-collapsible-collapsed) .gutter", this ).find( ".line" ).css( "height", "");
+		$(".ui-collapsible:not(.ui-collapsible-collapsed) .gutter", this ).find( ".msg" ).css( "height", "");
 
-		$(".ui-collapsible:not(.ui-collapsible-collapsed) .code", this ).find( ".line" ).each( function() {
+		$(".ui-collapsible:not(.ui-collapsible-collapsed) .code", this ).find( ".msg" ).each( function() {
 			if ( $( this ).height() !== 16 ) {
 				var height = $( this ).height(),
 					linenumber = ".number" + /number(\w+)/.exec( this.className )[1],

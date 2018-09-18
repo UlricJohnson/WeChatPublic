@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sun.org.apache.xalan.internal.xsltc.dom.DOMAdapter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,7 +42,7 @@ public class DataController {
      * @date 2018/8/27
      */
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public Map<String, Object> getAllData(HttpServletRequest request,HttpServletResponse response) {
+    public Map<String, Object> getAllData(HttpServletRequest request, HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "*");
 
         List<Data> dataList = dataService.findAllData();
@@ -68,7 +69,7 @@ public class DataController {
      * @date 2018/8/27
      */
     @RequestMapping(value = "/addOne", method = RequestMethod.POST)
-    public Map addOne(@RequestBody String jsonStr,HttpServletResponse response) {
+    public Map addOne(@RequestBody String jsonStr, HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "*");
 
         LOGGER.info("=====接收到的数据：" + jsonStr);
@@ -135,16 +136,16 @@ public class DataController {
 
         LOGGER.info("=====get参数：\n\t#regCode: " + regCode);
 
-        Data data = dataService.queryByRegCode(regCode);
+//        Data data = dataService.queryByRegCode(regCode);
+        List<Data> dataList = dataService.queryByRegCode(regCode);
 
-        if (data == null) {
+        if (null == dataList || dataList.size() <= 0) {
             resultMap.put("success", false);
             resultMap.put("msg", "没有数据");
         } else {
-            resultMap.put("result", data);
             resultMap.put("success", true);
+            resultMap.put("result", dataList);
         }
-
         return resultMap;
     }
 

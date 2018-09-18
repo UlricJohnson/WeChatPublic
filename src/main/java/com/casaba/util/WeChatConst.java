@@ -15,8 +15,8 @@ public final class WeChatConst {
     public static final String APP_SECRET = "698b110c15a07f274aa829c0a4b93874";
 
     // 域名，要跳转页面的话在后面加上 /toJsp/xxx
-//    public static final String DOMAIN = "http://www.fsnhtx.net"; // 阿里云服务器
-    public static final String DOMAIN = "http://nhtx.natapp1.cc"; // 本地测试
+    public static final String DOMAIN = "http://www.fsnhtx.net"; // 阿里云服务器
+//    public static final String DOMAIN = "http://nhtx.natapp1.cc"; // 本地测试
 
     /*** ============access_token================== ***/
 

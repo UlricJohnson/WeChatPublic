@@ -73,18 +73,18 @@ public class ComplaintController {
             mv.setViewName("error");
             mv.addObject("msg", "您查找的数据不存在");
             return mv;
-        } else if (elevatorList.size() == 1) { // 只查询到一台电梯则直接跳转到投诉页面
-            paramMap.put("elevator", elevatorList.get(0));
-            session.setAttribute("toJsp", "complaint");
+//        } else if (elevatorList.size() == 1) { // 只查询到一台电梯则直接跳转到投诉页面
+//            paramMap.put("elevator", elevatorList.get(0));
+//            session.setAttribute("toJsp", "complaint");
         } else {
             paramMap.put("elevatorList", elevatorList); // 如果查询到多台电梯则跳转到电梯信息页面
-            if (!StringUtils.isBlank(certificate)) {
+            /*if (!StringUtils.isBlank(certificate)) {
                 // 在搜索结果页面显示编号
                 paramMap.put("queryByCertificate", true);
             } else if (!StringUtils.isBlank(addressOfUse)) {
                 // 显示地址
                 paramMap.put("queryByCertificate", false);
-            }
+            }*/
             session.setAttribute("toJsp", "elevator_info");
         }
 
@@ -279,6 +279,7 @@ public class ComplaintController {
 //        } finally {
 //            return resultMap;
 //        }
+
     }
 
     /**================================================**/

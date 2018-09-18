@@ -590,7 +590,7 @@
 .syntaxhighlighter .italic {
 	font-style: italic;
 }
-.syntaxhighlighter .line {
+.syntaxhighlighter .msg {
 	white-space: pre;
 	white-space: pre-wrap;
 }
@@ -620,11 +620,11 @@
 	overflow: hidden;
 	white-space: pre;
 }
-.syntaxhighlighter table td.gutter .line {
+.syntaxhighlighter table td.gutter .msg {
 	text-align: right;
 	padding: 0 0.5em 0 1em;
 }
-.syntaxhighlighter table td.code .line {
+.syntaxhighlighter table td.code .msg {
 	padding: 0 1em;
 }
 .syntaxhighlighter.show {
@@ -633,16 +633,16 @@
 .syntaxhighlighter.collapsed table {
 	display: none;
 }
-.syntaxhighlighter .line.alt1 {
+.syntaxhighlighter .msg.alt1 {
 	background-color: transparent;
 }
-.syntaxhighlighter .line.alt2 {
+.syntaxhighlighter .msg.alt2 {
 	background-color: transparent;
 }
-.syntaxhighlighter .line.highlighted.alt1, .syntaxhighlighter .line.highlighted.alt2 {
+.syntaxhighlighter .msg.highlighted.alt1, .syntaxhighlighter .msg.highlighted.alt2 {
 	background-color: #253e5a;
 }
-.syntaxhighlighter .line.highlighted.number {
+.syntaxhighlighter .msg.highlighted.number {
 	color: #38566f;
 }
 .syntaxhighlighter table caption {
@@ -651,10 +651,10 @@
 .syntaxhighlighter .gutter {
 	color: #afafaf;
 }
-.syntaxhighlighter .gutter .line {
+.syntaxhighlighter .gutter .msg {
 	border-right: 3px solid #435a5f;
 }
-.syntaxhighlighter .gutter .line.highlighted {
+.syntaxhighlighter .gutter .msg.highlighted {
 	background-color: #435a5f;
 	color: #0f192a;
 }

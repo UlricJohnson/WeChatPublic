@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.jws.WebParam;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,33 +39,44 @@ public class ElevatorController {
      */
 //    public Map<String, Object> findByCertificate(String certificate) {
     @RequestMapping("/queryElevator")
-    public ModelAndView queryElevator(String certificate, String addressOfUse) {
+    public ModelAndView queryElevator(String certificate/*, String addressOfUse*/) {
         LOGGER.info("=====接收到的参数\n\t#certificate：" + certificate
-                + "\n\t#addressOfUse: " + addressOfUse);
+                /*+ "\n\t#addressOfUse: " + addressOfUse*/);
 
-        Map<String, Object> resultMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
 
         ModelAndView mv = new ModelAndView();
 
-        List<Elevator> elevatorList = elevatorService.queryElevator(certificate, addressOfUse);
+//        List<Elevator> elevatorList = elevatorService.queryElevator(certificate, addressOfUse);
+        List<Elevator> elevatorList = elevatorService.queryElevator(certificate, null);
 
         if (null == elevatorList || elevatorList.isEmpty()) {
-//            resultMap.put("success", false);
-//            resultMap.put("message", "没有数据");
             mv.setViewName("error");
             mv.addObject("msg", "没有相关数据");
         } else {
-            resultMap.put("elevatorList", elevatorList);
-            mv.setViewName("elevator_info");
-            if (!StringUtils.isBlank(certificate)) {
-//                mv.addObject("queryByCertificate", true); // 在搜索结果页面显示编号
-                resultMap.put("queryByCertificate",true);
-            } else if (!StringUtils.isBlank(addressOfUse)) {
-//                mv.addObject("queryByCertificate", false);
-                resultMap.put("queryByCertificate", false);
-            }
-            mv.addObject("paramMap", resultMap);
+            paramMap.put("elevatorList", elevatorList);
+//            mv.setViewName("elevator_info");
+            mv.setViewName("elevator_list");
+            mv.addObject("paramMap", paramMap);
         }
+
+        return mv;
+    }
+
+    /**
+     * 确认电梯信息，跳转到提交投诉页面
+     *
+     * @author casaba-u
+     * @date 2018/9/18
+     */
+    @RequestMapping("/checkEleMsg")
+    public ModelAndView checkEleMsg(String certificateOfUse, String deviceAddress) {
+        LOGGER.info("=====接收到的参数：\n\t#certificateOfUse: " + certificateOfUse
+                + "\n\t#deviceAddress: " + deviceAddress);
+
+        ModelAndView mv = new ModelAndView();
+
+
 
         return mv;
     }

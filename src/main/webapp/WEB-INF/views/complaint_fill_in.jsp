@@ -57,20 +57,22 @@
             <div style="padding: 10px; height: 25px; border-top: solid rgb(192,192,192) 1px; border-bottom: solid rgb(192,192,192) 1px;">
                 <div style="height: 100%;">
                     <label for="certificate">使用证编号:</label>
-                    <span style="color: rgb(64,64,64);">梯粤E</span>
+                    <span style="color: rgb(64,64,64); margin-right: 8px;">梯粤E</span>
                     <input id="certificate" name="certificate" type="text" placeholder="请输入电梯使用证编号"/>
+                    <%--<input type="button" class="submitBtn" value="查询">--%>
                 </div>
             </div>
             <%--<hr style="border: solid grey 1px;">--%>
             <div style="padding: 10px; border-bottom: solid rgb(192,192,192) 1px;">
                 <div>
-                    <label>单位地址:</label>
-                    <input name="addressOfUse" type="text" placeholder="请输入单位地址关键字"/>
+                    <label for="address">单位地址:</label>
+                    <input id="address" name="addressOfUse" type="text" placeholder="请输入单位地址关键字"/>
+                    <%--<input type="button" class="submitBtn" value="查询">--%>
                 </div>
             </div>
         </div>
         <div class="weui-btn-area">
-            <a class="weui-btn weui-btn_primary" id="submitBtn" href="javascript:void(0);">提交</a>
+            <a class="weui-btn weui-btn_primary" id="submitBtn" href="javascript:void(0);">提&nbsp;&nbsp;交</a>
         </div>
     </form>
 </div>
@@ -81,15 +83,22 @@
         填写提示:
     </span>
     <p style="font-size: 12px;">
-        1.按照电梯使用证编号查询，请查看电梯上有关信息，“梯粤E”3个字已给出，请填写后续字段<br>
-        2.按照电梯单位地址查询，请填写单位地址的关键字，支持模糊查询，多个关键字请用空格隔开<br>
-        3.以上查询方式2选1
+        1. 按照电梯使用证编号查询，请查看电梯上有关信息，“梯粤E”3个字已给出，请填写后续字段<br>
+        2. 按照电梯单位地址查询，请填写单位地址的关键字，支持模糊查询，多个关键字请用空格隔开<br>
+        3. 以上查询方式2选1
     </p>
 </div>
 
 <script>
     $(function () {
-        $("#submitBtn").click(function () {
+        $(".submitBtn").each(function (index) {
+            $(this).click(function () {
+                var stringify = $("form").serializeArray();
+                alert(stringify);
+            });
+        });
+
+        /*$("#submitBtn").click(function () {
             // 让用户只填写其中一种查询方式
             var certificate = $("input[name='certificate']").val();
             var address = $("input[name='addressOfUse']").val();
@@ -108,7 +117,7 @@
                 }
             }
             $("form")[0].submit();
-        });
+        });*/
     });
 </script>
 

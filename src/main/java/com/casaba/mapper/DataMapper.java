@@ -23,7 +23,8 @@ public interface DataMapper {
      * @author casaba-u
      * @date 2018/8/27
      */
-    Data selectByRegCode(String regCode);
+//    Data selectByRegCode(String regCode);
+    List<Data> selectByRegCode(String regCode);
 
     /**
      * 添加一项数据

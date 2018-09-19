@@ -18,7 +18,8 @@
 <body>
 <c:forEach items="${paramMap.elevatorList}" var="elevator" varStatus="currIndex">
     <div style="float: left; margin: 10px; border: solid grey 1px;">
-        <div style="display:inline; float: left;">
+        <div style="display:inline; float: left; width: 20px; height: 20px; text-align: center;
+                    padding-top: 2%; border-right: solid grey 1px; border-bottom: solid grey 1px;">
             <input class="weui-cells_radio" type="radio" name="radio" style="display: inline-block;"/>
         </div>
         <div style="display:inline; float: right;">
@@ -26,15 +27,15 @@
                 <span>使用证编号：${elevator.certificateOfUse}</span>
             </div>
             <div style="display: inline-block;">
-                <%--<span>设备地址：${elevator.deviceAddress}</span>--%>
-                <span>设备地址：${elevator.addressOfUse}</span>
+                    <%--<span>设备地址：${elevator.deviceAddress}</span>--%>
+                <span>使用单位地址：${elevator.addressOfUse}</span>
             </div>
         </div>
         <div style="display: none;" class="ui-collapsible-content ui-body-a formDiv">
             <form action="/elevator/checkEleMsg" method="post">
                 <input type="hidden" value="${elevator.certificateOfUse}" name="certificateOfUse"/>
-                <%--<input type="hidden" value="${elevator.deviceAddress}" name="deviceAddress"/>--%>
-                <input type="hidden" value="${elevator.addressOfUse}" name="deviceAddress"/>
+                    <%--<input type="hidden" value="${elevator.deviceAddress}" name="deviceAddress"/>--%>
+                <input type="hidden" value="${elevator.addressOfUse}" name="addressOfUse"/>
                 <div class="weui-btn-area">
                     <a class="weui-btn weui-btn_plain-default complaintBtn" href="javascript:">信息无误，确认反馈</a>
                 </div>
@@ -52,11 +53,12 @@
                     $($(".formDiv")[index]).css({
                         "display": "block"
                     });
-                }/* else {
-                    $($(".formDiv")[index]).css({
-                        "display": "none"
-                    });
-                }*/
+                }
+                /* else {
+                                    $($(".formDiv")[index]).css({
+                                        "display": "none"
+                                    });
+                                }*/
 
                 $(".formDiv").each(function (formIndex) {
                     if (index != formIndex) {
@@ -65,8 +67,12 @@
                         });
                     }
                 });
-            });
 
+                /*var inputs = $($("form")[index]).children("input");
+                $(inputs).each(function (index) {
+                    alert($(inputs[index]).val());
+                });*/
+            });
         });
 
         // 确认电梯信息，提交到

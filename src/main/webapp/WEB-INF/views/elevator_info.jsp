@@ -12,8 +12,8 @@
     <script type="text/javascript"
             src="<%=request.getContextPath()%>/jquery-mobile/jquery.mobile-1.4.5.min.js"></script>
     <style>
-        /*.eleTable {
-            !*margin: 10px;*!
+        .eleTable {
+            /*margin: 10px;*/
             border: solid grey 1px;
         }
 
@@ -31,10 +31,10 @@
             padding-left: 5px;
         }
 
-        !* 表格的第1列 *!
+        /* 表格的第1列 */
         .eleTable tr td:nth-child(1) {
             width: 35%;
-        }*/
+        }
 
         * {
             margin: 0px;
@@ -194,7 +194,7 @@
             </form>
         </div>
     </div>--%>
-    <div style="display: none;" class="ui-collapsible-content ui-body-a formDiv">
+    <div class="ui-collapsible-content ui-body-a formDiv">
         <table class="table-stripe eleTable" style="width: 100%;">
             <thead>
             <th>项目</th>

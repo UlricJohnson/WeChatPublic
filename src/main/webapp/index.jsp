@@ -16,7 +16,8 @@
          style="display: block; margin: auto; padding-top: 80px;">
 </div>
 <br>
-<a href="https://www.wjx.cn/m/27872200.aspx" class="weui-btn weui-btn_primary">问卷调查</a>
+<%--<a href="https://www.wjx.cn/m/27872200.aspx" class="weui-btn weui-btn_primary">问卷调查</a>--%>
+<a href="/redirect/toQuery" class="weui-btn weui-btn_primary">问卷调查</a>
 <br>
 <a href="/toJsp/search_elevator" class="weui-btn weui-btn_plain-default">查询电梯</a>
 <%--<a href="/toJsp/complaint_fill_in" class="weui-btn weui-btn_warn">投诉电梯</a>--%>
@@ -24,6 +25,7 @@
 <a href="/user/myComplaint" class="weui-btn weui-btn_default">我的投诉</a>
 <br>
 <%--<a href="/wechat/wclogin" class="weui-btn weui-btn_plain-default">微信登录</a>--%>
+<%--<a href="/redirect/toHistory" class="weui-btn weui-btn_plain-default">历史消息</a>--%>
 
 </body>
 </html>
